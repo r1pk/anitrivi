@@ -18,10 +18,30 @@ class AniList {
     return data;
   };
 
-  getUserProfile = async (username) => {
+  findUsers = async (username, limit = 8) => {
     const query = `
-      query ($username: String) {
-        user: User(name: $username) {
+      query ($username: String, $limit: Int) {
+        users: Page(perPage: $limit) {
+          results: users(search: $username) {
+            id
+            name
+            avatar {
+              large
+            }
+          }
+        }
+      }    
+    `;
+
+    const response = await this.#request(query, { username, limit });
+
+    return response.users.results;
+  };
+
+  getUserDetails = async (userId) => {
+    const query = `
+      query ($userId: Int) {
+        user: User(id: $userId) {
           name
           avatar {
             large
@@ -35,19 +55,19 @@ class AniList {
       }
     `;
 
-    const response = await this.#request(query, { username });
+    const response = await this.#request(query, { userId });
 
     return response.user;
   };
 
-  getCompletedAnime = async (username) => {
+  getUserAnime = async (userId) => {
     const query = `
-      query ($username: String) {
-        user: MediaListCollection(userName: $username, type: ANIME, status_in: [COMPLETED, REPEATING]) {
+      query ($userId: Int) {
+        user: MediaListCollection(userId: $userId, type: ANIME, status_in: [COMPLETED, REPEATING]) {
           lists {
             name
             entries {
-              id: mediaId
+              mediaId
               media {
                 title {
                   romaji
@@ -60,15 +80,15 @@ class AniList {
       }
     `;
 
-    const response = await this.#request(query, { username });
+    const response = await this.#request(query, { userId });
 
     return response.user.lists.map((list) => list.entries).flat();
   };
 
   getAnimeDetails = async (animeId) => {
     const query = `
-      query ($id: Int) {
-        media: Media(id: $id, type: ANIME) {
+      query ($animeId: Int) {
+        media: Media(id: $animeId, type: ANIME) {
           title {
             romaji
             english
@@ -92,7 +112,7 @@ class AniList {
       }    
     `;
 
-    const response = await this.#request(query, { id: animeId });
+    const response = await this.#request(query, { animeId });
 
     return response.media;
   };
