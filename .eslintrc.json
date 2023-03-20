@@ -3,6 +3,7 @@
   "rules": {
     "indent": ["error", 2],
     "quotes": ["error", "single"],
+    "quote-props": ["error", "consistent"],
     "semi": ["error", "always"],
     "padding-line-between-statements": [
       "error",

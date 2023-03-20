@@ -3,7 +3,7 @@ class AniList {
     this.url = 'https://graphql.anilist.co';
     this.headers = {
       'Content-Type': 'application/json',
-      Accept: 'application/json',
+      'Accept': 'application/json',
     };
   }
 
