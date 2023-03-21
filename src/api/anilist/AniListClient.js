@@ -18,7 +18,7 @@ class AniList {
     return data;
   };
 
-  findUsers = async (username, limit = 8) => {
+  getUserList = async (username, limit = 8) => {
     const query = `
       query ($username: String, $limit: Int) {
         users: Page(perPage: $limit) {
@@ -38,7 +38,7 @@ class AniList {
     return response.users.results;
   };
 
-  getUserDetails = async (userId) => {
+  getUser = async (userId) => {
     const query = `
       query ($userId: Int) {
         user: User(id: $userId) {
@@ -60,7 +60,7 @@ class AniList {
     return response.user;
   };
 
-  getUserAnime = async (userId) => {
+  getUserAnimeList = async (userId) => {
     const query = `
       query ($userId: Int) {
         user: MediaListCollection(userId: $userId, type: ANIME, status_in: [COMPLETED, REPEATING]) {
@@ -85,7 +85,7 @@ class AniList {
     return response.user.lists.map((list) => list.entries).flat();
   };
 
-  getAnimeDetails = async (animeId) => {
+  getAnime = async (animeId) => {
     const query = `
       query ($animeId: Int) {
         media: Media(id: $animeId, type: ANIME) {
