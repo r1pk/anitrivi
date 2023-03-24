@@ -1,1 +1,1 @@
-export { default as GuessAnswerField } from './components/GuessAnswerField';
+export { default as GuessAnswerForm } from './components/GuessAnswerForm';

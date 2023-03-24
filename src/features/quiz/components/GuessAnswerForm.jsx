@@ -5,7 +5,7 @@ import { Card, CardActions, Stack, Autocomplete, TextField, Button } from '@mui/
 
 import { Controller, useForm } from 'react-hook-form';
 
-const GuessAnswerField = forwardRef(({ label, options, onGuessAnswer, ...rest }, ref) => {
+const GuessAnswerForm = forwardRef(({ label, options, onGuessAnswer, ...rest }, ref) => {
   const { control, formState, handleSubmit, reset } = useForm({
     mode: 'all',
     defaultValues: {
@@ -50,9 +50,9 @@ const GuessAnswerField = forwardRef(({ label, options, onGuessAnswer, ...rest },
   );
 });
 
-GuessAnswerField.displayName = 'GuessAnswerField';
+GuessAnswerForm.displayName = 'GuessAnswerForm';
 
-GuessAnswerField.propTypes = {
+GuessAnswerForm.propTypes = {
   label: PropTypes.string.isRequired,
   options: PropTypes.arrayOf(
     PropTypes.shape({
@@ -63,4 +63,4 @@ GuessAnswerField.propTypes = {
   onGuessAnswer: PropTypes.func.isRequired,
 };
 
-export default GuessAnswerField;
+export default GuessAnswerForm;
