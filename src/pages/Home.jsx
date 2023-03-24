@@ -1,32 +1,17 @@
-import { useState } from 'react';
-
 import { Link } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 
 import { Unstable_Grid2 as Grid, Stack, Box, LinearProgress, Fade } from '@mui/material';
 
-import { toast } from 'react-toastify';
-
 import BrandHeader from '@/components/BrandHeader';
 
-import { anilist } from '@/api/anilist';
-import { SearchUserForm, SearchResults, UserSummary } from '@/features/users';
+import { SearchUserForm, SearchResults, UserSummary, useUserSearch } from '@/features/users';
 
 const Home = () => {
-  const [users, setUsers] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const { users, isLoading, searchUsers } = useUserSearch();
 
-  const handleSearchUser = async (data) => {
-    try {
-      setIsLoading(true);
-      const results = await anilist.getUserList(data.username, 6);
-
-      setUsers(results);
-    } catch (error) {
-      toast.error(error.message);
-    } finally {
-      setIsLoading(false);
-    }
+  const handleSearchUser = (data) => {
+    searchUsers(data.username);
   };
 
   return (
