@@ -20,9 +20,10 @@ const SearchUserForm = forwardRef(({ onSearchUser, ...rest }, ref) => {
     },
     resolver: joiResolver(schema),
   });
+  const { isValid, isDirty } = formState;
 
   const onSubmit = (data) => {
-    if (formState.isValid && formState.isDirty) {
+    if (isValid && isDirty) {
       onSearchUser(data);
     }
   };
@@ -46,7 +47,7 @@ const SearchUserForm = forwardRef(({ onSearchUser, ...rest }, ref) => {
           />
           <Button
             type="submit"
-            disabled={!(formState.isValid && formState.isDirty)}
+            disabled={!(isValid && isDirty)}
             variant="contained"
             size="large"
             startIcon={<Search />}
