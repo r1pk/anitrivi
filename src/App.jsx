@@ -1,4 +1,4 @@
-import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
+import { QueryClientProvider, QueryClient, QueryCache } from '@tanstack/react-query';
 
 import { ThemeProvider, CssBaseline } from '@mui/material';
 import { dark } from '@/themes/dark';
@@ -17,6 +17,12 @@ const queryClient = new QueryClient({
       refetchOnWindowFocus: false,
     },
   },
+  queryCache: new QueryCache({
+    onError: (error) => {
+      console.error(error);
+      toast.error('Something went wrong. Please try again later.');
+    },
+  }),
 });
 
 const App = () => {
