@@ -12,7 +12,7 @@ import { SearchUserForm, SearchResults, UserSummary } from '@/features/users';
 
 const Home = () => {
   const [searchTerm, setSearchTerm] = useState('');
-  const { data: users = [], isSuccess, isFetching } = useUsers(searchTerm, 6);
+  const { data: users = [], isSuccess, isInitialLoading } = useUsers(searchTerm, 6);
 
   const handleSearchUser = (data) => {
     setSearchTerm(data.username);
@@ -27,7 +27,7 @@ const Home = () => {
         <Grid xs={12} sm={10} md={8} lg={6}>
           <Stack spacing={2}>
             <SearchUserForm placeholder="AniList Username" onSearchUser={handleSearchUser} />
-            <Fade mountOnEnter unmountOnExit in={isFetching}>
+            <Fade mountOnEnter unmountOnExit in={isInitialLoading}>
               <LinearProgress />
             </Fade>
             <Fade mountOnEnter unmountOnExit in={isSuccess}>
