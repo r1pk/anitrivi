@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import { Link } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 
@@ -5,13 +7,15 @@ import { Unstable_Grid2 as Grid, Stack, Box, LinearProgress, Fade } from '@mui/m
 
 import BrandHeader from '@/components/BrandHeader';
 
-import { SearchUserForm, SearchResults, UserSummary, useUserSearch } from '@/features/users';
+import { useUsers } from '@/apis/anilist';
+import { SearchUserForm, SearchResults, UserSummary } from '@/features/users';
 
 const Home = () => {
-  const { users, isLoading, searchUsers } = useUserSearch();
+  const [searchTerm, setSearchTerm] = useState('');
+  const { data: users = [], isSuccess, isFetching } = useUsers(searchTerm, 6);
 
   const handleSearchUser = (data) => {
-    searchUsers(data.username);
+    setSearchTerm(data.username);
   };
 
   return (
@@ -23,10 +27,10 @@ const Home = () => {
         <Grid xs={12} sm={10} md={8} lg={6}>
           <Stack spacing={2}>
             <SearchUserForm placeholder="AniList Username" onSearchUser={handleSearchUser} />
-            <Fade mountOnEnter unmountOnExit in={isLoading}>
+            <Fade mountOnEnter unmountOnExit in={isFetching}>
               <LinearProgress />
             </Fade>
-            <Fade mountOnEnter unmountOnExit in={users.length > 0}>
+            <Fade mountOnEnter unmountOnExit in={isSuccess}>
               <SearchResults>
                 {users.map((user) => (
                   <Link component={RouterLink} to="." underline="none" key={user.id}>
