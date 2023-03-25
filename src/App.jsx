@@ -1,4 +1,5 @@
-import { QueryClientProvider, QueryClient, QueryCache } from '@tanstack/react-query';
+import { QueryClientProvider } from '@tanstack/react-query';
+import { queryClient } from '@/apis/query-client';
 
 import { ThemeProvider, CssBaseline } from '@mui/material';
 import { dark } from '@/themes/dark';
@@ -8,22 +9,6 @@ import AppRoutes from '@/AppRoutes';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      staleTime: 1000 * 60 * 10,
-      cacheTime: 1000 * 60 * 15,
-      refetchOnWindowFocus: false,
-    },
-  },
-  queryCache: new QueryCache({
-    onError: (error) => {
-      console.error(error);
-      toast.error('Something went wrong. Please try again later.');
-    },
-  }),
-});
 
 const App = () => {
   return (
