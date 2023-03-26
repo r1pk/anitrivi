@@ -55,12 +55,17 @@ export const useUserAnime = (userId) => {
                     }
                     episodes
                     season
+                    source(version: 3)
                     startDate {
                       year
                     }
-                    studios(isMain: true) {
-                      nodes {
-                        name
+                    studios {
+                      edges {
+                        isMain
+                        node {
+                          id
+                          name
+                        }
                       }
                     }
                   }
