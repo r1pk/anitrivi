@@ -5,62 +5,61 @@ import { Card, CardActions, Stack, Autocomplete, TextField, Button } from '@mui/
 
 import { Controller, useForm } from 'react-hook-form';
 
-const GuessAnswerForm = forwardRef(({ label, options, onGuessAnswer, ...rest }, ref) => {
-  const { control, formState, handleSubmit, reset } = useForm({
-    mode: 'all',
-    defaultValues: {
-      answer: null,
-    },
-  });
-  const { isValid, isDirty } = formState;
+const GuessAnswerForm = forwardRef(
+  ({ label, options, onGuessAnswer, getOptionLabel, isOptionEqualToValue, ...rest }, ref) => {
+    const { control, formState, handleSubmit, reset } = useForm({
+      mode: 'all',
+      defaultValues: {
+        answer: null,
+      },
+    });
+    const { isValid, isDirty } = formState;
 
-  const onSubmit = (data) => {
-    if (isValid && isDirty) {
-      onGuessAnswer(data.answer);
-      reset();
-    }
-  };
+    const onSubmit = (data) => {
+      if (isValid && isDirty) {
+        onGuessAnswer(data.answer);
+        reset();
+      }
+    };
 
-  return (
-    <Card component="form" onSubmit={handleSubmit(onSubmit)} ref={ref} {...rest}>
-      <CardActions>
-        <Stack direction="row" spacing={1} sx={{ width: 1, alignItems: 'center' }}>
-          <Controller
-            name="answer"
-            control={control}
-            rules={{ required: true }}
-            render={({ field: { value, onChange } }) => (
-              <Autocomplete
-                fullWidth
-                options={options}
-                value={value}
-                onChange={(_, option) => onChange(option)}
-                getOptionLabel={(option) => option.label}
-                isOptionEqualToValue={(option, value) => option.id === value.id}
-                renderInput={(params) => <TextField label={label} {...params} />}
-              />
-            )}
-          />
-          <Button type="submit" disabled={!(isValid && isDirty)} variant="contained" size="large">
-            Guess
-          </Button>
-        </Stack>
-      </CardActions>
-    </Card>
-  );
-});
+    return (
+      <Card component="form" onSubmit={handleSubmit(onSubmit)} ref={ref} {...rest}>
+        <CardActions>
+          <Stack direction="row" spacing={1} sx={{ width: 1, alignItems: 'center' }}>
+            <Controller
+              name="answer"
+              control={control}
+              rules={{ required: true }}
+              render={({ field: { value, onChange } }) => (
+                <Autocomplete
+                  fullWidth
+                  options={options}
+                  value={value}
+                  onChange={(_, option) => onChange(option)}
+                  getOptionLabel={getOptionLabel}
+                  isOptionEqualToValue={isOptionEqualToValue}
+                  renderInput={(params) => <TextField label={label} {...params} />}
+                />
+              )}
+            />
+            <Button type="submit" disabled={!(isValid && isDirty)} variant="contained" size="large">
+              Guess
+            </Button>
+          </Stack>
+        </CardActions>
+      </Card>
+    );
+  }
+);
 
 GuessAnswerForm.displayName = 'GuessAnswerForm';
 
 GuessAnswerForm.propTypes = {
   label: PropTypes.string.isRequired,
-  options: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      label: PropTypes.string.isRequired,
-    })
-  ).isRequired,
+  options: PropTypes.arrayOf(PropTypes.any).isRequired,
   onGuessAnswer: PropTypes.func.isRequired,
+  getOptionLabel: PropTypes.func.isRequired,
+  isOptionEqualToValue: PropTypes.func.isRequired,
 };
 
 export default GuessAnswerForm;
