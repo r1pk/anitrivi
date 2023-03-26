@@ -50,7 +50,6 @@ export const useUserAnime = (userId) => {
                       english
                     }
                     coverImage {
-                      medium
                       large
                     }
                     episodes
