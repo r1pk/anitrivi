@@ -15,7 +15,7 @@ export const useUserQuiz = (userId) => {
 
   useEffect(
     function pickFeaturedAnime() {
-      if (!userAnime) return;
+      if (!userAnime || userAnime.length === 0) return;
 
       const MILLISECONDS_IN_DAY = 1000 * 60 * 60 * 24;
       const randomIndex = Math.floor(Date.now() / MILLISECONDS_IN_DAY) % userAnime.length;
