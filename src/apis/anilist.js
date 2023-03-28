@@ -45,6 +45,7 @@ export const useUserAnime = (userId) => {
                 entries {
                   mediaId
                   media {
+                    id
                     title {
                       romaji
                       english
