@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 import { Link } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 
@@ -7,15 +5,13 @@ import { Unstable_Grid2 as Grid, Stack, Box, LinearProgress, Fade } from '@mui/m
 
 import BrandHeader from '@/components/BrandHeader';
 
-import { useUsers } from '@/apis/anilist';
-import { SearchUserForm, SearchResults, UserSummary } from '@/features/users';
+import { SearchUserForm, SearchResults, UserSummary, useUserSearch } from '@/features/users';
 
 const Home = () => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const { data: users = [], isSuccess, isInitialLoading } = useUsers(searchTerm, 6);
+  const { users, isSuccess, isInitialLoading, searchUsers } = useUserSearch(6);
 
   const handleSearchUser = (data) => {
-    setSearchTerm(data.username);
+    searchUsers(data.username);
   };
 
   return (
