@@ -52,6 +52,7 @@ export const useUserAnime = (userId) => {
                     coverImage {
                       large
                     }
+                    format
                     episodes
                     season
                     seasonYear
