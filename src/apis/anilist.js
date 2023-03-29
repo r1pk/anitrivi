@@ -49,6 +49,7 @@ export const useUserAnime = (userId) => {
                     title {
                       romaji
                       english
+                      native
                     }
                     coverImage {
                       large
