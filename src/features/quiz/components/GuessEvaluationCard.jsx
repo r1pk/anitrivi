@@ -5,7 +5,7 @@ import { Card, CardMedia, CardContent, Stack, Typography } from '@mui/material';
 
 import EvaluationChip from './EvaluationChip';
 
-const GuessEvaluationSummary = forwardRef(({ anime, evaluation, ...rest }, ref) => {
+const GuessEvaluationCard = forwardRef(({ anime, evaluation, ...rest }, ref) => {
   const { coverImage, format, episodes, seasonYear, season } = anime;
 
   const title = anime.title.english || anime.title.romaji || anime.title.native;
@@ -30,9 +30,9 @@ const GuessEvaluationSummary = forwardRef(({ anime, evaluation, ...rest }, ref) 
   );
 });
 
-GuessEvaluationSummary.displayName = 'GuessEvaluationSummary';
+GuessEvaluationCard.displayName = 'GuessEvaluationCard';
 
-GuessEvaluationSummary.propTypes = {
+GuessEvaluationCard.propTypes = {
   anime: PropTypes.object.isRequired,
   evaluation: PropTypes.shape({
     source: PropTypes.oneOf(['correct', 'incorrect']).isRequired,
@@ -44,4 +44,4 @@ GuessEvaluationSummary.propTypes = {
   }).isRequired,
 };
 
-export default GuessEvaluationSummary;
+export default GuessEvaluationCard;
