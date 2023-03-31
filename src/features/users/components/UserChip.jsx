@@ -3,7 +3,7 @@ import { forwardRef } from 'react';
 
 import { Box, Stack, Typography } from '@mui/material';
 
-const UserSummary = forwardRef(({ user, ...rest }, ref) => {
+const UserChip = forwardRef(({ user, ...rest }, ref) => {
   return (
     <Box sx={{ '&:hover': { background: 'rgba(0, 0, 0, 0.2)' } }} ref={ref} {...rest}>
       <Stack direction="row" spacing={1} sx={{ alignItems: 'center', p: 1 }}>
@@ -14,9 +14,9 @@ const UserSummary = forwardRef(({ user, ...rest }, ref) => {
   );
 });
 
-UserSummary.displayName = 'UserCard';
+UserChip.displayName = 'UserChip';
 
-UserSummary.propTypes = {
+UserChip.propTypes = {
   user: PropTypes.shape({
     name: PropTypes.string.isRequired,
     avatar: PropTypes.shape({
@@ -25,4 +25,4 @@ UserSummary.propTypes = {
   }).isRequired,
 };
 
-export default UserSummary;
+export default UserChip;

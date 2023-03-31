@@ -5,7 +5,7 @@ import { Unstable_Grid2 as Grid, Stack, Box, LinearProgress, Fade } from '@mui/m
 
 import BrandHeader from '@/components/BrandHeader';
 
-import { SearchUserForm, SearchResults, UserSummary, useUserSearch } from '@/features/users';
+import { SearchUserForm, SearchResults, UserChip, useUserSearch } from '@/features/users';
 
 const Home = () => {
   const { users, isSuccess, isInitialLoading, searchUsers } = useUserSearch(6);
@@ -30,7 +30,7 @@ const Home = () => {
               <SearchResults>
                 {users.map((user) => (
                   <Link component={RouterLink} to="." underline="none" key={user.id}>
-                    <UserSummary user={user} />
+                    <UserChip user={user} />
                   </Link>
                 ))}
               </SearchResults>
