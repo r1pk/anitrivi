@@ -15,7 +15,7 @@ const GuessEvaluationCard = forwardRef(({ anime, evaluation, ...rest }, ref) => 
   return (
     <Card sx={{ display: 'flex' }} ref={ref} {...rest}>
       <CardMedia component="img" alt={title} image={coverImage.large} sx={{ width: 96 }} />
-      <CardContent sx={{ flex: '1 1 auto' }}>
+      <CardContent sx={{ flex: 1 }}>
         <Typography variant="h6">{title}</Typography>
         <Stack direction={{ xs: 'column', sm: 'row' }} sx={{ flexWrap: 'wrap', gap: 1, my: 1, maxWidth: 1 }}>
           <EvaluationChip label="Source" value={source} evaluation={evaluation.source} />
