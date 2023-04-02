@@ -4,8 +4,9 @@ import { Link as RouterLink } from 'react-router-dom';
 import { Unstable_Grid2 as Grid, Stack, Box, LinearProgress, Fade } from '@mui/material';
 
 import BrandHeader from '@/components/BrandHeader';
+import PanelCard from '@/components/PanelCard';
 
-import { SearchUserForm, SearchResults, UserChip, useUserSearch } from '@/features/users';
+import { SearchUserForm, UserChip, useUserSearch } from '@/features/users';
 
 const Home = () => {
   const { users, isFetched, isFetching, searchUsers } = useUserSearch(6);
@@ -27,14 +28,16 @@ const Home = () => {
               <LinearProgress />
             </Fade>
             <Fade mountOnEnter unmountOnExit in={isFetched}>
-              <SearchResults>
-                {isFetched &&
-                  users.map((user) => (
-                    <Link component={RouterLink} to="." underline="none" key={user.id}>
-                      <UserChip user={user} />
-                    </Link>
-                  ))}
-              </SearchResults>
+              <PanelCard title="Search Results">
+                <Stack spacing={1}>
+                  {isFetched &&
+                    users.map((user) => (
+                      <Link component={RouterLink} to="." underline="none" key={user.id}>
+                        <UserChip user={user} />
+                      </Link>
+                    ))}
+                </Stack>
+              </PanelCard>
             </Fade>
           </Stack>
         </Grid>
