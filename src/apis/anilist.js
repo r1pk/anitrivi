@@ -59,6 +59,7 @@ export const useUserAnime = (userId) => {
                     season
                     seasonYear
                     source(version: 3)
+                    genres
                     studios {
                       edges {
                         isMain
