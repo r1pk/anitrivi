@@ -4,16 +4,16 @@ import { useUsers } from '@/apis/anilist';
 
 export const useUserSearch = (limit) => {
   const [searchTerm, setSearchTerm] = useState('');
-  const { data: users = [], isSuccess, isInitialLoading } = useUsers(searchTerm, limit);
+  const { data, isFetching, isFetched } = useUsers(searchTerm, limit);
 
   const searchUsers = (term) => {
     setSearchTerm(term);
   };
 
   return {
-    isSuccess: isSuccess,
-    isInitialLoading: isInitialLoading,
-    users: users,
+    users: data?.users,
+    isFetched: isFetched,
+    isFetching: isFetching,
     searchUsers: searchUsers,
   };
 };

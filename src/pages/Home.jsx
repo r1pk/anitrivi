@@ -8,7 +8,7 @@ import BrandHeader from '@/components/BrandHeader';
 import { SearchUserForm, SearchResults, UserChip, useUserSearch } from '@/features/users';
 
 const Home = () => {
-  const { users, isSuccess, isInitialLoading, searchUsers } = useUserSearch(6);
+  const { users, isFetched, isFetching, searchUsers } = useUserSearch(6);
 
   const handleSearchUser = (data) => {
     searchUsers(data.username);
@@ -23,16 +23,17 @@ const Home = () => {
         <Grid xs={12} sm={10} md={8} lg={6}>
           <Stack spacing={2}>
             <SearchUserForm placeholder="AniList Username" onSearchUser={handleSearchUser} />
-            <Fade mountOnEnter unmountOnExit in={isInitialLoading}>
+            <Fade mountOnEnter unmountOnExit in={isFetching}>
               <LinearProgress />
             </Fade>
-            <Fade mountOnEnter unmountOnExit in={isSuccess}>
+            <Fade mountOnEnter unmountOnExit in={isFetched}>
               <SearchResults>
-                {users.map((user) => (
-                  <Link component={RouterLink} to="." underline="none" key={user.id}>
-                    <UserChip user={user} />
-                  </Link>
-                ))}
+                {isFetched &&
+                  users.map((user) => (
+                    <Link component={RouterLink} to="." underline="none" key={user.id}>
+                      <UserChip user={user} />
+                    </Link>
+                  ))}
               </SearchResults>
             </Fade>
           </Stack>

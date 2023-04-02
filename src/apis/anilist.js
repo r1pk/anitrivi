@@ -4,15 +4,15 @@ import { request, gql } from 'graphql-request';
 const ENDPOINT = 'https://graphql.anilist.co';
 
 export const useUsers = (searchTerm, limit = 6) => {
-  return useQuery(
-    ['users', searchTerm, limit],
-    async () => {
+  return useQuery({
+    queryKey: ['users', searchTerm, limit],
+    queryFn: async () => {
       const data = await request(
         ENDPOINT,
         gql`
-          query ($searchTerm: String, $limit: Int) {
-            users: Page(perPage: $limit) {
-              results: users(search: $searchTerm) {
+          query getUsers($searchTerm: String, $limit: Int) {
+            Page(perPage: $limit) {
+              users(search: $searchTerm) {
                 id
                 name
                 avatar {
@@ -25,21 +25,28 @@ export const useUsers = (searchTerm, limit = 6) => {
         { searchTerm, limit }
       );
 
-      return data.users.results;
+      return data.Page;
     },
-    { enabled: !!searchTerm }
-  );
+    enabled: !!searchTerm,
+  });
 };
 
-export const useUserAnime = (userId) => {
-  return useQuery(
-    ['user', 'anime', userId],
-    async () => {
+export const useUserProfile = (userId) => {
+  return useQuery({
+    queryKey: ['user', 'profile', userId],
+    queryFn: async () => {
       const data = await request(
         ENDPOINT,
         gql`
-          query ($userId: Int) {
-            user: MediaListCollection(userId: $userId, type: ANIME, status_in: [COMPLETED, REPEATING]) {
+          query getUserProfile($userId: Int) {
+            MediaListCollection(userId: $userId, type: ANIME, status_in: [COMPLETED, REPEATING]) {
+              user {
+                id
+                name
+                avatar {
+                  large
+                }
+              }
               lists {
                 name
                 entries {
@@ -78,8 +85,8 @@ export const useUserAnime = (userId) => {
         { userId }
       );
 
-      return data.user.lists.map((list) => list.entries).flat();
+      return data.MediaListCollection;
     },
-    { enabled: !!userId }
-  );
+    enabled: !!userId,
+  });
 };

@@ -1,28 +1,29 @@
-import { useState, useEffect } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 
-import { useUserAnime } from '@/apis/anilist';
+import { useUserProfile } from '@/apis/anilist';
 
 import { evaluateAnswer } from '../utils/evaluate-answer';
 
 export const useUserQuiz = (userId) => {
-  const { data: userAnime = [], isInitialLoading } = useUserAnime(userId);
+  const { data, isFetched } = useUserProfile(userId);
 
   const [isQuizFinished, setIsQuizFinished] = useState(false);
   const [featuredAnime, setFeaturedAnime] = useState(null);
   const [guessHistory, setGuessHistory] = useState([]);
 
-  const isQuizReady = !isInitialLoading && !!featuredAnime;
+  const isQuizReady = isFetched && !!featuredAnime;
+  const userAnimePool = useMemo(() => data?.lists.map((list) => list.entries).flat(), [data]);
 
   useEffect(
     function pickFeaturedAnime() {
-      if (!userAnime || userAnime.length === 0) return;
+      if (!userAnimePool || userAnimePool.length === 0) return;
 
       const MILLISECONDS_IN_DAY = 1000 * 60 * 60 * 24;
-      const randomIndex = Math.floor(Date.now() / MILLISECONDS_IN_DAY) % userAnime.length;
+      const randomIndex = Math.floor(Date.now() / MILLISECONDS_IN_DAY) % userAnimePool.length;
 
-      setFeaturedAnime(userAnime[randomIndex]);
+      setFeaturedAnime(userAnimePool[randomIndex]);
     },
-    [userAnime]
+    [userAnimePool]
   );
 
   const guessFeaturedAnime = (answer) => {
@@ -38,8 +39,9 @@ export const useUserQuiz = (userId) => {
   return {
     isQuizReady: isQuizReady,
     isQuizFinished: isQuizFinished,
+    user: data?.user,
+    userAnimePool: userAnimePool,
     featuredAnime: featuredAnime,
-    userAnime: userAnime,
     guessHistory: guessHistory,
     guessFeaturedAnime: guessFeaturedAnime,
   };
