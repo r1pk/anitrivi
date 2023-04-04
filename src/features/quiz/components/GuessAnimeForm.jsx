@@ -5,7 +5,9 @@ import { Card, CardActions, Stack, Autocomplete, TextField, Button } from '@mui/
 
 import { Controller, useForm } from 'react-hook-form';
 
-const GuessAnimeForm = forwardRef(({ options, onGuessAnime, ...rest }, ref) => {
+import { getTitleByPreference } from '../utils/get-title-by-preference';
+
+const GuessAnimeForm = forwardRef(({ options, language, onGuessAnime, ...rest }, ref) => {
   const { control, formState, handleSubmit, reset } = useForm({
     mode: 'all',
     defaultValues: {
@@ -35,7 +37,7 @@ const GuessAnimeForm = forwardRef(({ options, onGuessAnime, ...rest }, ref) => {
                 options={options}
                 value={value}
                 onChange={(_, option) => onChange(option)}
-                getOptionLabel={(option) => option.media.title.english || option.media.title.romaji}
+                getOptionLabel={(option) => getTitleByPreference(option.media.title, language)}
                 isOptionEqualToValue={(option, value) => option.mediaId === value.mediaId}
                 renderInput={(params) => <TextField label="Anime Title" {...params} />}
               />
@@ -65,6 +67,7 @@ GuessAnimeForm.propTypes = {
       }).isRequired,
     })
   ).isRequired,
+  language: PropTypes.string,
   onGuessAnime: PropTypes.func.isRequired,
 };
 

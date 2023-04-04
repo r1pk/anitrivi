@@ -5,10 +5,12 @@ import { Card, CardMedia, CardContent, Stack, Typography } from '@mui/material';
 
 import EvaluationChip from './EvaluationChip';
 
-const GuessEvaluationCard = forwardRef(({ anime, evaluation, ...rest }, ref) => {
+import { getTitleByPreference } from '../utils/get-title-by-preference';
+
+const GuessEvaluationCard = forwardRef(({ anime, evaluation, language, ...rest }, ref) => {
   const { coverImage, format, episodes, seasonYear, season } = anime;
 
-  const title = anime.title.english || anime.title.romaji || anime.title.native;
+  const title = getTitleByPreference(anime.title, language);
   const source = anime.source?.replace('_', ' ');
   const studios = anime.studios.edges.filter((edge) => edge.isMain).map((edge) => edge.node.name);
 
@@ -42,6 +44,7 @@ GuessEvaluationCard.propTypes = {
     season: PropTypes.oneOf(['correct', 'incorrect']).isRequired,
     studios: PropTypes.oneOf(['correct', 'partial', 'incorrect']).isRequired,
   }).isRequired,
+  language: PropTypes.string,
 };
 
 export default GuessEvaluationCard;
