@@ -4,13 +4,14 @@ import { forwardRef } from 'react';
 import { Card, CardMedia, CardContent, Stack, Typography, Chip } from '@mui/material';
 
 import { getTitleByPreference } from '../utils/get-title-by-preference';
+import { getMainStudiosNames } from '../utils/get-main-studios-names';
 
 const AnimeCard = forwardRef(({ anime, language, ...rest }, ref) => {
   const { coverImage, format, episodes, seasonYear, season, genres } = anime;
 
   const title = getTitleByPreference(anime.title, language);
   const source = anime.source?.replace('_', ' ');
-  const studios = anime.studios.edges.filter((edge) => edge.isMain).map((edge) => edge.node.name);
+  const studios = getMainStudiosNames(anime.studios.edges);
 
   return (
     <Card sx={{ display: 'flex' }} ref={ref} {...rest}>
