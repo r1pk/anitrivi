@@ -22,11 +22,13 @@ export const evaluateAnswer = (reference, target) => {
     result[key] = compareSimpleValues(reference[key], target[key]);
   });
 
-  // custom comparison for studios by theirs ids
-  result.studios = compareSimpleArrays(
-    reference.studios.edges.filter((edge) => edge.isMain).map((edge) => edge.node.id),
-    target.studios.edges.filter((edge) => edge.isMain).map((edge) => edge.node.id)
-  );
+  // modify similar arrays with different elements in the same way
+  const [referenceStudiosIds, targetStudiosIds] = [reference.studios.edges, target.studios.edges].map((array) => {
+    return array.filter((edge) => edge.isMain).map((edge) => edge.node.id);
+  });
+
+  // custom comparison for previously modified arrays
+  result.studios = compareSimpleArrays(referenceStudiosIds, targetStudiosIds);
 
   return result;
 };
