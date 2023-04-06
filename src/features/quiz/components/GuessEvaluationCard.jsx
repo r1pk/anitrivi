@@ -6,13 +6,14 @@ import { Card, CardMedia, CardContent, Stack, Typography } from '@mui/material';
 import EvaluationChip from './EvaluationChip';
 
 import { getTitleByPreference } from '../utils/get-title-by-preference';
+import { getReadableSource } from '../utils/get-readable-source';
 import { getMainStudiosNames } from '../utils/get-main-studios-names';
 
 const GuessEvaluationCard = forwardRef(({ anime, evaluation, language, ...rest }, ref) => {
   const { coverImage, format, episodes, seasonYear, season } = anime;
 
   const title = getTitleByPreference(anime.title, language);
-  const source = anime.source?.replace('_', ' ');
+  const source = getReadableSource(anime.source);
   const studios = getMainStudiosNames(anime.studios.edges);
 
   return (
