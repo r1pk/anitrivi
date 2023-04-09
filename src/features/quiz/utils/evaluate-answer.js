@@ -3,11 +3,18 @@ export const compareSimpleValues = (reference, target) => {
 };
 
 export const compareSimpleArrays = (reference, target) => {
-  if (target.length > 0 && target.every((item) => reference.includes(item))) {
+  const isReferenceIncludes = (item) => reference.includes(item);
+  const isTargetEmpty = target.length === 0;
+
+  if (isTargetEmpty) {
+    return 'incorrect';
+  }
+
+  if (target.every(isReferenceIncludes)) {
     return 'correct';
   }
 
-  if (target.length > 0 && target.some((item) => reference.includes(item))) {
+  if (target.some(isReferenceIncludes)) {
     return 'partial';
   }
 
