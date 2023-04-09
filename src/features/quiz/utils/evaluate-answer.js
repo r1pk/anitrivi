@@ -30,8 +30,11 @@ export const evaluateAnswer = (reference, target) => {
   });
 
   // modify similar arrays with different elements in the same way
+  const isMainStudio = (studio) => studio.isMain;
+  const getStudioId = (studio) => studio.node.id;
+
   const [referenceStudiosIds, targetStudiosIds] = [reference.studios.edges, target.studios.edges].map((array) => {
-    return array.filter((edge) => edge.isMain).map((edge) => edge.node.id);
+    return array.filter(isMainStudio).map(getStudioId);
   });
 
   // custom comparison for previously modified arrays
