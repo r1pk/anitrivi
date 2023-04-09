@@ -8,7 +8,7 @@ import AnimeCard from './AnimeCard';
 const QuizSummaryCard = forwardRef(({ anime, attempts, language, ...rest }, ref) => {
   return (
     <Card ref={ref} {...rest}>
-      <CardContent>
+      <CardContent sx={{ background: 'linear-gradient(to bottom, rgba(56, 142, 60, 0.1), rgba(56, 142, 60, 0.3))' }}>
         <Stack sx={{ alignItems: 'center' }}>
           <Typography variant="h4" component="span">
             You guessed right!
