@@ -11,8 +11,8 @@ const AnimeCard = forwardRef(({ anime, language, ...rest }, ref) => {
   const { coverImage, format, episodes, seasonYear, season, genres } = anime;
 
   const title = getTitleByPreference(anime.title, language);
-  const source = getReadableSource(anime.source);
-  const studios = getMainStudiosNames(anime.studios.edges);
+  const source = anime.source && getReadableSource(anime.source);
+  const studios = anime.studios.edges && getMainStudiosNames(anime.studios.edges);
 
   return (
     <Card sx={{ display: 'flex' }} ref={ref} {...rest}>
