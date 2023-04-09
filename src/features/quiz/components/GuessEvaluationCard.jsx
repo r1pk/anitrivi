@@ -14,7 +14,7 @@ const GuessEvaluationCard = forwardRef(({ anime, evaluation, language, ...rest }
 
   const title = getTitleByPreference(anime.title, language);
   const source = anime.source && getReadableSource(anime.source);
-  const studios = anime.studios.edges && getMainStudiosNames(anime.studios.edges);
+  const studios = anime.studios.edges && getMainStudiosNames(anime.studios.edges).join(', ');
 
   return (
     <Card sx={{ display: 'flex' }} ref={ref} {...rest}>
@@ -27,7 +27,7 @@ const GuessEvaluationCard = forwardRef(({ anime, evaluation, language, ...rest }
           <EvaluationChip label="Episodes" value={episodes} evaluation={evaluation.episodes} />
           <EvaluationChip label="Year" value={seasonYear} evaluation={evaluation.seasonYear} />
           <EvaluationChip label="Season" value={season} evaluation={evaluation.season} />
-          <EvaluationChip label="Studio" value={studios.join(', ')} evaluation={evaluation.studios} />
+          <EvaluationChip label="Studio" value={studios} evaluation={evaluation.studios} />
         </Stack>
       </CardContent>
     </Card>

@@ -6,13 +6,14 @@ import { Card, CardMedia, CardContent, Stack, Typography, Chip } from '@mui/mate
 import { getTitleByPreference } from '../utils/get-title-by-preference';
 import { getReadableSource } from '../utils/get-readable-source';
 import { getMainStudiosNames } from '../utils/get-main-studios-names';
+import { getOrDefault } from '../utils/get-or-default';
 
 const AnimeCard = forwardRef(({ anime, language, ...rest }, ref) => {
   const { coverImage, format, episodes, seasonYear, season, genres } = anime;
 
   const title = getTitleByPreference(anime.title, language);
   const source = anime.source && getReadableSource(anime.source);
-  const studios = anime.studios.edges && getMainStudiosNames(anime.studios.edges);
+  const studios = anime.studios.edges && getMainStudiosNames(anime.studios.edges).join(', ');
 
   return (
     <Card sx={{ display: 'flex' }} ref={ref} {...rest}>
@@ -20,10 +21,10 @@ const AnimeCard = forwardRef(({ anime, language, ...rest }, ref) => {
       <CardContent sx={{ flex: 1 }}>
         <Typography variant="h6">{title}</Typography>
         <Typography variant="body2" color="text.secondary">
-          {source} | {format} | {episodes} episodes
+          {getOrDefault(source)} | {getOrDefault(format)} | {episodes} episodes
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          {season} {seasonYear} | {studios.join(', ')}
+          {getOrDefault(season)} {getOrDefault(seasonYear)} | {getOrDefault(studios)}
         </Typography>
         <Stack direction="row" sx={{ flexWrap: 'wrap', gap: 1, mt: 1 }}>
           {genres.map((genre) => (

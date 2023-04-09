@@ -3,14 +3,15 @@ import { forwardRef } from 'react';
 
 import { Box, Typography } from '@mui/material';
 
+import { getOrDefault } from '../utils/get-or-default';
+
 const EvaluationChip = forwardRef(({ label, value, evaluation, ...rest }, ref) => {
   const evaluationColor = `evaluation.${evaluation}`;
-  const displayValue = value || 'N/A';
 
   return (
     <Box sx={{ backgroundColor: evaluationColor, py: 0.5, px: 1, borderRadius: 1 }} ref={ref} {...rest}>
       <Typography component="div" variant="button" sx={{ textAlign: 'center' }}>
-        {label}: {displayValue}
+        {label}: {getOrDefault(value)}
       </Typography>
     </Box>
   );
