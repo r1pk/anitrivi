@@ -1,3 +1,6 @@
 export const getMainStudiosNames = (studios) => {
-  return studios.filter((studio) => studio.isMain).map((studio) => studio.node.name);
+  const isMainStudio = (studio) => studio.isMain;
+  const getStudioName = (studio) => studio.node.name;
+
+  return studios.filter(isMainStudio).map(getStudioName);
 };
