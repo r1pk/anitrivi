@@ -8,7 +8,7 @@ const BrandHeader = forwardRef(({ variant, ...rest }, ref) => {
   return (
     <Typography variant={variant} component="div" sx={{ display: 'flex', alignItems: 'center' }} ref={ref} {...rest}>
       <Quiz sx={{ fontSize: 'inherit', mr: 1 }} />
-      <Typography variant="inherit">AniQuiz</Typography>
+      <Typography variant="inherit">AniTrivi</Typography>
     </Typography>
   );
 });
