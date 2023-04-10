@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { forwardRef } from 'react';
 
-import { Card, CardMedia, CardContent, Stack, Typography, Chip } from '@mui/material';
+import { Card, CardMedia, CardContent, Typography, Stack, Chip } from '@mui/material';
 
 import { getTitleByPreference } from '../utils/get-title-by-preference';
 import { getReadableSource } from '../utils/get-readable-source';

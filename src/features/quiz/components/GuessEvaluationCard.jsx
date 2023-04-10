@@ -3,11 +3,11 @@ import { forwardRef } from 'react';
 
 import { Card, CardMedia, CardContent, Stack, Typography } from '@mui/material';
 
-import EvaluationChip from './EvaluationChip';
-
 import { getTitleByPreference } from '../utils/get-title-by-preference';
 import { getReadableSource } from '../utils/get-readable-source';
 import { getMainStudiosNames } from '../utils/get-main-studios-names';
+
+import EvaluationChip from './EvaluationChip';
 
 const GuessEvaluationCard = forwardRef(({ anime, evaluation, language, ...rest }, ref) => {
   const { coverImage, format, episodes, seasonYear, season } = anime;

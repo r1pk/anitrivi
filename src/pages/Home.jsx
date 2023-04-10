@@ -1,13 +1,12 @@
-import { Link } from '@mui/material';
+import { Unstable_Grid2 as Grid } from '@mui/material';
+import { Stack, Box, Typography, Link } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 
-import { Unstable_Grid2 as Grid, Stack, Box, Typography } from '@mui/material';
+import { SearchUserForm, UserChip, useUserSearch } from '@/features/users';
 
 import PageContainer from '@/components/PageContainer';
 import BrandHeader from '@/components/BrandHeader';
 import PanelCard from '@/components/PanelCard';
-
-import { SearchUserForm, UserChip, useUserSearch } from '@/features/users';
 
 const Home = () => {
   const { users, isFetched, isFetching, searchUsers } = useUserSearch(6);
