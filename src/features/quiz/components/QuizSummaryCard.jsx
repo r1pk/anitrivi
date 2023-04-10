@@ -17,7 +17,7 @@ const QuizSummaryCard = forwardRef(({ anime, attempts, language, ...rest }, ref)
             The correct answer is:
           </Typography>
           <Box sx={{ my: 2 }}>
-            <AnimeCard anime={anime} language={language} />
+            <AnimeCard elevation={2} anime={anime} language={language} />
           </Box>
           <Typography variant="button" color="text.secondary" component="span">
             Number of attempts: {attempts}

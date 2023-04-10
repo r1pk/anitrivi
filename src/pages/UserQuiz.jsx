@@ -72,7 +72,12 @@ const UserQuiz = () => {
                     )}
                     {userQuiz.guessHistory.map((guess, index) => (
                       <Fade key={index} in={true}>
-                        <GuessEvaluationCard anime={guess.anime} evaluation={guess.evaluation} language="english" />
+                        <GuessEvaluationCard
+                          elevation={2}
+                          anime={guess.anime}
+                          evaluation={guess.evaluation}
+                          language="english"
+                        />
                       </Fade>
                     ))}
                   </Stack>
