@@ -56,35 +56,33 @@ const UserQuiz = () => {
 
       <Grid container sx={{ justifyContent: 'center' }}>
         <Grid xs={12} sm={10} md={8} lg={6}>
-          <Fade mountOnEnter unmountOnExit in={userQuiz.isReady}>
-            {userQuiz.isReady && (
-              <Stack spacing={2}>
-                <Stack direction="row" spacing={1} sx={{ justifyContent: 'flex-end' }}>
-                  <UserChip user={userQuiz.targetUser} />
-                </Stack>
-                <GuessAnimeForm options={userQuiz.availableSeries} onGuessAnime={handleGuessAnime} language="english" />
-                <PanelCard title="Guess History">
-                  <Stack spacing={1}>
-                    {userQuiz.guessHistory.length === 0 && (
-                      <Typography variant="button" color="text.secondary" sx={{ textAlign: 'center', py: 2 }}>
-                        No guesses yet
-                      </Typography>
-                    )}
-                    {userQuiz.guessHistory.map((guess, index) => (
-                      <Fade key={index} in={true}>
-                        <GuessEvaluationCard
-                          elevation={2}
-                          anime={guess.anime}
-                          evaluation={guess.evaluation}
-                          language="english"
-                        />
-                      </Fade>
-                    ))}
-                  </Stack>
-                </PanelCard>
+          {userQuiz.isReady && (
+            <Stack spacing={2}>
+              <Stack direction="row" spacing={1} sx={{ justifyContent: 'flex-end' }}>
+                <UserChip user={userQuiz.targetUser} />
               </Stack>
-            )}
-          </Fade>
+              <GuessAnimeForm options={userQuiz.availableSeries} onGuessAnime={handleGuessAnime} language="english" />
+              <PanelCard title="Guess History">
+                <Stack spacing={1}>
+                  {userQuiz.guessHistory.length === 0 && (
+                    <Typography variant="button" color="text.secondary" sx={{ textAlign: 'center', py: 2 }}>
+                      No guesses yet
+                    </Typography>
+                  )}
+                  {userQuiz.guessHistory.map((guess, index) => (
+                    <Fade key={index} in={true}>
+                      <GuessEvaluationCard
+                        elevation={2}
+                        anime={guess.anime}
+                        evaluation={guess.evaluation}
+                        language="english"
+                      />
+                    </Fade>
+                  ))}
+                </Stack>
+              </PanelCard>
+            </Stack>
+          )}
         </Grid>
       </Grid>
     </PageContainer>
