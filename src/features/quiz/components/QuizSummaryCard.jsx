@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { forwardRef } from 'react';
 
-import { Card, CardContent, Stack, Zoom, Box, Typography } from '@mui/material';
+import { Card, CardContent, Stack, Box, Typography } from '@mui/material';
 
 import AnimeCard from './AnimeCard';
 
@@ -16,11 +16,9 @@ const QuizSummaryCard = forwardRef(({ anime, attempts, language, ...rest }, ref)
           <Typography variant="button" color="text.secondary" component="span">
             The correct answer is:
           </Typography>
-          <Zoom mountOnEnter unmountOnExit in={true}>
-            <Box sx={{ my: 2 }}>
-              <AnimeCard anime={anime} language={language} />
-            </Box>
-          </Zoom>
+          <Box sx={{ my: 2 }}>
+            <AnimeCard anime={anime} language={language} />
+          </Box>
           <Typography variant="button" color="text.secondary" component="span">
             Number of attempts: {attempts}
           </Typography>
