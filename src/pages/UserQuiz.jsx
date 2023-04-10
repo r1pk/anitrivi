@@ -61,7 +61,9 @@ const UserQuiz = () => {
               <Stack direction="row" spacing={1} sx={{ justifyContent: 'flex-end' }}>
                 <UserChip user={userQuiz.targetUser} />
               </Stack>
-              <GuessAnimeForm options={userQuiz.availableSeries} onGuessAnime={handleGuessAnime} language="english" />
+              {!userQuiz.isFinished && (
+                <GuessAnimeForm options={userQuiz.availableSeries} onGuessAnime={handleGuessAnime} language="english" />
+              )}
               <PanelCard title="Guess History">
                 <Stack spacing={1}>
                   {userQuiz.guessHistory.length === 0 && (
