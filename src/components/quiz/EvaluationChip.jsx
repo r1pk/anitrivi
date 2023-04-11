@@ -3,7 +3,7 @@ import { forwardRef } from 'react';
 
 import { Box, Typography } from '@mui/material';
 
-import { getOrDefault } from '../utils/get-or-default';
+import { getOrDefault } from '@/utils/get-or-default';
 
 const EvaluationChip = forwardRef(({ label, value, evaluation, ...rest }, ref) => {
   const evaluationColor = `evaluation.${evaluation}`;

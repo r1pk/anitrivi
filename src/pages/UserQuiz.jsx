@@ -3,12 +3,17 @@ import { useRef, useEffect } from 'react';
 import { Unstable_Grid2 as Grid, Stack, Box, Typography, Fade } from '@mui/material';
 import { useParams } from 'react-router-dom';
 
-import { UserChip } from '@/features/users';
-import { GuessAnimeForm, GuessEvaluationCard, QuizSummaryCard, useUserQuiz } from '@/features/quiz';
+import PageContainer from '@/components/misc/PageContainer';
+import BrandHeader from '@/components/misc/BrandHeader';
+import PanelCard from '@/components/misc/PanelCard';
 
-import PageContainer from '@/components/PageContainer';
-import BrandHeader from '@/components/BrandHeader';
-import PanelCard from '@/components/PanelCard';
+import GuessAnimeForm from '@/components/quiz/GuessAnimeForm';
+import GuessEvaluationCard from '@/components/quiz/GuessEvaluationCard';
+import QuizSummaryCard from '@/components/quiz/QuizSummaryCard';
+
+import UserChip from '@/components/users/UserChip';
+
+import { useUserQuiz } from '@/hooks/useUserQuiz';
 
 const UserQuiz = () => {
   const { userId } = useParams();

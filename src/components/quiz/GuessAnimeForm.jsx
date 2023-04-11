@@ -4,7 +4,7 @@ import { forwardRef } from 'react';
 import { Card, CardActions, Stack, Autocomplete, TextField, Button } from '@mui/material';
 import { Controller, useForm } from 'react-hook-form';
 
-import { getTitleByPreference } from '../utils/get-title-by-preference';
+import { getTitleByPreference } from '@/utils/get-title-by-preference';
 
 const GuessAnimeForm = forwardRef(({ options, language, onGuessAnime, ...rest }, ref) => {
   const { control, formState, handleSubmit, reset } = useForm({

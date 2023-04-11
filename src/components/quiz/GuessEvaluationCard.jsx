@@ -3,9 +3,9 @@ import { forwardRef } from 'react';
 
 import { Card, CardMedia, CardContent, Stack, Typography } from '@mui/material';
 
-import { getTitleByPreference } from '../utils/get-title-by-preference';
-import { getReadableSource } from '../utils/get-readable-source';
-import { getMainStudiosNames } from '../utils/get-main-studios-names';
+import { getTitleByPreference } from '@/utils/get-title-by-preference';
+import { getReadableSource } from '@/utils/get-readable-source';
+import { getMainStudiosNames } from '@/utils/get-main-studios-names';
 
 import EvaluationChip from './EvaluationChip';
 

@@ -1,8 +1,7 @@
 import { useState, useMemo, useEffect } from 'react';
 
 import { useUserProfile } from '@/apis/anilist';
-
-import { evaluateAnswer } from '../utils/evaluate-answer';
+import { evaluateAnswer } from '@/utils/evaluate-answer';
 
 export const useUserQuiz = (userId) => {
   const { data, isFetched } = useUserProfile(userId);

@@ -3,10 +3,10 @@ import { forwardRef } from 'react';
 
 import { Card, CardMedia, CardContent, Typography, Stack, Chip } from '@mui/material';
 
-import { getTitleByPreference } from '../utils/get-title-by-preference';
-import { getReadableSource } from '../utils/get-readable-source';
-import { getMainStudiosNames } from '../utils/get-main-studios-names';
-import { getOrDefault } from '../utils/get-or-default';
+import { getTitleByPreference } from '@/utils/get-title-by-preference';
+import { getReadableSource } from '@/utils/get-readable-source';
+import { getMainStudiosNames } from '@/utils/get-main-studios-names';
+import { getOrDefault } from '@/utils/get-or-default';
 
 const AnimeCard = forwardRef(({ anime, language, ...rest }, ref) => {
   const { coverImage, format, episodes, seasonYear, season, genres } = anime;

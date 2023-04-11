@@ -2,11 +2,14 @@ import { Unstable_Grid2 as Grid } from '@mui/material';
 import { Stack, Box, Typography, Link } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 
-import { SearchUserForm, UserChip, useUserSearch } from '@/features/users';
+import PageContainer from '@/components/misc/PageContainer';
+import BrandHeader from '@/components/misc/BrandHeader';
+import PanelCard from '@/components/misc/PanelCard';
 
-import PageContainer from '@/components/PageContainer';
-import BrandHeader from '@/components/BrandHeader';
-import PanelCard from '@/components/PanelCard';
+import SearchUserForm from '@/components/users/SearchUserForm';
+import UserChip from '@/components/users/UserChip';
+
+import { useUserSearch } from '@/hooks/useUserSearch';
 
 const Home = () => {
   const { users, isFetched, isFetching, searchUsers } = useUserSearch(6);
