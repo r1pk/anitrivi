@@ -1,10 +1,11 @@
-import { useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 import { Unstable_Grid2 as Grid, Stack, Box, Typography, Fade } from '@mui/material';
 import { useParams } from 'react-router-dom';
 
 import PageContainer from '@/components/misc/PageContainer';
 import BrandHeader from '@/components/misc/BrandHeader';
+import LanguageSelect from '@/components/misc/LanguageSelect';
 import PanelCard from '@/components/misc/PanelCard';
 
 import GuessAnimeForm from '@/components/quiz/GuessAnimeForm';
@@ -20,11 +21,16 @@ const UserQuiz = () => {
   const summaryCard = useRef(null);
 
   const userQuiz = useUserQuiz(userId);
+  const [language, setLanguage] = useState('english');
 
   const handleGuessAnime = (entry) => {
     if (userQuiz.isReady) {
       userQuiz.guessFeaturedAnime(entry);
     }
+  };
+
+  const handleChangeLanguage = (language) => {
+    setLanguage(language);
   };
 
   useEffect(
@@ -51,7 +57,7 @@ const UserQuiz = () => {
                   ref={summaryCard}
                   anime={userQuiz.featuredAnime.media}
                   attempts={userQuiz.guessHistory.length}
-                  language="english"
+                  language={language}
                 />
               )}
             </Box>
@@ -63,11 +69,22 @@ const UserQuiz = () => {
         <Grid xs={12} sm={10} md={8} lg={6}>
           {userQuiz.isReady && (
             <Stack spacing={2}>
-              <Stack direction="row" spacing={1} sx={{ justifyContent: 'flex-end' }}>
+              <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>
+                <LanguageSelect
+                  label="Title Language"
+                  value={language}
+                  languages={['english', 'romaji', 'native']}
+                  onChangeLanguage={handleChangeLanguage}
+                />
+                <Box sx={{ flexGrow: 1 }} />
                 <UserChip user={userQuiz.targetUser} />
               </Stack>
               {!userQuiz.isFinished && (
-                <GuessAnimeForm options={userQuiz.availableSeries} onGuessAnime={handleGuessAnime} language="english" />
+                <GuessAnimeForm
+                  options={userQuiz.availableSeries}
+                  onGuessAnime={handleGuessAnime}
+                  language={language}
+                />
               )}
               <PanelCard title="Guess History">
                 <Stack spacing={1}>
@@ -82,7 +99,7 @@ const UserQuiz = () => {
                         elevation={2}
                         anime={guess.anime}
                         evaluation={guess.evaluation}
-                        language="english"
+                        language={language}
                       />
                     </Fade>
                   ))}
