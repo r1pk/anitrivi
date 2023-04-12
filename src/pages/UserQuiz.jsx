@@ -11,6 +11,7 @@ import PanelCard from '@/components/misc/PanelCard';
 import GuessAnimeForm from '@/components/quiz/GuessAnimeForm';
 import GuessEvaluationCard from '@/components/quiz/GuessEvaluationCard';
 import QuizSummaryCard from '@/components/quiz/QuizSummaryCard';
+import NextAnimeCountdown from '@/components/quiz/NextAnimeCountdown';
 
 import UserChip from '@/components/users/UserChip';
 
@@ -44,8 +45,9 @@ const UserQuiz = () => {
 
   return (
     <PageContainer isLoaderVisible={!userQuiz.isReady}>
-      <Box sx={{ display: 'flex', justifyContent: 'center', my: 2 }}>
+      <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', my: 2 }}>
         <BrandHeader variant="h1" />
+        <NextAnimeCountdown />
       </Box>
 
       <Grid container sx={{ justifyContent: 'center' }}>
