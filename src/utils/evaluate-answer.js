@@ -25,7 +25,7 @@ export const evaluateAnswer = (reference, target) => {
   const result = {};
 
   // strict comparision for fields with simple values
-  ['id', 'format', 'episodes', 'season', 'seasonYear', 'source'].forEach((key) => {
+  ['id', 'format', 'episodes', 'averageScore', 'season', 'seasonYear', 'source'].forEach((key) => {
     result[key] = compareSimpleValues(reference[key], target[key]);
   });
 

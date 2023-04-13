@@ -63,6 +63,7 @@ export const useUserProfile = (userId) => {
                     }
                     format
                     episodes
+                    averageScore
                     season
                     seasonYear
                     source(version: 3)

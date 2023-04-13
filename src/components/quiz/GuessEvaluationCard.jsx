@@ -25,6 +25,7 @@ const GuessEvaluationCard = forwardRef(({ anime, evaluation, language, ...rest }
           <EvaluationChip label="Source" value={source} evaluation={evaluation.source} />
           <EvaluationChip label="Format" value={format} evaluation={evaluation.format} />
           <EvaluationChip label="Episodes" value={episodes} evaluation={evaluation.episodes} />
+          <EvaluationChip label="Average Score" value={anime.averageScore} evaluation={evaluation.averageScore} />
           <EvaluationChip label="Year" value={seasonYear} evaluation={evaluation.seasonYear} />
           <EvaluationChip label="Season" value={season} evaluation={evaluation.season} />
           <EvaluationChip label="Studio" value={studios} evaluation={evaluation.studios} />
