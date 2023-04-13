@@ -42,8 +42,9 @@ GuessEvaluationCard.propTypes = {
   evaluation: PropTypes.shape({
     source: PropTypes.oneOf(['correct', 'incorrect']).isRequired,
     format: PropTypes.oneOf(['correct', 'incorrect']).isRequired,
-    episodes: PropTypes.oneOf(['correct', 'incorrect']).isRequired,
-    seasonYear: PropTypes.oneOf(['correct', 'incorrect']).isRequired,
+    episodes: PropTypes.oneOf(['correct', 'higher', 'lower']).isRequired,
+    averageScore: PropTypes.oneOf(['correct', 'higher', 'lower']).isRequired,
+    seasonYear: PropTypes.oneOf(['correct', 'higher', 'lower']).isRequired,
     season: PropTypes.oneOf(['correct', 'incorrect']).isRequired,
     studios: PropTypes.oneOf(['correct', 'partial', 'incorrect']).isRequired,
   }).isRequired,

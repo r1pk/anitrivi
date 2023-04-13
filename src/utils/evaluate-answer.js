@@ -1,3 +1,15 @@
+export const compareNumericValues = (reference, target) => {
+  if (reference > target) {
+    return 'higher';
+  }
+
+  if (reference < target) {
+    return 'lower';
+  }
+
+  return 'correct';
+};
+
 export const compareSimpleValues = (reference, target) => {
   return reference === target ? 'correct' : 'incorrect';
 };
@@ -25,8 +37,13 @@ export const evaluateAnswer = (reference, target) => {
   const result = {};
 
   // strict comparision for fields with simple values
-  ['id', 'format', 'episodes', 'averageScore', 'season', 'seasonYear', 'source'].forEach((key) => {
+  ['id', 'format', 'season', 'source'].forEach((key) => {
     result[key] = compareSimpleValues(reference[key], target[key]);
+  });
+
+  // custom comparison for fields with numeric values
+  ['episodes', 'averageScore', 'seasonYear'].forEach((key) => {
+    result[key] = compareNumericValues(reference[key], target[key]);
   });
 
   // modify similar arrays with different elements in the same way
