@@ -18,7 +18,11 @@ export const useUserQuiz = (userId) => {
       if (!availableSeries || availableSeries.length === 0) return;
 
       const MILLISECONDS_IN_DAY = 1000 * 60 * 60 * 24;
-      const randomIndex = Math.floor(Date.now() / MILLISECONDS_IN_DAY) % availableSeries.length;
+
+      const seed = Math.floor(Date.now() / MILLISECONDS_IN_DAY);
+      const sin = Math.sin(seed) * 10000;
+
+      const randomIndex = Math.floor((sin - Math.floor(sin)) * availableSeries.length);
 
       setFeaturedAnime(availableSeries[randomIndex]);
     },
