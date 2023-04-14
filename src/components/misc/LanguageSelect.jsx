@@ -13,7 +13,13 @@ const LanguageSelect = forwardRef(({ label, value, languages, onChangeLanguage, 
   return (
     <FormControl size="small" sx={{ minWidth: 120 }} ref={ref} {...rest}>
       <InputLabel id={labelId}>{label}</InputLabel>
-      <Select labelId={labelId} label={label} value={value} onChange={handleChangeLanguage}>
+      <Select
+        labelId={labelId}
+        label={label}
+        value={value}
+        onChange={handleChangeLanguage}
+        MenuProps={{ sx: { position: 'absolute', maxWidth: 0, maxHeight: 300 }, disableScrollLock: true }}
+      >
         {languages.map((language) => (
           <MenuItem key={language} value={language}>
             {language}
