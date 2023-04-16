@@ -17,7 +17,7 @@ const EvaluationChip = forwardRef(({ label, value, evaluation, ...rest }, ref) =
   };
 
   return (
-    <Box sx={{ backgroundColor: color, py: 0.5, px: 1, borderRadius: 1 }} ref={ref} {...rest}>
+    <Box sx={{ px: 1, py: 0.5, borderRadius: 1, backgroundColor: color }} ref={ref} {...rest}>
       <Typography variant="button" sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         {label}: {getOrDefault(value)} {isNumericEvaluation && icon[evaluation]}
       </Typography>

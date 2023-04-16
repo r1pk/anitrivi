@@ -25,7 +25,7 @@ const GuessAnimeForm = forwardRef(({ options, language, onGuessAnime, ...rest },
   return (
     <Card component="form" onSubmit={handleSubmit(onSubmit)} ref={ref} {...rest}>
       <CardActions>
-        <Stack direction="row" spacing={1} sx={{ width: 1, alignItems: 'center' }}>
+        <Stack direction="row" spacing={1} sx={{ alignItems: 'center', width: 1 }}>
           <Controller
             name="answer"
             control={control}
