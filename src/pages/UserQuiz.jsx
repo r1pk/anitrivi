@@ -53,7 +53,7 @@ const UserQuiz = () => {
       <Grid container sx={{ justifyContent: 'center' }}>
         <Grid xs={12} sm={10} md={8} lg={6}>
           <Fade mountOnEnter unmountOnExit in={userQuiz.isFinished}>
-            <Box sx={{ my: 4, px: 2 }}>
+            <Box sx={{ my: 4 }}>
               {userQuiz.isFinished && (
                 <QuizSummaryCard
                   ref={summaryCard}

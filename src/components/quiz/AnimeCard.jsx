@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { forwardRef } from 'react';
 
-import { Card, CardMedia, CardContent, Typography, Stack, Chip } from '@mui/material';
+import { Box, Typography, Stack, Paper } from '@mui/material';
 
 import { getTitleByPreference } from '@/utils/get-title-by-preference';
 import { getReadableSource } from '@/utils/get-readable-source';
@@ -15,24 +15,51 @@ const AnimeCard = forwardRef(({ anime, language, ...rest }, ref) => {
   const source = anime.source && getReadableSource(anime.source);
   const studios = anime.studios.edges && getMainStudiosNames(anime.studios.edges).join(', ');
 
+  const informations = [
+    { label: 'Source', value: getOrDefault(source) },
+    { label: 'Format', value: getOrDefault(format) },
+    { label: 'Episodes', value: getOrDefault(episodes) },
+    { label: 'Season', value: `${getOrDefault(season)} ${getOrDefault(seasonYear)}` },
+    { label: 'Average Score', value: `${getOrDefault(anime.averageScore)}%` },
+  ];
+
   return (
-    <Card sx={{ display: 'flex' }} ref={ref} {...rest}>
-      <CardMedia component="img" alt={title} image={coverImage.large} sx={{ width: 96 }} />
-      <CardContent sx={{ flex: 1 }}>
-        <Typography variant="h6">{title}</Typography>
-        <Typography variant="body2" color="text.secondary">
-          {getOrDefault(source)} | {getOrDefault(format)} | {episodes} episodes
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          {getOrDefault(season)} {getOrDefault(seasonYear)} | {getOrDefault(studios)}
-        </Typography>
-        <Stack direction="row" sx={{ flexWrap: 'wrap', gap: 1, mt: 1 }}>
-          {genres.map((genre) => (
-            <Chip size="small" key={genre} label={genre} />
-          ))}
-        </Stack>
-      </CardContent>
-    </Card>
+    <Box sx={{ display: 'flex' }} ref={ref} {...rest}>
+      <Box sx={{ position: 'relative', display: 'flex', borderRadius: 1, overflow: 'hidden' }}>
+        <Box component="img" alt={title} src={coverImage.large} sx={{ width: { xs: 150, md: 165 } }} />
+        <Box sx={{ position: 'absolute', alignSelf: 'flex-end', width: 1, p: 1, backgroundColor: '#121212cc' }}>
+          <Stack gap={1}>
+            <Typography variant="body2">{title}</Typography>
+            <Typography variant="caption" color="text.secondary">
+              {studios}
+            </Typography>
+          </Stack>
+        </Box>
+      </Box>
+      <Paper sx={{ flex: 1, my: { xs: 1, md: 2 }, p: 2, borderRadius: ({ spacing }) => spacing(0, 1, 1, 0) }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', height: 1, gap: 1 }}>
+          <Stack>
+            {informations.map(({ label, value }) => (
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                <Typography variant="caption" color="text.secondary">
+                  {label}:
+                </Typography>
+                <Typography variant="body2">{value}</Typography>
+              </Box>
+            ))}
+          </Stack>
+          <Stack direction="row" sx={{ flexWrap: 'wrap', gap: 1 }}>
+            {genres.slice(0, 3).map((genre) => (
+              <Box key={genre} sx={{ flex: 1, borderRadius: 1, backgroundColor: '#636e72', textAlign: 'center' }}>
+                <Typography variant="caption" sx={{ px: 1, py: 0.5 }}>
+                  {genre}
+                </Typography>
+              </Box>
+            ))}
+          </Stack>
+        </Box>
+      </Paper>
+    </Box>
   );
 });
 
