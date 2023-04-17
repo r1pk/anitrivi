@@ -1,42 +1,43 @@
 # AniTrivi
 
-AniTrivi is a responsive web application written in [React](https://reactjs.org/), allowing users to guess one of the anime series they have watched based on previous attempts.
-The application retrives data from the [AniList API](https://anilist.co/graphiql), providing up-to-date information about the anime series.
+AniTrivi is a responsive web application that allows users to daily guess a randomly selected anime based on their completed anime list. AniTrivi is built using technologies such as [React](https://reactjs.org/), [React-Router](https://reactrouter.com), [Material-UI](https://mui.com/), and [AniList API](https://anilist.gitbook.io/anilist-apiv2-docs/) to fetch user data and anime series information.
 
 ## Pre-requisites
 
-AniTrivi was developed and tested in a stable environment, utilizing the following versions:
+Application was developed and tested in a stable environment, utilizing the following versions:
 
 - [node.js v19.7.0](https://nodejs.org/en/)
 - [npm v9.6.0](https://nodejs.org/en/download/)
 
 This ensures that the application runs smoothly and efficiently.
 
-## Installation
+## Run Locally
 
-To install the application, clone the repository and install the dependencies:
-
-```bash
-git clone https://github.com/r1pk/anitrivi.git master
-cd master
-npm install
-```
-
-Run the application in development mode:
+Clone the project
 
 ```bash
-npm run dev
+  git clone https://github.com/r1pk/anitrivi.git
 ```
 
-Open [http://localhost:5173](http://localhost:5173) to view it in the browser.
-
-Build the application for production:
+Go to the project directory
 
 ```bash
-npm run build
+  cd anitrivi
 ```
 
-## Project structure
+Install dependencies
+
+```bash
+  npm install
+```
+
+Run the project locally
+
+```bash
+  npm run dev
+```
+
+## Project file structure
 
 ```bash
 public                            # static files
@@ -45,7 +46,7 @@ src
    |   |-- anilist.js             # functions used to query the AniList API
    |   |-- query-client.js        # query client used in the application
    |-- components                 # grouped components used in the application
-   |   |-- common                 # common components used across the application and other components
+   |   |-- common                 # common components used across the application
    |   |-- group                  # components grouped by their purpose
    |-- hooks                      # hooks used across the application
    |-- layouts                    # layout components
@@ -61,15 +62,15 @@ src
    |-- main.jsx                   # entry point of the application
 ```
 
-## Live demo
+## Demo
 
 Application is automatically deployed using Vercel.
 
-[Live demo](https://anitrivi.vercel.app/)
+[AniTrivi Live Demo](https://anitrivi.vercel.app/)
 
-## Author
+## Authors
 
-- Patryk [r1pk](https://github.com/r1pk) Krawczyk
+- [@r1pk](https://github.com/r1pk)
 
 ## License
 
