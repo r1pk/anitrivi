@@ -7,8 +7,7 @@ import { Quiz } from '@mui/icons-material';
 const BrandHeader = forwardRef(({ variant, ...rest }, ref) => {
   return (
     <Typography variant={variant} component="div" sx={{ display: 'flex', alignItems: 'center' }} ref={ref} {...rest}>
-      <Quiz sx={{ mr: 1, fontSize: 'inherit' }} />
-      <Typography variant="inherit">AniTrivi</Typography>
+      <Quiz sx={{ mr: 1, fontSize: 'inherit' }} /> AniTrivi
     </Typography>
   );
 });
