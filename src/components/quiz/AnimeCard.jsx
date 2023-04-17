@@ -42,12 +42,12 @@ const AnimeCard = forwardRef(({ anime, language, ...rest }, ref) => {
         <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', height: 1, gap: 1 }}>
           <Stack>
             {informations.map(({ label, value }) => (
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+              <Stack key={label} direction="row" gap={0.5} sx={{ alignItems: 'center' }}>
                 <Typography variant="caption" color="text.secondary">
                   {label}:
                 </Typography>
                 <Typography variant="body2">{value}</Typography>
-              </Box>
+              </Stack>
             ))}
           </Stack>
           <Stack direction="row" sx={{ flexWrap: 'wrap', gap: 1 }}>
