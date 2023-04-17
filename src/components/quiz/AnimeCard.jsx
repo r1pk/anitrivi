@@ -8,6 +8,8 @@ import { getReadableSource } from '@/utils/get-readable-source';
 import { getMainStudiosNames } from '@/utils/get-main-studios-names';
 import { getOrDefault } from '@/utils/get-or-default';
 
+import Chip from '@/components/common/Chip';
+
 const AnimeCard = forwardRef(({ anime, language, ...rest }, ref) => {
   const { coverImage, format, episodes, seasonYear, season, genres } = anime;
 
@@ -50,11 +52,11 @@ const AnimeCard = forwardRef(({ anime, language, ...rest }, ref) => {
           </Stack>
           <Stack direction="row" sx={{ flexWrap: 'wrap', gap: 1 }}>
             {genres.slice(0, 3).map((genre) => (
-              <Box key={genre} sx={{ flex: 1, borderRadius: 1, backgroundColor: '#636e72', textAlign: 'center' }}>
-                <Typography variant="caption" sx={{ px: 1, py: 0.5 }}>
+              <Chip key={genre} color="#636e72" style={{ flex: 1, textAlign: 'center' }}>
+                <Typography variant="caption" component="div">
                   {genre}
                 </Typography>
-              </Box>
+              </Chip>
             ))}
           </Stack>
         </Box>

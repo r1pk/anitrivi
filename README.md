@@ -45,6 +45,7 @@ src
    |   |-- anilist.js             # functions used to query the AniList API
    |   |-- query-client.js        # query client used in the application
    |-- components                 # grouped components used in the application
+   |   |-- common                 # common components used across the application and other components
    |   |-- group                  # components grouped by their purpose
    |-- hooks                      # hooks used across the application
    |-- layouts                    # layout components
