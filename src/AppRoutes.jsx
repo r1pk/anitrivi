@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import Home from '@/pages/Home';
 import UserQuiz from '@/pages/UserQuiz';
 
-import { MainLayout } from './layouts/main';
+import MainLayout from './layouts/main/MainLayout';
 
 const AppRoutes = () => {
   return (
