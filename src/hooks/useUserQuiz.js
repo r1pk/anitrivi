@@ -19,14 +19,14 @@ export const useUserQuiz = (userId) => {
 
       const MILLISECONDS_IN_DAY = 1000 * 60 * 60 * 24;
 
-      const seed = Math.floor(Date.now() / MILLISECONDS_IN_DAY);
+      const seed = Math.floor(Date.now() / MILLISECONDS_IN_DAY) + userId * 100;
       const sin = Math.sin(seed) * 10000;
 
       const randomIndex = Math.floor((sin - Math.floor(sin)) * availableSeries.length);
 
       setFeaturedAnime(availableSeries[randomIndex]);
     },
-    [availableSeries]
+    [availableSeries, userId]
   );
 
   const guessFeaturedAnime = (answer) => {
