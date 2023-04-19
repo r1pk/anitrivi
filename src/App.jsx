@@ -1,5 +1,5 @@
 import { QueryClientProvider } from '@tanstack/react-query';
-import { queryClient } from '@/apis/query-client';
+import { queryClient } from '@/configs/query-client';
 
 import { ThemeProvider, CssBaseline } from '@mui/material';
 import { dark } from '@/themes/dark';
