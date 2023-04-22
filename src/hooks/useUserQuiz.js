@@ -4,7 +4,7 @@ import { useUserProfile } from '@/apis/anilist';
 import { useQuiz } from './useQuiz';
 
 export const useUserQuiz = (userId) => {
-  const { data, isFetched } = useUserProfile(userId);
+  const { data, isSuccess, isInitialLoading } = useUserProfile(userId);
 
   const series = useMemo(() => data?.lists.map((list) => list.entries).flat(), [data]);
 
@@ -14,8 +14,9 @@ export const useUserQuiz = (userId) => {
   const quiz = useQuiz({ series: series, seed: seed });
 
   return {
-    isReady: isFetched && quiz.isReady,
+    isReady: isSuccess && quiz.isReady,
     isFinished: quiz.isFinished,
+    isInitialLoading: isInitialLoading,
     isRequirementFulfilled: quiz.isRequirementFulfilled,
 
     user: data?.user,

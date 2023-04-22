@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 
-import { Unstable_Grid2 as Grid, Stack, Box, Typography, Fade } from '@mui/material';
+import { Unstable_Grid2 as Grid, Stack, Box, Alert, Typography, Fade } from '@mui/material';
 import { useParams } from 'react-router-dom';
 
 import PageContainer from '@/components/misc/PageContainer';
@@ -44,7 +44,7 @@ const UserQuiz = () => {
   );
 
   return (
-    <PageContainer isLoaderVisible={!userQuiz.isReady}>
+    <PageContainer isLoaderVisible={userQuiz.isInitialLoading}>
       <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', my: 2 }}>
         <BrandHeader variant="h1" />
         <NextAnimeCountdown />
@@ -66,6 +66,12 @@ const UserQuiz = () => {
           </Fade>
         </Grid>
       </Grid>
+
+      {!(userQuiz.isInitialLoading || userQuiz.isRequirementFulfilled) && (
+        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', my: 2 }}>
+          <Alert severity="error">User doesn't have enough completed anime to play the quiz</Alert>
+        </Box>
+      )}
 
       <Grid container sx={{ justifyContent: 'center' }}>
         <Grid xs={12} sm={10} md={8} lg={6}>
