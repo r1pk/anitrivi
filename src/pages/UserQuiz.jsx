@@ -26,7 +26,7 @@ const UserQuiz = () => {
 
   const handleGuessAnime = (entry) => {
     if (userQuiz.isReady) {
-      userQuiz.guessFeaturedAnime(entry);
+      userQuiz.guessAnime(entry);
     }
   };
 
@@ -57,8 +57,8 @@ const UserQuiz = () => {
               {userQuiz.isFinished && (
                 <QuizSummaryCard
                   ref={summaryCard}
-                  anime={userQuiz.featuredAnime.media}
-                  attempts={userQuiz.guessHistory.length}
+                  anime={userQuiz.anime.media}
+                  attempts={userQuiz.guesses.length}
                   language={language}
                 />
               )}
@@ -79,23 +79,19 @@ const UserQuiz = () => {
                   onChangeLanguage={handleChangeLanguage}
                 />
                 <Box sx={{ flexGrow: 1 }} />
-                <UserChip user={userQuiz.targetUser} />
+                <UserChip user={userQuiz.user} />
               </Stack>
               {!userQuiz.isFinished && (
-                <GuessAnimeForm
-                  options={userQuiz.availableSeries}
-                  onGuessAnime={handleGuessAnime}
-                  language={language}
-                />
+                <GuessAnimeForm options={userQuiz.series} onGuessAnime={handleGuessAnime} language={language} />
               )}
               <PanelCard title="Guess History">
                 <Stack spacing={1}>
-                  {userQuiz.guessHistory.length === 0 && (
+                  {userQuiz.guesses.length === 0 && (
                     <Typography variant="button" color="text.secondary" sx={{ textAlign: 'center', py: 2 }}>
                       No guesses yet
                     </Typography>
                   )}
-                  {userQuiz.guessHistory.map((guess, index) => (
+                  {userQuiz.guesses.map((guess, index) => (
                     <Fade key={index} in={true}>
                       <GuessEvaluationCard
                         elevation={2}

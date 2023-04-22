@@ -1,51 +1,28 @@
-import { useState, useMemo, useEffect } from 'react';
+import { useMemo } from 'react';
 
 import { useUserProfile } from '@/apis/anilist';
-import { evaluateAnswer } from '@/utils/evaluate-answer';
+import { useQuiz } from './useQuiz';
 
 export const useUserQuiz = (userId) => {
   const { data, isFetched } = useUserProfile(userId);
 
-  const [isFinished, setIsFinished] = useState(false);
-  const [featuredAnime, setFeaturedAnime] = useState(null);
-  const [guessHistory, setGuessHistory] = useState([]);
+  const series = useMemo(() => data?.lists.map((list) => list.entries).flat(), [data]);
 
-  const isReady = isFetched && !!featuredAnime;
-  const availableSeries = useMemo(() => data?.lists.map((list) => list.entries).flat(), [data]);
+  const MILLISECONDS_IN_DAY = 1000 * 60 * 60 * 24;
+  const seed = Math.floor(Date.now() / MILLISECONDS_IN_DAY) + userId * 123;
 
-  useEffect(
-    function pickFeaturedAnime() {
-      if (!availableSeries || availableSeries.length === 0) return;
-
-      const MILLISECONDS_IN_DAY = 1000 * 60 * 60 * 24;
-
-      const seed = Math.floor(Date.now() / MILLISECONDS_IN_DAY) + userId * 100;
-      const sin = Math.sin(seed) * 10000;
-
-      const randomIndex = Math.floor((sin - Math.floor(sin)) * availableSeries.length);
-
-      setFeaturedAnime(availableSeries[randomIndex]);
-    },
-    [availableSeries, userId]
-  );
-
-  const guessFeaturedAnime = (answer) => {
-    const evaluation = evaluateAnswer(featuredAnime.media, answer.media);
-
-    if (answer.mediaId === featuredAnime.mediaId) {
-      setIsFinished(true);
-    }
-
-    setGuessHistory([{ anime: answer.media, evaluation: evaluation }, ...guessHistory]);
-  };
+  const quiz = useQuiz({ series: series, seed: seed });
 
   return {
-    isReady: isReady,
-    isFinished: isFinished,
-    targetUser: data?.user,
-    availableSeries: availableSeries,
-    featuredAnime: featuredAnime,
-    guessHistory: guessHistory,
-    guessFeaturedAnime: guessFeaturedAnime,
+    isReady: isFetched && quiz.isReady,
+    isFinished: quiz.isFinished,
+    isRequirementFulfilled: quiz.isRequirementFulfilled,
+
+    user: data?.user,
+    anime: quiz.anime,
+    series: series,
+    guesses: quiz.guesses,
+
+    guessAnime: quiz.guessAnime,
   };
 };
