@@ -19,8 +19,10 @@ export const useUserQuiz = (userId) => {
     isRequirementFulfilled: quiz.isRequirementFulfilled,
 
     user: data?.user,
+    series: quiz.series,
+    seed: quiz.seed,
+
     anime: quiz.anime,
-    series: series,
     guesses: quiz.guesses,
 
     guessAnime: quiz.guessAnime,

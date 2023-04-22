@@ -103,6 +103,9 @@ const UserQuiz = () => {
                   ))}
                 </Stack>
               </PanelCard>
+              <Typography variant="overline" color="text.secondary" sx={{ alignSelf: 'center' }}>
+                Seed: {userQuiz.seed}
+              </Typography>
             </Stack>
           )}
         </Grid>

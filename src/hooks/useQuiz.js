@@ -38,6 +38,9 @@ export const useQuiz = ({ series, seed }) => {
     isFinished: isFinished,
     isRequirementFulfilled: isRequirementFulfilled,
 
+    seed: seed,
+    series: series,
+
     anime: anime,
     guesses: guesses,
 
