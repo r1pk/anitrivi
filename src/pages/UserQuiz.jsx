@@ -87,7 +87,7 @@ const UserQuiz = () => {
               <PanelCard title="Guess History">
                 <Stack spacing={1}>
                   {userQuiz.guesses.length === 0 && (
-                    <Typography variant="button" color="text.secondary" sx={{ textAlign: 'center', py: 2 }}>
+                    <Typography variant="button" color="text.secondary" sx={{ alignSelf: 'center', py: 2 }}>
                       No guesses yet
                     </Typography>
                   )}

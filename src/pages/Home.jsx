@@ -31,7 +31,7 @@ const Home = () => {
               <PanelCard title="Search Results">
                 <Stack spacing={1}>
                   {users.length === 0 && (
-                    <Typography variant="button" color="text.secondary" sx={{ py: 2, textAlign: 'center' }}>
+                    <Typography variant="button" color="text.secondary" sx={{ alignSelf: 'center', py: 2 }}>
                       No users found
                     </Typography>
                   )}
