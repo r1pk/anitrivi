@@ -50,10 +50,10 @@ const UserQuiz = () => {
         <NextAnimeCountdown />
       </Box>
 
-      <Grid container sx={{ justifyContent: 'center' }}>
+      <Grid container sx={{ justifyContent: 'center', my: 2 }}>
         <Grid xs={12} sm={10} md={8} lg={6}>
           <Fade mountOnEnter unmountOnExit in={userQuiz.isFinished}>
-            <Box sx={{ my: 4 }}>
+            <Box>
               {userQuiz.isFinished && (
                 <QuizSummaryCard
                   ref={summaryCard}
@@ -73,7 +73,7 @@ const UserQuiz = () => {
         </Box>
       )}
 
-      <Grid container sx={{ justifyContent: 'center' }}>
+      <Grid container sx={{ justifyContent: 'center', my: 2 }}>
         <Grid xs={12} sm={10} md={8} lg={6}>
           {userQuiz.isReady && (
             <Stack spacing={2}>

@@ -23,7 +23,7 @@ const Home = () => {
       <Box sx={{ display: 'flex', justifyContent: 'center', my: 2 }}>
         <BrandHeader variant="h1" />
       </Box>
-      <Grid container sx={{ justifyContent: 'center' }}>
+      <Grid container sx={{ justifyContent: 'center', my: 2 }}>
         <Grid xs={12} sm={10} md={8} lg={6}>
           <Stack spacing={2}>
             <SearchUserForm placeholder="AniList Username" onSearchUser={handleSearchUser} />
