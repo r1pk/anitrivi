@@ -10,7 +10,7 @@ import { getMainStudiosNames } from '@/utils/get-main-studios-names';
 import EvaluationChip from './EvaluationChip';
 
 const GuessEvaluationCard = forwardRef(({ anime, evaluation, language, ...rest }, ref) => {
-  const { coverImage, format, episodes, seasonYear, season } = anime;
+  const { coverImage, format, episodes, averageScore, seasonYear, season } = anime;
 
   const title = getTitleByPreference(anime.title, language);
   const source = anime.source && getReadableSource(anime.source);
@@ -20,7 +20,7 @@ const GuessEvaluationCard = forwardRef(({ anime, evaluation, language, ...rest }
     { label: 'Source', value: source, evaluation: evaluation.source },
     { label: 'Format', value: format, evaluation: evaluation.format },
     { label: 'Episodes', value: episodes, evaluation: evaluation.episodes },
-    { label: 'Average Score', value: anime.averageScore, evaluation: evaluation.averageScore },
+    { label: 'Average Score', value: averageScore, evaluation: evaluation.averageScore },
     { label: 'Year', value: seasonYear, evaluation: evaluation.seasonYear },
     { label: 'Season', value: season, evaluation: evaluation.season },
     { label: 'Studio', value: studios, evaluation: evaluation.studios },
