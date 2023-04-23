@@ -3,8 +3,8 @@ import { useMemo } from 'react';
 import { useUserProfile } from '@/apis/anilist';
 import { useQuiz } from './useQuiz';
 
-export const useUserQuiz = (userId) => {
-  const { data, isSuccess, isInitialLoading } = useUserProfile(userId);
+export const useUserQuiz = ({ userId }) => {
+  const { data, isSuccess, isInitialLoading } = useUserProfile({ userId: userId });
 
   const series = useMemo(() => data?.lists.map((list) => list.entries).flat(), [data]);
 

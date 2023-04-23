@@ -3,7 +3,7 @@ import { request, gql } from 'graphql-request';
 
 const ENDPOINT = 'https://graphql.anilist.co';
 
-export const useUsers = (searchTerm, limit = 6) => {
+export const useUsers = ({ searchTerm, limit = 6, placeholderData }) => {
   return useQuery({
     queryKey: ['users', searchTerm, limit],
     queryFn: async () => {
@@ -27,11 +27,12 @@ export const useUsers = (searchTerm, limit = 6) => {
 
       return data.Page;
     },
+    placeholderData: placeholderData,
     enabled: !!searchTerm,
   });
 };
 
-export const useUserProfile = (userId) => {
+export const useUserProfile = ({ userId }) => {
   return useQuery({
     queryKey: ['user', 'profile', userId],
     queryFn: async () => {

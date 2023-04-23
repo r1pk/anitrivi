@@ -12,7 +12,7 @@ import UserChip from '@/components/users/UserChip';
 import { useUserSearch } from '@/hooks/useUserSearch';
 
 const Home = () => {
-  const { users, isSuccess, isInitialLoading, searchUsers } = useUserSearch(6);
+  const { users, isSuccess, isInitialLoading, searchUsers } = useUserSearch({ limit: 6 });
 
   const handleSearchUser = (data) => {
     searchUsers(data.username);

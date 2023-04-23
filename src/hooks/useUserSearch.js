@@ -2,9 +2,9 @@ import { useState } from 'react';
 
 import { useUsers } from '@/apis/anilist';
 
-export const useUserSearch = (limit) => {
+export const useUserSearch = ({ limit }) => {
   const [searchTerm, setSearchTerm] = useState('');
-  const { data, isSuccess, isInitialLoading } = useUsers(searchTerm, limit);
+  const { data, isSuccess, isInitialLoading } = useUsers({ searchTerm: searchTerm, limit: limit });
 
   const searchUsers = (term) => {
     setSearchTerm(term);

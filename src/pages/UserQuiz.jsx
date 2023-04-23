@@ -21,7 +21,7 @@ const UserQuiz = () => {
   const { userId } = useParams();
   const summaryCard = useRef(null);
 
-  const userQuiz = useUserQuiz(userId);
+  const userQuiz = useUserQuiz({ userId: userId });
   const [language, setLanguage] = useState('english');
 
   const handleGuessAnime = (entry) => {
