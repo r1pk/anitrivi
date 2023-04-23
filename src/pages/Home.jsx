@@ -12,14 +12,14 @@ import UserChip from '@/components/users/UserChip';
 import { useUserSearch } from '@/hooks/useUserSearch';
 
 const Home = () => {
-  const { users, isFetched, isFetching, searchUsers } = useUserSearch(6);
+  const { users, isSuccess, isInitialLoading, searchUsers } = useUserSearch(6);
 
   const handleSearchUser = (data) => {
     searchUsers(data.username);
   };
 
   return (
-    <PageContainer isLoaderVisible={isFetching}>
+    <PageContainer isLoaderVisible={isInitialLoading}>
       <Box sx={{ display: 'flex', justifyContent: 'center', my: 2 }}>
         <BrandHeader variant="h1" />
       </Box>
@@ -27,7 +27,7 @@ const Home = () => {
         <Grid xs={12} sm={10} md={8} lg={6}>
           <Stack spacing={2}>
             <SearchUserForm placeholder="AniList Username" onSearchUser={handleSearchUser} />
-            {isFetched && (
+            {isSuccess && (
               <PanelCard title="Search Results">
                 <Stack spacing={1}>
                   {users.length === 0 && (
