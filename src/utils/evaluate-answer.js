@@ -1,4 +1,6 @@
-export const compareNumericValues = (reference, target) => {
+import { findCommonElements } from './find-common-elements';
+
+export const compareNumbers = (reference, target) => {
   if (reference > target) {
     return 'higher';
   }
@@ -10,23 +12,23 @@ export const compareNumericValues = (reference, target) => {
   return 'correct';
 };
 
-export const compareSimpleValues = (reference, target) => {
-  return reference === target ? 'correct' : 'incorrect';
-};
-
-export const compareSimpleArrays = (reference, target) => {
-  const isReferenceIncludes = (item) => reference.includes(item);
-  const isTargetEmpty = target.length === 0;
-
-  if (isTargetEmpty) {
-    return 'incorrect';
-  }
-
-  if (target.every(isReferenceIncludes)) {
+export const compareStrings = (reference, target) => {
+  if (reference === target) {
     return 'correct';
   }
 
-  if (target.some(isReferenceIncludes)) {
+  return 'incorrect';
+};
+
+export const compareArrays = (selector, reference, target) => {
+  const commonElements = findCommonElements(reference, target, selector);
+  const lengths = [commonElements.length, reference.length, target.length];
+
+  if (lengths.every((length) => length === lengths[0])) {
+    return 'correct';
+  }
+
+  if (commonElements.length > 0) {
     return 'partial';
   }
 
@@ -34,28 +36,24 @@ export const compareSimpleArrays = (reference, target) => {
 };
 
 export const evaluateAnswer = (reference, target) => {
-  const result = {};
+  const evaluation = {};
 
-  // strict comparision for fields with simple values
-  ['id', 'format', 'season', 'source'].forEach((key) => {
-    result[key] = compareSimpleValues(reference[key], target[key]);
-  });
+  const strings = ['id', 'format', 'season', 'source'];
+  const numbers = ['episodes', 'averageScore', 'seasonYear'];
 
-  // custom comparison for fields with numeric values
-  ['episodes', 'averageScore', 'seasonYear'].forEach((key) => {
-    result[key] = compareNumericValues(reference[key], target[key]);
-  });
+  for (const key of strings) {
+    evaluation[key] = compareStrings(reference[key], target[key]);
+  }
 
-  // modify similar arrays with different elements in the same way
-  const isMainStudio = (studio) => studio.isMain;
-  const getStudioId = (studio) => studio.node.id;
+  for (const key of numbers) {
+    evaluation[key] = compareNumbers(reference[key], target[key]);
+  }
 
-  const [referenceStudiosIds, targetStudiosIds] = [reference.studios.edges, target.studios.edges].map((array) => {
-    return array.filter(isMainStudio).map(getStudioId);
-  });
+  evaluation.studios = compareArrays(
+    (studio) => studio.node.id,
+    reference.studios.edges.filter((studio) => studio.isMain),
+    target.studios.edges.filter((studio) => studio.isMain)
+  );
 
-  // custom comparison for previously modified arrays
-  result.studios = compareSimpleArrays(referenceStudiosIds, targetStudiosIds);
-
-  return result;
+  return evaluation;
 };
