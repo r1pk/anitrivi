@@ -6,8 +6,6 @@ import { ArrowUpward, ArrowDownward } from '@mui/icons-material';
 
 import { getOrDefault } from '@/utils/get-or-default';
 
-import Chip from '@/components/common/Chip';
-
 const EvaluationChip = forwardRef(({ label, value, evaluation, ...rest }, ref) => {
   const isSimpleEvaluation = ['correct', 'partial', 'incorrect'].includes(evaluation);
   const isNumericEvaluation = ['higher', 'lower'].includes(evaluation);
@@ -19,14 +17,14 @@ const EvaluationChip = forwardRef(({ label, value, evaluation, ...rest }, ref) =
   };
 
   return (
-    <Chip color={color} ref={ref} {...rest}>
-      <Stack direction="row" gap={0.5} sx={{ alignItems: 'center', justifyContent: 'center' }}>
-        <Typography variant="caption">{label}:</Typography>
-        <Typography variant="button" sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          {getOrDefault(value)} {isNumericEvaluation && icon[evaluation]}
-        </Typography>
-      </Stack>
-    </Chip>
+    <Stack direction="row" gap={0.5} sx={{ alignItems: 'center' }}>
+      <Typography variant="caption" color="text.secondary">
+        {label}:
+      </Typography>
+      <Typography variant="button" color={color} sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
+        {getOrDefault(value)} {isNumericEvaluation && icon[evaluation]}
+      </Typography>
+    </Stack>
   );
 });
 

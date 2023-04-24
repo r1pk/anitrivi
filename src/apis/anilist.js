@@ -62,6 +62,7 @@ export const useUserProfile = ({ userId }) => {
                     coverImage {
                       large
                     }
+                    bannerImage
                     format
                     episodes
                     averageScore
