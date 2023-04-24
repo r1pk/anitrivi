@@ -101,6 +101,7 @@ const UserQuiz = () => {
                     <Fade key={index} in={true}>
                       <GuessEvaluationCard
                         elevation={2}
+                        isCorrect={guess.isCorrect}
                         anime={guess.anime}
                         evaluation={guess.evaluation}
                         language={language}

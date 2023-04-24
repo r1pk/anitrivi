@@ -9,7 +9,7 @@ import { getMainStudiosNames } from '@/utils/get-main-studios-names';
 
 import EvaluationChip from './EvaluationChip';
 
-const GuessEvaluationCard = forwardRef(({ anime, evaluation, language, ...rest }, ref) => {
+const GuessEvaluationCard = forwardRef(({ isCorrect, anime, evaluation, language, ...rest }, ref) => {
   const { bannerImage, format, episodes, averageScore, seasonYear, season } = anime;
 
   const title = getTitleByPreference(anime.title, language);
@@ -28,7 +28,8 @@ const GuessEvaluationCard = forwardRef(({ anime, evaluation, language, ...rest }
 
   const { palette } = useTheme();
   const backgroundColor = alpha(palette.background.paper, 0.9);
-  const background = `linear-gradient(${backgroundColor}, ${backgroundColor}), url(${bannerImage}) center/cover no-repeat`;
+  const evaluationColor = isCorrect ? alpha(palette.evaluation.correct, 0.9) : alpha(palette.evaluation.incorrect, 0.9);
+  const background = `linear-gradient(90deg, ${backgroundColor} 95%, ${evaluationColor} 100%), url(${bannerImage}) center/cover no-repeat`;
 
   return (
     <Card sx={{ position: 'relative', display: 'flex' }} ref={ref} {...rest}>
@@ -49,6 +50,7 @@ const GuessEvaluationCard = forwardRef(({ anime, evaluation, language, ...rest }
 GuessEvaluationCard.displayName = 'GuessEvaluationCard';
 
 GuessEvaluationCard.propTypes = {
+  isCorrect: PropTypes.bool.isRequired,
   anime: PropTypes.object.isRequired,
   evaluation: PropTypes.shape({
     source: PropTypes.oneOf(['correct', 'incorrect']).isRequired,
