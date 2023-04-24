@@ -33,7 +33,9 @@ const GuessEvaluationCard = forwardRef(({ anime, evaluation, language, ...rest }
   return (
     <Card sx={{ position: 'relative', display: 'flex' }} ref={ref} {...rest}>
       <CardContent sx={{ flex: 1, zIndex: 1, background: background }}>
-        <Typography variant="overline">{title}</Typography>
+        <Typography variant="button" gutterBottom>
+          {title}
+        </Typography>
         <Stack direction={{ xs: 'column', sm: 'row' }} sx={{ 'flexWrap': 'wrap', '& > *': { flex: '1 0 45%' } }}>
           {evaluations.map(({ label, value, evaluation }) => (
             <EvaluationChip key={label} label={label} value={value} evaluation={evaluation} />
