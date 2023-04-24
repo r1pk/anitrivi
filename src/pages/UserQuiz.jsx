@@ -90,7 +90,7 @@ const UserQuiz = () => {
               {!userQuiz.isFinished && (
                 <GuessAnimeForm options={userQuiz.series} onGuessAnime={handleGuessAnime} language={language} />
               )}
-              <PanelCard title="Guess History">
+              <PanelCard title={`Guess History (${userQuiz.guesses.length})`}>
                 <Stack spacing={1}>
                   {userQuiz.guesses.length === 0 && (
                     <Typography variant="button" color="text.secondary" sx={{ alignSelf: 'center', py: 2 }}>
