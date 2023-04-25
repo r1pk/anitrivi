@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { forwardRef } from 'react';
 
-import { Card, CardContent, Stack, Typography, useTheme, alpha } from '@mui/material';
+import { Card, CardContent, Box, Stack, Typography, useTheme, alpha } from '@mui/material';
 
 import { getTitleByPreference } from '@/utils/get-title-by-preference';
 import { getReadableSource } from '@/utils/get-readable-source';
@@ -27,9 +27,9 @@ const GuessEvaluationCard = forwardRef(({ isCorrect, anime, evaluation, language
   ];
 
   const { palette } = useTheme();
-  const backgroundColor = alpha(palette.background.paper, 0.9);
-  const evaluationColor = isCorrect ? alpha(palette.evaluation.correct, 0.9) : alpha(palette.evaluation.incorrect, 0.9);
-  const background = `linear-gradient(90deg, ${backgroundColor} 95%, ${evaluationColor} 100%), url(${bannerImage}) center/cover no-repeat`;
+  const backgroundColor = alpha(palette.background.paper, 0.8);
+  const evaluationColor = isCorrect ? alpha(palette.evaluation.correct, 0.5) : alpha(palette.evaluation.incorrect, 0.5);
+  const background = `linear-gradient(${backgroundColor}, ${backgroundColor}), url(${bannerImage}) center/cover no-repeat`;
 
   return (
     <Card sx={{ position: 'relative', display: 'flex' }} ref={ref} {...rest}>
@@ -43,6 +43,7 @@ const GuessEvaluationCard = forwardRef(({ isCorrect, anime, evaluation, language
           ))}
         </Stack>
       </CardContent>
+      <Box sx={{ alignSelf: 'stretch', width: 4, backgroundColor: evaluationColor }} />
     </Card>
   );
 });
