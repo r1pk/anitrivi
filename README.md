@@ -40,26 +40,21 @@ Run the project locally
 ## Project file structure
 
 ```bash
-public                            # static files
-src
-   |-- apis                       # api related folders and files
-   |   |-- anilist.js             # functions used to query the AniList API
-   |   |-- query-client.js        # query client used in the application
-   |-- components                 # grouped components used in the application
-   |   |-- common                 # common components used across the application
-   |   |-- group                  # components grouped by their purpose
-   |-- hooks                      # hooks used across the application
-   |-- layouts                    # layout components
-   |   |-- group                  # layout components grouped by their purpose
-   |   |   |-- index.js           # exports main layout component from the folder
-   |-- pages                      # page components
-   |-- themes                     # theme related files used in the application
-   |   |-- base.js                # base style object containing the global styles
-   |   |-- dark.js                # dark theme object used in the application
-   |-- utils                      # utility functions used across the application
-   |-- App.jsx                    # main application component
-   |-- AppRoutes.jsx              # available routes in the application
-   |-- main.jsx                   # entry point of the application
+anitrivi/             # root directory
+├─ public/            # static files
+├─ src/               # application source code
+│  ├─ apis/           # api related files
+│  ├─ components/     # reusable components grouped by features
+│  ├─ configs/        # configuration files
+│  ├─ hooks/          # custom hooks
+│  ├─ layouts/        # layout components grouped by layout type
+│  ├─ pages/          # page components
+│  ├─ themes/         # theme related files (e.g. colors, fonts)
+│  ├─ utils/          # utility functions
+│  ├─ App.jsx         # application root component
+│  ├─ AppRoutes.jsx   # application routes
+│  ├─ main.jsx        # application entry point
+├─ .env               # default environment variables
 ```
 
 ## Demo
