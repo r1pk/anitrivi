@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 
-import { Unstable_Grid2 as Grid, Stack, Box, Alert, Typography, Fade } from '@mui/material';
+import { Unstable_Grid2 as Grid } from '@mui/material';
+import { Stack, Box, Alert, Typography, Fade } from '@mui/material';
 import { useParams } from 'react-router-dom';
 
 import PageContainer from '@/components/misc/PageContainer';
