@@ -1,8 +1,9 @@
-import PropTypes from 'prop-types';
 import { forwardRef } from 'react';
 
-import { Typography } from '@mui/material';
+import PropTypes from 'prop-types';
+
 import { Quiz } from '@mui/icons-material';
+import { Typography } from '@mui/material';
 
 const BrandHeader = forwardRef(({ variant, ...rest }, ref) => {
   return (

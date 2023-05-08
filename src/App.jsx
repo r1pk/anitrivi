@@ -1,3 +1,5 @@
+/* eslint-disable import/order */
+
 import { QueryClientProvider } from '@tanstack/react-query';
 import { queryClient } from '@/configs/query-client';
 

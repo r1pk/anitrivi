@@ -1,12 +1,13 @@
-import PropTypes from 'prop-types';
 import { forwardRef } from 'react';
 
-import { TextField, Button, Card, CardActions, Stack } from '@mui/material';
-import { Search } from '@mui/icons-material';
+import PropTypes from 'prop-types';
+
+import { joiResolver } from '@hookform/resolvers/joi';
+import Joi from 'joi';
 import { Controller, useForm } from 'react-hook-form';
 
-import Joi from 'joi';
-import { joiResolver } from '@hookform/resolvers/joi';
+import { Search } from '@mui/icons-material';
+import { TextField, Button, Card, CardActions, Stack } from '@mui/material';
 
 const schema = Joi.object({
   username: Joi.string().trim().alphanum().min(2).max(20).required().label('username'),

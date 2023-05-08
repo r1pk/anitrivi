@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 
 import { useUserProfile } from '@/apis/anilist';
+
 import { useQuiz } from './useQuiz';
 
 export const useUserQuiz = ({ userId }) => {

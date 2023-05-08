@@ -1,5 +1,6 @@
-import PropTypes from 'prop-types';
 import { forwardRef, useId } from 'react';
+
+import PropTypes from 'prop-types';
 
 import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 

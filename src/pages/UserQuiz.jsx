@@ -1,19 +1,17 @@
 import { useState, useRef, useEffect } from 'react';
 
-import { Unstable_Grid2 as Grid } from '@mui/material';
-import { Stack, Box, Alert, Typography, Fade } from '@mui/material';
 import { useParams } from 'react-router-dom';
 
-import PageContainer from '@/components/misc/PageContainer';
+import { Unstable_Grid2 as Grid, Stack, Box, Alert, Typography, Fade } from '@mui/material';
+
 import BrandHeader from '@/components/misc/BrandHeader';
 import LanguageSelect from '@/components/misc/LanguageSelect';
+import PageContainer from '@/components/misc/PageContainer';
 import PanelCard from '@/components/misc/PanelCard';
-
 import GuessAnimeForm from '@/components/quiz/GuessAnimeForm';
 import GuessEvaluationCard from '@/components/quiz/GuessEvaluationCard';
-import QuizSummaryCard from '@/components/quiz/QuizSummaryCard';
 import NextAnimeCountdown from '@/components/quiz/NextAnimeCountdown';
-
+import QuizSummaryCard from '@/components/quiz/QuizSummaryCard';
 import UserChip from '@/components/users/UserChip';
 
 import { useUserQuiz } from '@/hooks/useUserQuiz';

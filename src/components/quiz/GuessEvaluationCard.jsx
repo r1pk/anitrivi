@@ -1,11 +1,12 @@
-import PropTypes from 'prop-types';
 import { forwardRef } from 'react';
+
+import PropTypes from 'prop-types';
 
 import { Card, CardContent, Box, Stack, Typography, useTheme, alpha } from '@mui/material';
 
-import { getTitleByPreference } from '@/utils/get-title-by-preference';
-import { getReadableSource } from '@/utils/get-readable-source';
 import { getMainStudiosNames } from '@/utils/get-main-studios-names';
+import { getReadableSource } from '@/utils/get-readable-source';
+import { getTitleByPreference } from '@/utils/get-title-by-preference';
 
 import EvaluationChip from './EvaluationChip';
 

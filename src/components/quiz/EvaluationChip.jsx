@@ -1,8 +1,9 @@
-import PropTypes from 'prop-types';
 import { forwardRef } from 'react';
 
-import { Stack, Typography } from '@mui/material';
+import PropTypes from 'prop-types';
+
 import { ArrowUpward, ArrowDownward } from '@mui/icons-material';
+import { Stack, Typography } from '@mui/material';
 
 import { getOrDefault } from '@/utils/get-or-default';
 

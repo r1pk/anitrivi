@@ -1,5 +1,4 @@
 import { QueryClient, QueryCache } from '@tanstack/react-query';
-
 import { toast } from 'react-toastify';
 
 export const queryClient = new QueryClient({

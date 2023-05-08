@@ -1,11 +1,10 @@
-import { Unstable_Grid2 as Grid } from '@mui/material';
-import { Stack, Box, Typography, Link } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 
-import PageContainer from '@/components/misc/PageContainer';
-import BrandHeader from '@/components/misc/BrandHeader';
-import PanelCard from '@/components/misc/PanelCard';
+import { Unstable_Grid2 as Grid, Stack, Box, Typography, Link } from '@mui/material';
 
+import BrandHeader from '@/components/misc/BrandHeader';
+import PageContainer from '@/components/misc/PageContainer';
+import PanelCard from '@/components/misc/PanelCard';
 import SearchUserForm from '@/components/users/SearchUserForm';
 import UserChip from '@/components/users/UserChip';
 

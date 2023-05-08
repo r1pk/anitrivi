@@ -1,14 +1,15 @@
-import PropTypes from 'prop-types';
 import { forwardRef } from 'react';
+
+import PropTypes from 'prop-types';
 
 import { Box, Typography, Stack, Paper } from '@mui/material';
 
-import { getTitleByPreference } from '@/utils/get-title-by-preference';
-import { getReadableSource } from '@/utils/get-readable-source';
+import Chip from '@/components/common/Chip';
+
 import { getMainStudiosNames } from '@/utils/get-main-studios-names';
 import { getOrDefault } from '@/utils/get-or-default';
-
-import Chip from '@/components/common/Chip';
+import { getReadableSource } from '@/utils/get-readable-source';
+import { getTitleByPreference } from '@/utils/get-title-by-preference';
 
 const AnimeCard = forwardRef(({ anime, language, ...rest }, ref) => {
   const { coverImage, format, episodes, seasonYear, season, genres } = anime;
