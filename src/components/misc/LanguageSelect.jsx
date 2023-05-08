@@ -4,11 +4,11 @@ import PropTypes from 'prop-types';
 
 import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 
-const LanguageSelect = forwardRef(({ label, value, languages, onChangeLanguage, ...rest }, ref) => {
+const LanguageSelect = forwardRef(({ label, value, languages, onLanguageChange, ...rest }, ref) => {
   const labelId = useId();
 
-  const handleChangeLanguage = (event) => {
-    onChangeLanguage(event.target.value);
+  const handleLanguageChange = (event) => {
+    onLanguageChange(event.target.value);
   };
 
   return (
@@ -18,7 +18,7 @@ const LanguageSelect = forwardRef(({ label, value, languages, onChangeLanguage, 
         labelId={labelId}
         label={label}
         value={value}
-        onChange={handleChangeLanguage}
+        onChange={handleLanguageChange}
         MenuProps={{ sx: { position: 'absolute', maxWidth: 0, maxHeight: 300 }, disableScrollLock: true }}
       >
         {languages.map((language) => (
@@ -37,7 +37,7 @@ LanguageSelect.propTypes = {
   label: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
   languages: PropTypes.arrayOf(PropTypes.string).isRequired,
-  onChangeLanguage: PropTypes.func.isRequired,
+  onLanguageChange: PropTypes.func.isRequired,
 };
 
 export default LanguageSelect;

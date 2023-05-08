@@ -63,7 +63,7 @@ GuessEvaluationCard.propTypes = {
     season: PropTypes.oneOf(['correct', 'incorrect']).isRequired,
     studios: PropTypes.oneOf(['correct', 'partial', 'incorrect']).isRequired,
   }).isRequired,
-  language: PropTypes.string,
+  language: PropTypes.oneOf(['english', 'romaji', 'native']),
 };
 
 export default GuessEvaluationCard;

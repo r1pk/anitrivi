@@ -34,7 +34,7 @@ QuizSummaryCard.displayName = 'QuizSummaryCard';
 QuizSummaryCard.propTypes = {
   anime: PropTypes.object.isRequired,
   attempts: PropTypes.number.isRequired,
-  language: PropTypes.string,
+  language: PropTypes.oneOf(['english', 'romaji', 'native']),
 };
 
 export default QuizSummaryCard;

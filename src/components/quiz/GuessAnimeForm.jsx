@@ -8,7 +8,7 @@ import { Card, CardActions, Stack, Autocomplete, TextField, Button } from '@mui/
 
 import { getTitleByPreference } from '@/utils/get-title-by-preference';
 
-const GuessAnimeForm = forwardRef(({ options, language, onGuessAnime, ...rest }, ref) => {
+const GuessAnimeForm = forwardRef(({ options, language, onSubmit, ...rest }, ref) => {
   const { control, formState, handleSubmit, reset } = useForm({
     mode: 'all',
     defaultValues: {
@@ -17,15 +17,17 @@ const GuessAnimeForm = forwardRef(({ options, language, onGuessAnime, ...rest },
   });
   const { isValid, isDirty } = formState;
 
-  const onSubmit = (data) => {
-    if (isValid && isDirty) {
-      onGuessAnime(data.answer);
-      reset();
+  const handleFormSubmit = (data) => {
+    if (!isValid || !isDirty) {
+      return;
     }
+
+    onSubmit(data.answer);
+    reset();
   };
 
   return (
-    <Card component="form" onSubmit={handleSubmit(onSubmit)} ref={ref} {...rest}>
+    <Card component="form" onSubmit={handleSubmit(handleFormSubmit)} ref={ref} {...rest}>
       <CardActions>
         <Stack direction="row" spacing={1} sx={{ alignItems: 'center', width: 1 }}>
           <Controller
@@ -68,8 +70,8 @@ GuessAnimeForm.propTypes = {
       }).isRequired,
     })
   ).isRequired,
-  language: PropTypes.string,
-  onGuessAnime: PropTypes.func.isRequired,
+  language: PropTypes.oneOf(['english', 'romaji', 'native']),
+  onSubmit: PropTypes.func.isRequired,
 };
 
 export default GuessAnimeForm;

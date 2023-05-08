@@ -70,7 +70,7 @@ AnimeCard.displayName = 'AnimeCard';
 
 AnimeCard.propTypes = {
   anime: PropTypes.object.isRequired,
-  language: PropTypes.string,
+  language: PropTypes.oneOf(['english', 'romaji', 'native']),
 };
 
 export default AnimeCard;

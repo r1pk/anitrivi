@@ -23,13 +23,13 @@ const UserQuiz = () => {
   const userQuiz = useUserQuiz({ userId: userId });
   const [language, setLanguage] = useState('english');
 
-  const handleGuessAnime = (entry) => {
+  const handleGuessAnimeFormSubmit = (entry) => {
     if (userQuiz.isReady) {
       userQuiz.guessAnime(entry);
     }
   };
 
-  const handleChangeLanguage = (language) => {
+  const handleLanguageChange = (language) => {
     setLanguage(language);
   };
 
@@ -81,13 +81,13 @@ const UserQuiz = () => {
                   label="Title Language"
                   value={language}
                   languages={['english', 'romaji', 'native']}
-                  onChangeLanguage={handleChangeLanguage}
+                  onLanguageChange={handleLanguageChange}
                 />
                 <Box sx={{ flexGrow: 1 }} />
                 <UserChip user={userQuiz.user} />
               </Stack>
               {!userQuiz.isFinished && (
-                <GuessAnimeForm options={userQuiz.series} onGuessAnime={handleGuessAnime} language={language} />
+                <GuessAnimeForm options={userQuiz.series} language={language} onSubmit={handleGuessAnimeFormSubmit} />
               )}
               <PanelCard title={`Guess History (${userQuiz.guesses.length})`}>
                 <Stack spacing={1}>

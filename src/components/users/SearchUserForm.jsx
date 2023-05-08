@@ -13,7 +13,7 @@ const schema = Joi.object({
   username: Joi.string().trim().alphanum().min(2).max(20).required().label('username'),
 });
 
-const SearchUserForm = forwardRef(({ onSearchUser, ...rest }, ref) => {
+const SearchUserForm = forwardRef(({ onSubmit, ...rest }, ref) => {
   const { control, formState, handleSubmit } = useForm({
     mode: 'all',
     defaultValues: {
@@ -23,14 +23,16 @@ const SearchUserForm = forwardRef(({ onSearchUser, ...rest }, ref) => {
   });
   const { isValid, isDirty } = formState;
 
-  const onSubmit = (data) => {
-    if (isValid && isDirty) {
-      onSearchUser(data);
+  const handleFormSubmit = (data) => {
+    if (!isValid || !isDirty) {
+      return;
     }
+
+    onSubmit(data);
   };
 
   return (
-    <Card component="form" onSubmit={handleSubmit(onSubmit)} ref={ref} {...rest}>
+    <Card component="form" onSubmit={handleSubmit(handleFormSubmit)} ref={ref} {...rest}>
       <CardActions>
         <Stack direction="row" spacing={1} sx={{ alignItems: 'center', width: 1 }}>
           <Controller
@@ -64,7 +66,7 @@ const SearchUserForm = forwardRef(({ onSearchUser, ...rest }, ref) => {
 SearchUserForm.displayName = 'SearchUserForm';
 
 SearchUserForm.propTypes = {
-  onSearchUser: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
 };
 
 export default SearchUserForm;

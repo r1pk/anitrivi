@@ -18,7 +18,7 @@ const EvaluationChip = forwardRef(({ label, value, evaluation, ...rest }, ref) =
   };
 
   return (
-    <Stack direction="row" gap={0.5} sx={{ alignItems: 'center' }}>
+    <Stack direction="row" gap={0.5} sx={{ alignItems: 'center' }} ref={ref} {...rest}>
       <Typography variant="caption" color="text.secondary">
         {label}:
       </Typography>
