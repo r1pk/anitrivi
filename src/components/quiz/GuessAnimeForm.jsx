@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import { Controller, useForm } from 'react-hook-form';
 
-import { Card, CardActions, Stack, Autocomplete, TextField, Button } from '@mui/material';
+import { Card, CardActions, Stack, Autocomplete, TextField, Button, createFilterOptions } from '@mui/material';
 
 import { getTitleByPreference } from '@/utils/get-title-by-preference';
 
@@ -26,6 +26,11 @@ const GuessAnimeForm = forwardRef(({ options, language, onSubmit, ...rest }, ref
     reset();
   };
 
+  const filterOptions = createFilterOptions({
+    // prettier-ignore
+    stringify: (option) => Object.values(option.media.title).filter((title) => title).join('   '),
+  });
+
   return (
     <Card component="form" onSubmit={handleSubmit(handleFormSubmit)} ref={ref} {...rest}>
       <CardActions>
@@ -39,6 +44,7 @@ const GuessAnimeForm = forwardRef(({ options, language, onSubmit, ...rest }, ref
                 fullWidth
                 options={options}
                 value={value}
+                filterOptions={filterOptions}
                 onChange={(_, option) => onChange(option)}
                 getOptionLabel={(option) => getTitleByPreference(option.media.title, language)}
                 isOptionEqualToValue={(option, value) => option.mediaId === value.mediaId}
