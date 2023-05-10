@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 
 import { useParams } from 'react-router-dom';
 
-import { Unstable_Grid2 as Grid, Stack, Box, Alert, Typography, Fade } from '@mui/material';
+import { Unstable_Grid2 as Grid, Stack, Box, Alert, Typography, Fade, Button } from '@mui/material';
 
 import BrandHeader from '@/components/misc/BrandHeader';
 import LanguageSelect from '@/components/misc/LanguageSelect';
@@ -15,18 +15,27 @@ import QuizSummaryCard from '@/components/quiz/QuizSummaryCard';
 import UserChip from '@/components/users/UserChip';
 
 import { useUserQuiz } from '@/hooks/useUserQuiz';
+import { useUserStorage } from '@/hooks/useUserStorage';
 
 const UserQuiz = () => {
   const { userId } = useParams();
   const summaryCard = useRef(null);
 
   const userQuiz = useUserQuiz({ userId: userId });
-  const [language, setLanguage] = useState('english');
+  const { userStorage, setUserStorage } = useUserStorage({
+    userId: userId,
+    initialStorage: { language: 'english', guesses: {} },
+  });
+  const [language, setLanguage] = useState(userStorage.language);
 
   const handleGuessAnimeFormSubmit = (entry) => {
     if (userQuiz.isReady) {
       userQuiz.guessAnime(entry);
     }
+  };
+
+  const handleRestoreGuesses = () => {
+    userQuiz.restoreGuesses(userStorage.guesses[userQuiz.seed]);
   };
 
   const handleLanguageChange = (language) => {
@@ -40,6 +49,29 @@ const UserQuiz = () => {
       }
     },
     [userQuiz.isFinished]
+  );
+
+  useEffect(
+    function saveUserPreferences() {
+      setUserStorage((prev) => ({ ...prev, language: language }));
+    },
+    [language, setUserStorage]
+  );
+
+  useEffect(
+    function saveUserGuesses() {
+      if (userQuiz.guesses.length > 0) {
+        const animeIds = userQuiz.guesses.map((guess) => guess.anime.id);
+
+        setUserStorage((prev) => ({
+          ...prev,
+          guesses: {
+            [userQuiz.seed]: animeIds,
+          },
+        }));
+      }
+    },
+    [userQuiz.guesses, userQuiz.seed, setUserStorage]
   );
 
   return (
@@ -92,9 +124,16 @@ const UserQuiz = () => {
               <PanelCard title={`Guess History (${userQuiz.guesses.length})`}>
                 <Stack spacing={1}>
                   {userQuiz.guesses.length === 0 && (
-                    <Typography variant="button" color="text.secondary" sx={{ alignSelf: 'center', py: 2 }}>
-                      No guesses yet
-                    </Typography>
+                    <>
+                      <Typography variant="button" color="text.secondary" sx={{ alignSelf: 'center', py: 2 }}>
+                        No guesses yet
+                      </Typography>
+                      {userStorage.guesses[userQuiz.seed]?.length > 0 && (
+                        <Button onClick={handleRestoreGuesses} sx={{ alignSelf: 'center' }}>
+                          Restore previous guesses
+                        </Button>
+                      )}
+                    </>
                   )}
                   {userQuiz.guesses.map((guess, index) => (
                     <Fade key={index} in={true}>

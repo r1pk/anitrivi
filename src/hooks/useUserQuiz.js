@@ -28,5 +28,6 @@ export const useUserQuiz = ({ userId }) => {
     guesses: quiz.guesses,
 
     guessAnime: quiz.guessAnime,
+    restoreGuesses: quiz.restoreGuesses,
   };
 };

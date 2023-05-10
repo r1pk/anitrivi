@@ -30,7 +30,17 @@ export const useQuiz = ({ series, seed }) => {
     const evaluation = evaluateAnswer(anime.media, answer.media);
 
     setIsFinished(isCorrect);
-    setGuesses([{ isCorrect: isCorrect, anime: answer.media, evaluation: evaluation }, ...guesses]);
+    setGuesses((prev) => [{ isCorrect: isCorrect, anime: answer.media, evaluation: evaluation }, ...prev]);
+  };
+
+  const restoreGuesses = (animeIds) => {
+    for (const animeId of animeIds) {
+      const answer = series.find((anime) => anime.media.id === animeId);
+
+      if (answer) {
+        guessAnime(answer);
+      }
+    }
   };
 
   return {
@@ -45,5 +55,6 @@ export const useQuiz = ({ series, seed }) => {
     guesses: guesses,
 
     guessAnime: guessAnime,
+    restoreGuesses: restoreGuesses,
   };
 };
