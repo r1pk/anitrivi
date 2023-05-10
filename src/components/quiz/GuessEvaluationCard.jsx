@@ -5,16 +5,17 @@ import PropTypes from 'prop-types';
 import { Box, Card, CardContent, Stack, Typography, alpha, useTheme } from '@mui/material';
 
 import { getMainStudiosNames } from '@/utils/get-main-studios-names';
-import { getReadableSource } from '@/utils/get-readable-source';
 import { getTitleByPreference } from '@/utils/get-title-by-preference';
+import { removeUnderscore } from '@/utils/remove-underscore';
 
 import EvaluationChip from './EvaluationChip';
 
 const GuessEvaluationCard = forwardRef(({ isCorrect, anime, evaluation, language, ...rest }, ref) => {
-  const { bannerImage, format, episodes, averageScore, seasonYear, season } = anime;
+  const { bannerImage, episodes, averageScore, seasonYear, season } = anime;
 
   const title = getTitleByPreference(anime.title, language);
-  const source = anime.source && getReadableSource(anime.source);
+  const format = anime.format && removeUnderscore(anime.format);
+  const source = anime.source && removeUnderscore(anime.source);
   const studios = anime.studios.edges && getMainStudiosNames(anime.studios.edges).join(', ');
 
   const evaluations = [

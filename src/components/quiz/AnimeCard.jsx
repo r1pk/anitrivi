@@ -8,14 +8,15 @@ import Chip from '@/components/common/Chip';
 
 import { getMainStudiosNames } from '@/utils/get-main-studios-names';
 import { getOrDefault } from '@/utils/get-or-default';
-import { getReadableSource } from '@/utils/get-readable-source';
 import { getTitleByPreference } from '@/utils/get-title-by-preference';
+import { removeUnderscore } from '@/utils/remove-underscore';
 
 const AnimeCard = forwardRef(({ anime, language, ...rest }, ref) => {
-  const { coverImage, format, episodes, seasonYear, season, genres } = anime;
+  const { coverImage, episodes, seasonYear, season, genres } = anime;
 
   const title = getTitleByPreference(anime.title, language);
-  const source = anime.source && getReadableSource(anime.source);
+  const format = anime.format && removeUnderscore(anime.format);
+  const source = anime.source && removeUnderscore(anime.source);
   const studios = anime.studios.edges && getMainStudiosNames(anime.studios.edges).join(', ');
 
   const informations = [
