@@ -2,7 +2,7 @@ import { forwardRef } from 'react';
 
 import PropTypes from 'prop-types';
 
-import { Box, Typography, Stack, Paper } from '@mui/material';
+import { Box, Paper, Stack, Typography } from '@mui/material';
 
 import Chip from '@/components/common/Chip';
 

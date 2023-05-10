@@ -1,6 +1,6 @@
 import { Link as RouterLink } from 'react-router-dom';
 
-import { Unstable_Grid2 as Grid, Stack, Box, Typography, Link } from '@mui/material';
+import { Box, Unstable_Grid2 as Grid, Link, Stack, Typography } from '@mui/material';
 
 import BrandHeader from '@/components/misc/BrandHeader';
 import PageContainer from '@/components/misc/PageContainer';

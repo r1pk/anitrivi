@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { request, gql } from 'graphql-request';
+import { gql, request } from 'graphql-request';
 
 const ENDPOINT = 'https://graphql.anilist.co';
 

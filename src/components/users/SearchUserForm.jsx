@@ -7,7 +7,7 @@ import Joi from 'joi';
 import { Controller, useForm } from 'react-hook-form';
 
 import { Search } from '@mui/icons-material';
-import { TextField, Button, Card, CardActions, Stack } from '@mui/material';
+import { Button, Card, CardActions, Stack, TextField } from '@mui/material';
 
 const schema = Joi.object({
   username: Joi.string().trim().alphanum().min(2).max(20).required().label('username'),

@@ -2,7 +2,7 @@ import { forwardRef } from 'react';
 
 import PropTypes from 'prop-types';
 
-import { Card, CardContent, Box, Stack, Typography, useTheme, alpha } from '@mui/material';
+import { Box, Card, CardContent, Stack, Typography, alpha, useTheme } from '@mui/material';
 
 import { getMainStudiosNames } from '@/utils/get-main-studios-names';
 import { getReadableSource } from '@/utils/get-readable-source';

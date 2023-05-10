@@ -2,7 +2,7 @@ import { forwardRef, useId } from 'react';
 
 import PropTypes from 'prop-types';
 
-import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
+import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 
 const LanguageSelect = forwardRef(({ label, value, languages, onLanguageChange, ...rest }, ref) => {
   const labelId = useId();

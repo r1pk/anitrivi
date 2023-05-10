@@ -3,7 +3,7 @@
 import { QueryClientProvider } from '@tanstack/react-query';
 import { queryClient } from '@/configs/query-client';
 
-import { ThemeProvider, CssBaseline } from '@mui/material';
+import { CssBaseline, ThemeProvider } from '@mui/material';
 import { dark } from '@/themes/dark';
 
 import { BrowserRouter } from 'react-router-dom';

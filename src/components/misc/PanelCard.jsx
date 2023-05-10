@@ -2,7 +2,7 @@ import { forwardRef } from 'react';
 
 import PropTypes from 'prop-types';
 
-import { Card, CardContent, Typography, Divider } from '@mui/material';
+import { Card, CardContent, Divider, Typography } from '@mui/material';
 
 const PanelCard = forwardRef(({ title, children, ...rest }, ref) => {
   return (

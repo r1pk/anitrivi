@@ -2,7 +2,7 @@ import { forwardRef } from 'react';
 
 import PropTypes from 'prop-types';
 
-import { Card, CardContent, Stack, Box, Typography } from '@mui/material';
+import { Box, Card, CardContent, Stack, Typography } from '@mui/material';
 
 import AnimeCard from './AnimeCard';
 
