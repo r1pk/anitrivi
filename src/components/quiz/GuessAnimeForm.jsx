@@ -27,8 +27,11 @@ const GuessAnimeForm = forwardRef(({ options, language, onSubmit, ...rest }, ref
   };
 
   const filterOptions = createFilterOptions({
-    // prettier-ignore
-    stringify: (option) => Object.values(option.media.title).filter((title) => title).join('   '),
+    limit: 15,
+    stringify: (option) => {
+      // prettier-ignore
+      return Object.values(option.media.title).filter((title) => title).join('⋆');
+    },
   });
 
   return (
@@ -42,8 +45,8 @@ const GuessAnimeForm = forwardRef(({ options, language, onSubmit, ...rest }, ref
             render={({ field: { value, onChange } }) => (
               <Autocomplete
                 fullWidth
-                options={options}
                 value={value}
+                options={options}
                 filterOptions={filterOptions}
                 onChange={(_, option) => onChange(option)}
                 getOptionLabel={(option) => getTitleByPreference(option.media.title, language)}
