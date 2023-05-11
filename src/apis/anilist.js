@@ -50,7 +50,6 @@ export const useUserProfile = ({ userId }) => {
               }
               lists {
                 name
-                isCustomList
                 entries {
                   mediaId
                   media {
