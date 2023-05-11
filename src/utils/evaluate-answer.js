@@ -1,6 +1,14 @@
 import { findCommonElements } from './find-common-elements';
 
 export const compareNumbers = (reference, target) => {
+  if (reference === null) {
+    return 'unknown';
+  }
+
+  if (target === null) {
+    return 'incorrect';
+  }
+
   if (reference > target) {
     return 'higher';
   }
@@ -13,6 +21,10 @@ export const compareNumbers = (reference, target) => {
 };
 
 export const compareStrings = (reference, target) => {
+  if (reference === null) {
+    return 'unknown';
+  }
+
   if (reference === target) {
     return 'correct';
   }
@@ -23,6 +35,10 @@ export const compareStrings = (reference, target) => {
 export const compareArrays = (selector, reference, target) => {
   const commonElements = findCommonElements(reference, target, selector);
   const lengths = [commonElements.length, reference.length, target.length];
+
+  if (reference.length === 0) {
+    return 'unknown';
+  }
 
   if (lengths.every((length) => length === lengths[0])) {
     return 'correct';

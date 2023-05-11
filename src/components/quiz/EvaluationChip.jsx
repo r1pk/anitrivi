@@ -8,7 +8,7 @@ import { Stack, Typography } from '@mui/material';
 import { getOrDefault } from '@/utils/get-or-default';
 
 const EvaluationChip = forwardRef(({ label, value, evaluation, ...rest }, ref) => {
-  const isSimpleEvaluation = ['correct', 'partial', 'incorrect'].includes(evaluation);
+  const isSimpleEvaluation = ['correct', 'partial', 'incorrect', 'unknown'].includes(evaluation);
   const isNumericEvaluation = ['higher', 'lower'].includes(evaluation);
 
   const color = isSimpleEvaluation ? `evaluation.${evaluation}` : 'evaluation.incorrect';
@@ -34,7 +34,7 @@ EvaluationChip.displayName = 'EvaluationChip';
 EvaluationChip.propTypes = {
   label: PropTypes.string.isRequired,
   value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  evaluation: PropTypes.oneOf(['correct', 'partial', 'incorrect', 'higher', 'lower']).isRequired,
+  evaluation: PropTypes.oneOf(['correct', 'partial', 'incorrect', 'higher', 'lower', 'unknown']).isRequired,
 };
 
 export default EvaluationChip;
