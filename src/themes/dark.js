@@ -11,6 +11,8 @@ export const dark = responsiveFontSizes(
         mode: 'dark',
         evaluation: {
           correct: green[700],
+          higher: red[700],
+          lower: red[700],
           partial: orange[700],
           incorrect: red[700],
           unknown: grey[700],

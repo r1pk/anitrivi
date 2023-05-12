@@ -5,17 +5,16 @@ import PropTypes from 'prop-types';
 import { ArrowDownward, ArrowUpward } from '@mui/icons-material';
 import { Stack, Typography } from '@mui/material';
 
+import { EVALUATION } from '@/utils/evaluate-answer';
 import { getOrDefault } from '@/utils/get-or-default';
 
 const EvaluationChip = forwardRef(({ label, value, evaluation, ...rest }, ref) => {
-  const isSimpleEvaluation = ['correct', 'partial', 'incorrect', 'unknown'].includes(evaluation);
-  const isNumericEvaluation = ['higher', 'lower'].includes(evaluation);
-
-  const color = isSimpleEvaluation ? `evaluation.${evaluation}` : 'evaluation.incorrect';
+  const color = `evaluation.${evaluation}`;
   const icon = {
-    higher: <ArrowUpward sx={{ fontSize: 'inherit' }} />,
-    lower: <ArrowDownward sx={{ fontSize: 'inherit' }} />,
+    [EVALUATION.HIGHER]: <ArrowUpward sx={{ fontSize: 'inherit' }} />,
+    [EVALUATION.LOWER]: <ArrowDownward sx={{ fontSize: 'inherit' }} />,
   };
+  const isIconIncluded = Object.keys(icon).includes(evaluation);
 
   return (
     <Stack direction="row" gap={0.5} sx={{ alignItems: 'center' }} ref={ref} {...rest}>
@@ -23,7 +22,7 @@ const EvaluationChip = forwardRef(({ label, value, evaluation, ...rest }, ref) =
         {label}:
       </Typography>
       <Typography variant="button" color={color} sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-        {getOrDefault(value)} {isNumericEvaluation && icon[evaluation]}
+        {getOrDefault(value)} {isIconIncluded && icon[evaluation]}
       </Typography>
     </Stack>
   );
@@ -34,7 +33,7 @@ EvaluationChip.displayName = 'EvaluationChip';
 EvaluationChip.propTypes = {
   label: PropTypes.string.isRequired,
   value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  evaluation: PropTypes.oneOf(['correct', 'partial', 'incorrect', 'higher', 'lower', 'unknown']).isRequired,
+  evaluation: PropTypes.oneOf(Object.values(EVALUATION)).isRequired,
 };
 
 export default EvaluationChip;

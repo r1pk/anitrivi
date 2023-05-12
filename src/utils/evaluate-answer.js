@@ -2,10 +2,10 @@ import { findCommonElements } from './find-common-elements';
 
 export const EVALUATION = {
   CORRECT: 'correct',
-  INCORRECT: 'incorrect',
   HIGHER: 'higher',
   LOWER: 'lower',
   PARTIAL: 'partial',
+  INCORRECT: 'incorrect',
   UNKNOWN: 'unknown',
 };
 
