@@ -1,72 +1,85 @@
 import { findCommonElements } from './find-common-elements';
 
-export const compareNumbers = (reference, target) => {
+export const EVALUATION = {
+  CORRECT: 'correct',
+  INCORRECT: 'incorrect',
+  HIGHER: 'higher',
+  LOWER: 'lower',
+  PARTIAL: 'partial',
+  UNKNOWN: 'unknown',
+};
+
+export const evaluteNumbers = (reference, target) => {
+  const evaluations = [EVALUATION.LOWER, EVALUATION.CORRECT, EVALUATION.HIGHER];
+  const evaluationIndex = Math.sign(reference - target) + 1;
+
+  return evaluations[evaluationIndex];
+};
+
+export const evaluateStrings = (reference, target) => {
+  if (reference === target) {
+    return EVALUATION.CORRECT;
+  }
+
+  return EVALUATION.INCORRECT;
+};
+
+export const evaluatePrimitiveValues = (reference, target) => {
   if (reference === null) {
-    return 'unknown';
+    return EVALUATION.UNKNOWN;
   }
 
   if (target === null) {
-    return 'incorrect';
+    return EVALUATION.INCORRECT;
   }
 
-  if (reference > target) {
-    return 'higher';
+  if (typeof reference === 'number') {
+    return evaluteNumbers(reference, target);
   }
 
-  if (reference < target) {
-    return 'lower';
+  if (typeof reference === 'string') {
+    return evaluateStrings(reference, target);
   }
-
-  return 'correct';
 };
 
-export const compareStrings = (reference, target) => {
-  if (reference === null) {
-    return 'unknown';
-  }
-
-  if (reference === target) {
-    return 'correct';
-  }
-
-  return 'incorrect';
-};
-
-export const compareArrays = (selector, reference, target) => {
+export const evaluateArrays = (selector, reference, target) => {
   const commonElements = findCommonElements(reference, target, selector);
-  const lengths = [commonElements.length, reference.length, target.length];
+  const isEachLengthEqual = [reference.length, commonElements.length, target.length].every(
+    (length, _, lengths) => length === lengths[0]
+  );
 
-  if (reference.length === 0) {
-    return 'unknown';
-  }
-
-  if (lengths.every((length) => length === lengths[0])) {
-    return 'correct';
+  if (isEachLengthEqual) {
+    return EVALUATION.CORRECT;
   }
 
   if (commonElements.length > 0) {
-    return 'partial';
+    return EVALUATION.PARTIAL;
   }
 
-  return 'incorrect';
+  return EVALUATION.INCORRECT;
+};
+
+export const evaluateStudios = (reference, target) => {
+  if (reference.length === 0) {
+    return EVALUATION.UNKNOWN;
+  }
+
+  if (target.length === 0) {
+    return EVALUATION.INCORRECT;
+  }
+
+  return evaluateArrays((studio) => studio.node.id, reference, target);
 };
 
 export const evaluateAnswer = (reference, target) => {
   const evaluation = {};
+  const KEYS_WITH_PRIMITIVE_VALUES = ['id', 'format', 'season', 'source', 'episodes', 'averageScore', 'seasonYear'];
 
-  const strings = ['id', 'format', 'season', 'source'];
-  const numbers = ['episodes', 'averageScore', 'seasonYear'];
-
-  for (const key of strings) {
-    evaluation[key] = compareStrings(reference[key], target[key]);
+  for (const key of KEYS_WITH_PRIMITIVE_VALUES) {
+    evaluation[key] = evaluatePrimitiveValues(reference[key], target[key]);
   }
 
-  for (const key of numbers) {
-    evaluation[key] = compareNumbers(reference[key], target[key]);
-  }
-
-  evaluation.studios = compareArrays(
-    (studio) => studio.node.id,
+  evaluation.studios = evaluateStudios(
     reference.studios.edges.filter((studio) => studio.isMain),
     target.studios.edges.filter((studio) => studio.isMain)
   );
