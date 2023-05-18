@@ -76,84 +76,105 @@ const UserQuiz = () => {
 
   return (
     <PageContainer isLoaderVisible={userQuiz.isInitialLoading}>
-      <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', my: 2 }}>
-        <BrandHeader variant="h1" />
-        <NextAnimeCountdown />
-      </Box>
+      <Grid container spacing={2} sx={{ justifyContent: 'center' }}>
+        <Grid xs={12}>
+          <Stack spacing={1} sx={{ alignItems: 'center' }}>
+            <BrandHeader variant="h1" />
+            <NextAnimeCountdown />
+          </Stack>
+        </Grid>
 
-      <Grid container sx={{ justifyContent: 'center', my: 2 }}>
-        <Grid xs={12} sm={10} md={8} lg={6}>
-          <Fade mountOnEnter unmountOnExit in={userQuiz.isFinished}>
-            <Box>
-              {userQuiz.isFinished && (
+        {!(userQuiz.isInitialLoading || userQuiz.isRequirementFulfilled) && (
+          <Grid xs={12}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+              <Alert severity="error">User doesn't have enough completed anime to play the quiz</Alert>
+            </Box>
+          </Grid>
+        )}
+
+        {userQuiz.isFinished && (
+          <Grid container xs={12} sx={{ justifyContent: 'center' }}>
+            <Grid xs={12} sm={10} md={8} lg={6}>
+              <Fade mountOnEnter unmountOnExit in={userQuiz.isFinished}>
                 <QuizSummaryCard
                   ref={summaryCard}
                   anime={userQuiz.anime.media}
                   attempts={userQuiz.guesses.length}
                   language={language}
                 />
-              )}
-            </Box>
-          </Fade>
-        </Grid>
-      </Grid>
+              </Fade>
+            </Grid>
+          </Grid>
+        )}
 
-      {!(userQuiz.isInitialLoading || userQuiz.isRequirementFulfilled) && (
-        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', my: 2 }}>
-          <Alert severity="error">User doesn't have enough completed anime to play the quiz</Alert>
-        </Box>
-      )}
-
-      <Grid container sx={{ justifyContent: 'center', my: 2 }}>
-        <Grid xs={12} sm={10} md={8} lg={6}>
-          {userQuiz.isReady && (
-            <Stack spacing={2}>
-              <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>
-                <LanguageSelect
-                  label="Title Language"
-                  value={language}
-                  languages={['english', 'romaji', 'native']}
-                  onLanguageChange={handleLanguageChange}
-                />
-                <Box sx={{ flexGrow: 1 }} />
-                <UserChip user={userQuiz.user} />
-              </Stack>
-              {!userQuiz.isFinished && (
-                <GuessAnimeForm options={userQuiz.series} language={language} onSubmit={handleGuessAnimeFormSubmit} />
-              )}
-              <PanelCard title={`Guess History (${userQuiz.guesses.length})`}>
-                <Stack spacing={1}>
-                  {userQuiz.guesses.length === 0 && (
-                    <>
-                      <Typography variant="button" color="text.secondary" sx={{ alignSelf: 'center', py: 2 }}>
-                        No guesses yet
-                      </Typography>
-                      {userStorage.guesses[userQuiz.seed]?.length > 0 && (
-                        <Button onClick={handleRestoreGuesses} sx={{ alignSelf: 'center' }}>
-                          Restore previous guesses
-                        </Button>
-                      )}
-                    </>
-                  )}
-                  {userQuiz.guesses.map((guess, index) => (
-                    <Fade key={index} in={true}>
-                      <GuessEvaluationCard
-                        elevation={2}
-                        isCorrect={guess.isCorrect}
-                        anime={guess.anime}
-                        evaluation={guess.evaluation}
-                        language={language}
-                      />
-                    </Fade>
-                  ))}
+        {userQuiz.isReady && (
+          <>
+            <Grid container xs={12} sx={{ justifyContent: 'center' }}>
+              <Grid xs={12} sm={10} md={8} lg={6}>
+                <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>
+                  <LanguageSelect
+                    label="Title Language"
+                    value={language}
+                    languages={['english', 'romaji', 'native']}
+                    onLanguageChange={handleLanguageChange}
+                  />
+                  <Box sx={{ flexGrow: 1 }} />
+                  <UserChip user={userQuiz.user} />
                 </Stack>
-              </PanelCard>
-              <Typography variant="overline" color="text.secondary" sx={{ alignSelf: 'center' }}>
-                Seed: {userQuiz.seed}
-              </Typography>
-            </Stack>
-          )}
-        </Grid>
+              </Grid>
+            </Grid>
+
+            {!userQuiz.isFinished && (
+              <Grid container xs={12} sx={{ justifyContent: 'center' }}>
+                <Grid xs={12} sm={10} md={8} lg={6}>
+                  <GuessAnimeForm options={userQuiz.series} language={language} onSubmit={handleGuessAnimeFormSubmit} />
+                </Grid>
+              </Grid>
+            )}
+
+            <Grid container xs={12} sx={{ justifyContent: 'center' }}>
+              <Grid xs={12} sm={10} md={8} lg={6}>
+                <PanelCard title={`Guess History (${userQuiz.guesses.length})`}>
+                  <Stack spacing={1}>
+                    {userQuiz.guesses.length === 0 && (
+                      <>
+                        <Typography variant="button" color="text.secondary" sx={{ alignSelf: 'center', py: 2 }}>
+                          No guesses yet
+                        </Typography>
+                        {userStorage.guesses[userQuiz.seed]?.length > 0 && (
+                          <Button onClick={handleRestoreGuesses} sx={{ alignSelf: 'center' }}>
+                            Restore previous guesses
+                          </Button>
+                        )}
+                      </>
+                    )}
+                    {userQuiz.guesses.map((guess, index) => (
+                      <Fade key={index} in={true}>
+                        <GuessEvaluationCard
+                          elevation={2}
+                          isCorrect={guess.isCorrect}
+                          anime={guess.anime}
+                          evaluation={guess.evaluation}
+                          language={language}
+                        />
+                      </Fade>
+                    ))}
+                  </Stack>
+                </PanelCard>
+              </Grid>
+            </Grid>
+
+            <Grid container xs={12} sx={{ justifyContent: 'center' }}>
+              <Grid xs={12} sm={10} md={8} lg={6}>
+                <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                  <Typography variant="overline" color="text.secondary" sx={{ alignSelf: 'center' }}>
+                    Seed: {userQuiz.seed}
+                  </Typography>
+                </Box>
+              </Grid>
+            </Grid>
+          </>
+        )}
       </Grid>
     </PageContainer>
   );

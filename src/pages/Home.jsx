@@ -19,14 +19,22 @@ const Home = () => {
 
   return (
     <PageContainer isLoaderVisible={isInitialLoading}>
-      <Box sx={{ display: 'flex', justifyContent: 'center', my: 2 }}>
-        <BrandHeader variant="h1" />
-      </Box>
-      <Grid container sx={{ justifyContent: 'center', my: 2 }}>
-        <Grid xs={12} sm={10} md={8} lg={6}>
-          <Stack spacing={2}>
+      <Grid container spacing={2} sx={{ justifyContent: 'center' }}>
+        <Grid xs={12}>
+          <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+            <BrandHeader variant="h1" />
+          </Box>
+        </Grid>
+
+        <Grid container xs={12} sx={{ justifyContent: 'center' }}>
+          <Grid xs={12} sm={10} md={8} lg={6}>
             <SearchUserForm placeholder="AniList Username" onSubmit={handleSearchUserFormSubmit} />
-            {isSuccess && (
+          </Grid>
+        </Grid>
+
+        {isSuccess && (
+          <Grid container xs={12} sx={{ justifyContent: 'center' }}>
+            <Grid xs={12} sm={10} md={8} lg={6}>
               <PanelCard title="Search Results">
                 <Stack spacing={1}>
                   {users.length === 0 && (
@@ -41,9 +49,9 @@ const Home = () => {
                   ))}
                 </Stack>
               </PanelCard>
-            )}
-          </Stack>
-        </Grid>
+            </Grid>
+          </Grid>
+        )}
       </Grid>
     </PageContainer>
   );
