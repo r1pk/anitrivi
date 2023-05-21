@@ -13,7 +13,7 @@ import { useUserSearch } from '@/hooks/useUserSearch';
 const Home = () => {
   const { users, isSuccess, isInitialLoading, searchUsers } = useUserSearch({ limit: 6 });
 
-  const handleSearchUserFormSubmit = (data) => {
+  const handleSearchUser = (data) => {
     searchUsers(data.username);
   };
 
@@ -28,7 +28,7 @@ const Home = () => {
 
         <Grid container xs={12} sx={{ justifyContent: 'center' }}>
           <Grid xs={12} sm={10} md={8} lg={6}>
-            <SearchUserForm placeholder="AniList Username" onSubmit={handleSearchUserFormSubmit} />
+            <SearchUserForm placeholder="AniList Username" onSubmit={handleSearchUser} />
           </Grid>
         </Grid>
 

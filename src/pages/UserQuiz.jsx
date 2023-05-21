@@ -28,7 +28,7 @@ const UserQuiz = () => {
   });
   const [language, setLanguage] = useState(userStorage.language);
 
-  const handleGuessAnimeFormSubmit = (entry) => {
+  const handleGuessAnime = (entry) => {
     if (userQuiz.isReady) {
       userQuiz.guessAnime(entry);
     }
@@ -38,7 +38,7 @@ const UserQuiz = () => {
     userQuiz.restoreGuesses(userStorage.guesses[userQuiz.seed]);
   };
 
-  const handleLanguageChange = (language) => {
+  const handleChangeLanguage = (language) => {
     setLanguage(language);
   };
 
@@ -116,7 +116,7 @@ const UserQuiz = () => {
                     label="Title Language"
                     value={language}
                     languages={['english', 'romaji', 'native']}
-                    onLanguageChange={handleLanguageChange}
+                    onChangeLanguage={handleChangeLanguage}
                   />
                   <Box sx={{ flexGrow: 1 }} />
                   <UserChip user={userQuiz.user} />
@@ -127,7 +127,7 @@ const UserQuiz = () => {
             {!userQuiz.isFinished && (
               <Grid container xs={12} sx={{ justifyContent: 'center' }}>
                 <Grid xs={12} sm={10} md={8} lg={6}>
-                  <GuessAnimeForm options={userQuiz.series} language={language} onSubmit={handleGuessAnimeFormSubmit} />
+                  <GuessAnimeForm options={userQuiz.series} language={language} onSubmit={handleGuessAnime} />
                 </Grid>
               </Grid>
             )}
