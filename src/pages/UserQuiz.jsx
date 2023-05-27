@@ -2,7 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 
 import { useParams } from 'react-router-dom';
 
-import { Alert, Box, Button, Fade, Unstable_Grid2 as Grid, Stack, Typography } from '@mui/material';
+import { Shuffle } from '@mui/icons-material';
+import { Alert, Box, Button, Fade, Unstable_Grid2 as Grid, IconButton, Stack, Typography } from '@mui/material';
 
 import BrandHeader from '@/components/misc/BrandHeader';
 import LanguageSelect from '@/components/misc/LanguageSelect';
@@ -166,10 +167,13 @@ const UserQuiz = () => {
 
             <Grid container xs={12} sx={{ justifyContent: 'center' }}>
               <Grid xs={12} sm={10} md={8} lg={6}>
-                <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                  <Typography variant="overline" color="text.secondary" sx={{ alignSelf: 'center' }}>
+                <Box color="text.secondary" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                  <Typography variant="overline" color="inherit">
                     Seed: {userQuiz.seed}
                   </Typography>
+                  <IconButton size="small" color="inherit" onClick={userQuiz.randomizeSeed}>
+                    <Shuffle fontSize="inherit" />
+                  </IconButton>
                 </Box>
               </Grid>
             </Grid>

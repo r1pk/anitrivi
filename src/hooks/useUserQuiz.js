@@ -3,18 +3,17 @@ import { useMemo } from 'react';
 import { useUserProfile } from '@/apis/anilist';
 
 import { useQuiz } from './useQuiz';
+import { useSeed } from './useSeed';
 
 export const useUserQuiz = ({ userId }) => {
   const { data, isSuccess, isInitialLoading } = useUserProfile({ userId: userId });
+  const { seed, randomizeSeed } = useSeed({ additionalFactor: userId * 123 });
 
   const series = useMemo(() => {
     const entries = data?.lists.map((list) => list.entries).flat();
 
     return [...new Map(entries?.map((entry) => [entry.media.id, entry])).values()];
   }, [data]);
-
-  const MILLISECONDS_IN_DAY = 1000 * 60 * 60 * 24;
-  const seed = Math.floor(Date.now() / MILLISECONDS_IN_DAY) + userId * 123;
 
   const quiz = useQuiz({ series: series, seed: seed });
 
@@ -33,5 +32,6 @@ export const useUserQuiz = ({ userId }) => {
 
     guessAnime: quiz.guessAnime,
     restoreGuesses: quiz.restoreGuesses,
+    randomizeSeed: randomizeSeed,
   };
 };

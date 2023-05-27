@@ -12,6 +12,17 @@ export const useQuiz = ({ series, seed }) => {
   const isRequirementFulfilled = series?.length > 0;
 
   useEffect(
+    function resetQuizStates() {
+      setIsReady(false);
+      setIsFinished(false);
+
+      setAnime(null);
+      setGuesses([]);
+    },
+    [seed]
+  );
+
+  useEffect(
     function pickRandomAnime() {
       if (!isRequirementFulfilled) return;
 
