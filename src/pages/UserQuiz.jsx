@@ -30,9 +30,14 @@ const UserQuiz = () => {
   const [language, setLanguage] = useState(userStorage.language);
 
   const handleGuessAnime = (entry) => {
-    if (userQuiz.isReady) {
-      userQuiz.guessAnime(entry);
-    }
+    userQuiz.guessAnime(entry);
+    setUserStorage((prev) => ({
+      ...prev,
+      guesses: {
+        ...prev.guesses,
+        [userQuiz.seed]: [].concat(prev.guesses[userQuiz.seed] || [], entry.media.id),
+      },
+    }));
   };
 
   const handleRestoreGuesses = () => {
@@ -41,6 +46,7 @@ const UserQuiz = () => {
 
   const handleChangeLanguage = (language) => {
     setLanguage(language);
+    setUserStorage((prev) => ({ ...prev, language: language }));
   };
 
   useEffect(
@@ -50,29 +56,6 @@ const UserQuiz = () => {
       }
     },
     [userQuiz.isFinished]
-  );
-
-  useEffect(
-    function saveUserPreferences() {
-      setUserStorage((prev) => ({ ...prev, language: language }));
-    },
-    [language, setUserStorage]
-  );
-
-  useEffect(
-    function saveUserGuesses() {
-      if (userQuiz.guesses.length > 0) {
-        const animeIds = userQuiz.guesses.map((guess) => guess.anime.id);
-
-        setUserStorage((prev) => ({
-          ...prev,
-          guesses: {
-            [userQuiz.seed]: animeIds,
-          },
-        }));
-      }
-    },
-    [userQuiz.guesses, userQuiz.seed, setUserStorage]
   );
 
   return (
