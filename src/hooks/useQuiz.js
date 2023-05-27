@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { evaluateAnswer } from '@/utils/evaluate-answer';
+import { EVALUATION, evaluateAnswer } from '@/utils/evaluate-answer';
 
 export const useQuiz = ({ series, seed }) => {
   const [isReady, setIsReady] = useState(false);
@@ -37,11 +37,14 @@ export const useQuiz = ({ series, seed }) => {
   );
 
   const guessAnime = (answer) => {
-    const isCorrect = anime.mediaId === answer.mediaId;
     const evaluation = evaluateAnswer(anime.media, answer.media);
+    const guess = { anime: answer.media, evaluation: evaluation };
 
-    setIsFinished(isCorrect);
-    setGuesses((prev) => [{ isCorrect: isCorrect, anime: answer.media, evaluation: evaluation }, ...prev]);
+    if (evaluation.anime === EVALUATION.CORRECT) {
+      setIsFinished(true);
+    }
+
+    setGuesses((prev) => [guess, ...prev]);
   };
 
   const restoreGuesses = (animeIds) => {

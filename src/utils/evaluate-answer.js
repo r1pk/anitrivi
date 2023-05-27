@@ -72,8 +72,10 @@ export const evaluateStudios = (reference, target) => {
 };
 
 export const evaluateAnswer = (reference, target) => {
-  const evaluation = {};
-  const KEYS_WITH_PRIMITIVE_VALUES = ['id', 'format', 'season', 'source', 'episodes', 'averageScore', 'seasonYear'];
+  const evaluation = {
+    anime: evaluateStrings(reference.id, target.id),
+  };
+  const KEYS_WITH_PRIMITIVE_VALUES = ['format', 'season', 'source', 'episodes', 'averageScore', 'seasonYear'];
 
   for (const key of KEYS_WITH_PRIMITIVE_VALUES) {
     evaluation[key] = evaluatePrimitiveValues(reference[key], target[key]);

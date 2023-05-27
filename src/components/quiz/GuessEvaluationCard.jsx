@@ -10,7 +10,7 @@ import { removeUnderscore } from '@/utils/remove-underscore';
 
 import EvaluationChip from './EvaluationChip';
 
-const GuessEvaluationCard = forwardRef(({ isCorrect, anime, evaluation, language, ...rest }, ref) => {
+const GuessEvaluationCard = forwardRef(({ anime, evaluation, language, ...rest }, ref) => {
   const { bannerImage, episodes, averageScore, seasonYear, season } = anime;
 
   const title = getTitleByPreference(anime.title, language);
@@ -30,7 +30,7 @@ const GuessEvaluationCard = forwardRef(({ isCorrect, anime, evaluation, language
 
   const { palette } = useTheme();
   const backgroundColor = alpha(palette.background.paper, 0.8);
-  const evaluationColor = isCorrect ? alpha(palette.evaluation.correct, 0.5) : alpha(palette.evaluation.incorrect, 0.5);
+  const evaluationColor = alpha(palette.evaluation[evaluation.anime], 0.5);
   const background = `linear-gradient(${backgroundColor}, ${backgroundColor}), url(${bannerImage}) center/cover no-repeat`;
 
   return (
@@ -53,7 +53,6 @@ const GuessEvaluationCard = forwardRef(({ isCorrect, anime, evaluation, language
 GuessEvaluationCard.displayName = 'GuessEvaluationCard';
 
 GuessEvaluationCard.propTypes = {
-  isCorrect: PropTypes.bool.isRequired,
   anime: PropTypes.object.isRequired,
   evaluation: PropTypes.shape({
     source: PropTypes.string.isRequired,
