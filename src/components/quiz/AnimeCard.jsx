@@ -55,7 +55,7 @@ const AnimeCard = forwardRef(({ anime, language, ...rest }, ref) => {
           <Stack direction="row" sx={{ flexWrap: 'wrap', gap: 1 }}>
             {genres.slice(0, 3).map((genre) => (
               <Chip key={genre} color="#636e72" style={{ flex: '1 0 40%', textAlign: 'center' }}>
-                <Typography variant="caption" component="div">
+                <Typography variant="caption" component="div" sx={{ whiteSpace: 'nowrap' }}>
                   {genre}
                 </Typography>
               </Chip>
