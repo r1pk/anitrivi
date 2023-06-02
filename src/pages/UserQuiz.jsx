@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 
 import { useParams } from 'react-router-dom';
 
@@ -23,11 +23,7 @@ const UserQuiz = () => {
   const summaryCard = useRef(null);
 
   const userQuiz = useUserQuiz({ userId: userId });
-  const { userStorage, setUserStorage } = useUserStorage({
-    userId: userId,
-    initialStorage: { language: 'english', guesses: {} },
-  });
-  const [language, setLanguage] = useState(userStorage.language);
+  const { userStorage, setUserStorage } = useUserStorage({ userId: userId });
 
   const handleGuessAnime = (entry) => {
     userQuiz.guessAnime(entry);
@@ -45,8 +41,13 @@ const UserQuiz = () => {
   };
 
   const handleChangeLanguage = (language) => {
-    setLanguage(language);
-    setUserStorage((prev) => ({ ...prev, language: language }));
+    setUserStorage((prev) => ({
+      ...prev,
+      settings: {
+        ...prev.settings,
+        language: language,
+      },
+    }));
   };
 
   useEffect(
@@ -84,7 +85,7 @@ const UserQuiz = () => {
                   ref={summaryCard}
                   anime={userQuiz.anime.media}
                   attempts={userQuiz.guesses.length}
-                  language={language}
+                  language={userStorage.settings.language}
                 />
               </Fade>
             </Grid>
@@ -98,7 +99,7 @@ const UserQuiz = () => {
                 <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>
                   <LanguageSelect
                     label="Title Language"
-                    value={language}
+                    value={userStorage.settings.language}
                     languages={['english', 'romaji', 'native']}
                     onChangeLanguage={handleChangeLanguage}
                   />
@@ -111,7 +112,11 @@ const UserQuiz = () => {
             {!userQuiz.isFinished && (
               <Grid container xs={12} sx={{ justifyContent: 'center' }}>
                 <Grid xs={12} sm={10} md={8} lg={6}>
-                  <GuessAnimeForm options={userQuiz.series} language={language} onSubmit={handleGuessAnime} />
+                  <GuessAnimeForm
+                    options={userQuiz.series}
+                    language={userStorage.settings.language}
+                    onSubmit={handleGuessAnime}
+                  />
                 </Grid>
               </Grid>
             )}
@@ -138,7 +143,7 @@ const UserQuiz = () => {
                           elevation={2}
                           anime={guess.anime}
                           evaluation={guess.evaluation}
-                          language={language}
+                          language={userStorage.settings.language}
                         />
                       </Fade>
                     ))}
