@@ -21,7 +21,7 @@ const EvaluationChip = forwardRef(({ label, value, evaluation, ...rest }, ref) =
       <Typography variant="caption" color="text.secondary">
         {label}:
       </Typography>
-      <Typography variant="button" color={color} sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
+      <Typography variant="button" color={color} sx={{ display: 'flex', alignItems: 'center' }}>
         {getOrDefault(value)} {isIconIncluded && icon[evaluation]}
       </Typography>
     </Stack>
