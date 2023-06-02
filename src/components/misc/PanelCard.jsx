@@ -2,22 +2,18 @@ import { forwardRef } from 'react';
 
 import PropTypes from 'prop-types';
 
-import { Card, CardContent, Divider, Typography } from '@mui/material';
+import { Card, CardContent, CardHeader, Divider } from '@mui/material';
 
 const PanelCard = forwardRef(({ title, children, ...rest }, ref) => {
   return (
     <Card ref={ref} {...rest}>
-      <CardContent>
-        {title && (
-          <>
-            <Typography gutterBottom variant="button" component="div">
-              {title}
-            </Typography>
-            <Divider sx={{ my: 1 }} />
-          </>
-        )}
-        {children}
-      </CardContent>
+      {title && (
+        <>
+          <CardHeader title={title} titleTypographyProps={{ variant: 'button' }} sx={{ p: 2, pb: 1 }} />
+          <Divider sx={{ mx: 2 }} />
+        </>
+      )}
+      <CardContent>{children}</CardContent>
     </Card>
   );
 });
