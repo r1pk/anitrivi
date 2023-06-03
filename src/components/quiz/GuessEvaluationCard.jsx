@@ -6,11 +6,12 @@ import { Box, Card, CardContent, Stack, Typography, alpha, useTheme } from '@mui
 
 import { getMainStudiosNames } from '@/utils/get-main-studios-names';
 import { getTitleByPreference } from '@/utils/get-title-by-preference';
+import { mergeSx } from '@/utils/merge-sx';
 import { removeUnderscore } from '@/utils/remove-underscore';
 
 import EvaluationChip from './EvaluationChip';
 
-const GuessEvaluationCard = forwardRef(({ anime, evaluation, language, ...rest }, ref) => {
+const GuessEvaluationCard = forwardRef(({ sx, anime, evaluation, language, ...rest }, ref) => {
   const { bannerImage, episodes, averageScore, seasonYear, season } = anime;
 
   const title = getTitleByPreference(anime.title, language);
@@ -34,20 +35,14 @@ const GuessEvaluationCard = forwardRef(({ anime, evaluation, language, ...rest }
   const background = `linear-gradient(${backgroundColor}, ${backgroundColor}), url(${bannerImage}) center/cover no-repeat`;
 
   return (
-    <Card sx={{ position: 'relative', display: 'flex' }} ref={ref} {...rest}>
+    <Card sx={mergeSx({ position: 'relative', display: 'flex' }, sx)} ref={ref} {...rest}>
       <CardContent sx={{ flex: 1, zIndex: 1, background: background }}>
         <Typography variant="button" gutterBottom>
           {title}
         </Typography>
         <Stack direction={{ xs: 'column', sm: 'row' }} sx={{ flexWrap: 'wrap' }}>
           {evaluations.map(({ label, value, evaluation }) => (
-            <EvaluationChip
-              key={label}
-              label={label}
-              value={value}
-              evaluation={evaluation}
-              style={{ flex: '1 0 45%' }}
-            />
+            <EvaluationChip key={label} label={label} value={value} evaluation={evaluation} sx={{ flex: '1 0 45%' }} />
           ))}
         </Stack>
       </CardContent>
@@ -59,6 +54,11 @@ const GuessEvaluationCard = forwardRef(({ anime, evaluation, language, ...rest }
 GuessEvaluationCard.displayName = 'GuessEvaluationCard';
 
 GuessEvaluationCard.propTypes = {
+  sx: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.object,
+    PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.func, PropTypes.object, PropTypes.bool])),
+  ]),
   anime: PropTypes.object.isRequired,
   evaluation: PropTypes.shape({
     source: PropTypes.string.isRequired,

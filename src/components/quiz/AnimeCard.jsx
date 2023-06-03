@@ -9,9 +9,10 @@ import Chip from '@/components/common/Chip';
 import { getMainStudiosNames } from '@/utils/get-main-studios-names';
 import { getOrDefault } from '@/utils/get-or-default';
 import { getTitleByPreference } from '@/utils/get-title-by-preference';
+import { mergeSx } from '@/utils/merge-sx';
 import { removeUnderscore } from '@/utils/remove-underscore';
 
-const AnimeCard = forwardRef(({ anime, language, ...rest }, ref) => {
+const AnimeCard = forwardRef(({ sx, anime, language, ...rest }, ref) => {
   const { coverImage, episodes, seasonYear, season, genres } = anime;
 
   const title = getTitleByPreference(anime.title, language);
@@ -28,7 +29,7 @@ const AnimeCard = forwardRef(({ anime, language, ...rest }, ref) => {
   ];
 
   return (
-    <Box sx={{ display: 'flex' }} ref={ref} {...rest}>
+    <Box sx={mergeSx({ display: 'flex' }, sx)} ref={ref} {...rest}>
       <Box sx={{ position: 'relative', display: 'flex', borderRadius: 1, overflow: 'hidden' }}>
         <Box component="img" alt={title} src={coverImage.large} sx={{ width: { xs: 150, md: 165 } }} />
         <Box sx={{ position: 'absolute', alignSelf: 'flex-end', width: 1, p: 1, backgroundColor: '#121212cc' }}>
@@ -54,7 +55,7 @@ const AnimeCard = forwardRef(({ anime, language, ...rest }, ref) => {
           </Stack>
           <Stack direction="row" sx={{ flexWrap: 'wrap', gap: 1 }}>
             {genres.slice(0, 3).map((genre) => (
-              <Chip key={genre} color="#636e72" style={{ flex: '1 0 45%', textAlign: 'center' }}>
+              <Chip key={genre} color="#636e72" sx={{ flex: '1 0 45%', textAlign: 'center' }}>
                 <Typography variant="caption" component="div" sx={{ whiteSpace: 'nowrap' }}>
                   {genre}
                 </Typography>
@@ -70,6 +71,11 @@ const AnimeCard = forwardRef(({ anime, language, ...rest }, ref) => {
 AnimeCard.displayName = 'AnimeCard';
 
 AnimeCard.propTypes = {
+  sx: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.object,
+    PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.func, PropTypes.object, PropTypes.bool])),
+  ]),
   anime: PropTypes.object.isRequired,
   language: PropTypes.oneOf(['english', 'romaji', 'native']),
 };

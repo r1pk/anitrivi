@@ -4,7 +4,9 @@ import PropTypes from 'prop-types';
 
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 
-const LanguageSelect = forwardRef(({ label, value, languages, onChangeLanguage, ...rest }, ref) => {
+import { mergeSx } from '@/utils/merge-sx';
+
+const LanguageSelect = forwardRef(({ sx, label, value, languages, onChangeLanguage, ...rest }, ref) => {
   const labelId = useId();
 
   const handleChangeLanguage = (event) => {
@@ -12,7 +14,7 @@ const LanguageSelect = forwardRef(({ label, value, languages, onChangeLanguage, 
   };
 
   return (
-    <FormControl size="small" sx={{ minWidth: 120 }} ref={ref} {...rest}>
+    <FormControl size="small" sx={mergeSx({ minWidth: 120 }, sx)} ref={ref} {...rest}>
       <InputLabel id={labelId}>{label}</InputLabel>
       <Select
         labelId={labelId}
@@ -34,6 +36,11 @@ const LanguageSelect = forwardRef(({ label, value, languages, onChangeLanguage, 
 LanguageSelect.displayName = 'LanguageSelect';
 
 LanguageSelect.propTypes = {
+  sx: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.object,
+    PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.func, PropTypes.object, PropTypes.bool])),
+  ]),
   label: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
   languages: PropTypes.arrayOf(PropTypes.string).isRequired,

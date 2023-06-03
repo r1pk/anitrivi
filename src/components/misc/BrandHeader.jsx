@@ -5,9 +5,17 @@ import PropTypes from 'prop-types';
 import { Quiz } from '@mui/icons-material';
 import { Typography } from '@mui/material';
 
-const BrandHeader = forwardRef(({ variant, ...rest }, ref) => {
+import { mergeSx } from '@/utils/merge-sx';
+
+const BrandHeader = forwardRef(({ sx, variant, ...rest }, ref) => {
   return (
-    <Typography variant={variant} component="div" sx={{ display: 'flex', alignItems: 'center' }} ref={ref} {...rest}>
+    <Typography
+      variant={variant}
+      component="div"
+      sx={mergeSx({ display: 'flex', alignItems: 'center' }, sx)}
+      ref={ref}
+      {...rest}
+    >
       <Quiz sx={{ mr: 1, fontSize: 'inherit' }} /> AniTrivi
     </Typography>
   );
@@ -16,6 +24,11 @@ const BrandHeader = forwardRef(({ variant, ...rest }, ref) => {
 BrandHeader.displayName = 'BrandHeader';
 
 BrandHeader.propTypes = {
+  sx: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.object,
+    PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.func, PropTypes.object, PropTypes.bool])),
+  ]),
   variant: PropTypes.oneOf([
     'inherit',
     'overline',
