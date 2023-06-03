@@ -30,7 +30,6 @@ const EvaluationChip = forwardRef(({ sx, label, value, evaluation, ...rest }, re
 });
 
 EvaluationChip.displayName = 'EvaluationChip';
-
 EvaluationChip.propTypes = {
   sx: PropTypes.oneOfType([
     PropTypes.func,
@@ -39,7 +38,7 @@ EvaluationChip.propTypes = {
   ]),
   label: PropTypes.string.isRequired,
   value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  evaluation: PropTypes.oneOf(Object.values(EVALUATION)).isRequired,
+  evaluation: PropTypes.oneOf(['correct', 'higher', 'lower', 'partial', 'incorrect', 'unknown']).isRequired,
 };
 
 export default EvaluationChip;

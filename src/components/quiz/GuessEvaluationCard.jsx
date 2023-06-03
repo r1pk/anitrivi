@@ -58,22 +58,44 @@ const GuessEvaluationCard = forwardRef(({ sx, anime, evaluation, language, ...re
 });
 
 GuessEvaluationCard.displayName = 'GuessEvaluationCard';
-
 GuessEvaluationCard.propTypes = {
   sx: PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.object,
     PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.func, PropTypes.object, PropTypes.bool])),
   ]),
-  anime: PropTypes.object.isRequired,
+  anime: PropTypes.shape({
+    title: PropTypes.shape({
+      english: PropTypes.string,
+      romaji: PropTypes.string,
+      native: PropTypes.string,
+    }).isRequired,
+    bannerImage: PropTypes.string,
+    format: PropTypes.string,
+    episodes: PropTypes.number,
+    averageScore: PropTypes.number,
+    season: PropTypes.string,
+    seasonYear: PropTypes.number,
+    source: PropTypes.string,
+    studios: PropTypes.shape({
+      edges: PropTypes.arrayOf(
+        PropTypes.shape({
+          isMain: PropTypes.bool.isRequired,
+          node: PropTypes.shape({
+            name: PropTypes.string.isRequired,
+          }).isRequired,
+        })
+      ).isRequired,
+    }).isRequired,
+  }).isRequired,
   evaluation: PropTypes.shape({
-    source: PropTypes.string.isRequired,
-    format: PropTypes.string.isRequired,
-    episodes: PropTypes.string.isRequired,
-    averageScore: PropTypes.string.isRequired,
-    seasonYear: PropTypes.string.isRequired,
-    season: PropTypes.string.isRequired,
-    studios: PropTypes.string.isRequired,
+    anime: PropTypes.oneOf(['correct', 'incorrect']).isRequired,
+    format: PropTypes.oneOf(['correct', 'incorrect', 'unknown']).isRequired,
+    episodes: PropTypes.oneOf(['correct', 'higher', 'lower', 'unknown']).isRequired,
+    averageScore: PropTypes.oneOf(['correct', 'higher', 'lower', 'unknown']).isRequired,
+    season: PropTypes.oneOf(['correct', 'incorrect', 'unknown']).isRequired,
+    seasonYear: PropTypes.oneOf(['correct', 'higher', 'lower', 'unknown']).isRequired,
+    source: PropTypes.oneOf(['correct', 'partial', 'incorrect', 'unknown']).isRequired,
   }).isRequired,
   language: PropTypes.oneOf(['english', 'romaji', 'native']),
 };

@@ -34,7 +34,6 @@ const LanguageSelect = forwardRef(({ sx, label, value, languages, onChangeLangua
 });
 
 LanguageSelect.displayName = 'LanguageSelect';
-
 LanguageSelect.propTypes = {
   sx: PropTypes.oneOfType([
     PropTypes.func,

@@ -64,7 +64,6 @@ const SearchUserForm = forwardRef(({ onSubmit, ...rest }, ref) => {
 });
 
 SearchUserForm.displayName = 'SearchUserForm';
-
 SearchUserForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
 };

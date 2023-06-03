@@ -65,7 +65,6 @@ const GuessAnimeForm = forwardRef(({ options, language, onSubmit, ...rest }, ref
 });
 
 GuessAnimeForm.displayName = 'GuessAnimeForm';
-
 GuessAnimeForm.propTypes = {
   options: PropTypes.arrayOf(
     PropTypes.shape({

@@ -18,7 +18,6 @@ const UserChip = forwardRef(({ sx, user, ...rest }, ref) => {
 });
 
 UserChip.displayName = 'UserChip';
-
 UserChip.propTypes = {
   sx: PropTypes.oneOfType([
     PropTypes.func,

@@ -18,7 +18,6 @@ const PageContainer = forwardRef(({ sx, isLoaderVisible, children, ...rest }, re
 });
 
 PageContainer.displayName = 'PageContainer';
-
 PageContainer.propTypes = {
   sx: PropTypes.oneOfType([
     PropTypes.func,

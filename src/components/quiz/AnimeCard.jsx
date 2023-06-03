@@ -69,14 +69,39 @@ const AnimeCard = forwardRef(({ sx, anime, language, ...rest }, ref) => {
 });
 
 AnimeCard.displayName = 'AnimeCard';
-
 AnimeCard.propTypes = {
   sx: PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.object,
     PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.func, PropTypes.object, PropTypes.bool])),
   ]),
-  anime: PropTypes.object.isRequired,
+  anime: PropTypes.shape({
+    title: PropTypes.shape({
+      english: PropTypes.string,
+      romaji: PropTypes.string,
+      native: PropTypes.string,
+    }).isRequired,
+    coverImage: PropTypes.shape({
+      large: PropTypes.string,
+    }).isRequired,
+    format: PropTypes.string,
+    episodes: PropTypes.number,
+    averageScore: PropTypes.number,
+    season: PropTypes.string,
+    seasonYear: PropTypes.number,
+    source: PropTypes.string,
+    genres: PropTypes.arrayOf(PropTypes.string).isRequired,
+    studios: PropTypes.shape({
+      edges: PropTypes.arrayOf(
+        PropTypes.shape({
+          isMain: PropTypes.bool.isRequired,
+          node: PropTypes.shape({
+            name: PropTypes.string.isRequired,
+          }).isRequired,
+        })
+      ).isRequired,
+    }).isRequired,
+  }).isRequired,
   language: PropTypes.oneOf(['english', 'romaji', 'native']),
 };
 

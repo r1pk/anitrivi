@@ -19,7 +19,6 @@ const PanelCard = forwardRef(({ title, children, ...rest }, ref) => {
 });
 
 PanelCard.displayName = 'PanelCard';
-
 PanelCard.propTypes = {
   title: PropTypes.string,
   children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,

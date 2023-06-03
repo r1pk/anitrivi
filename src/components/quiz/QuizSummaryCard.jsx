@@ -35,7 +35,6 @@ const QuizSummaryCard = forwardRef(({ anime, attempts, language, ...rest }, ref)
 });
 
 QuizSummaryCard.displayName = 'QuizSummaryCard';
-
 QuizSummaryCard.propTypes = {
   anime: PropTypes.object.isRequired,
   attempts: PropTypes.number.isRequired,

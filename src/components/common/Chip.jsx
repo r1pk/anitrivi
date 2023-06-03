@@ -15,7 +15,6 @@ const Chip = forwardRef(({ sx, color, children, ...rest }, ref) => {
 });
 
 Chip.displayName = 'Chip';
-
 Chip.propTypes = {
   sx: PropTypes.oneOfType([
     PropTypes.func,
