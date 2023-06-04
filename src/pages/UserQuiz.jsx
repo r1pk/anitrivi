@@ -31,7 +31,7 @@ const UserQuiz = () => {
       ...prev,
       guesses: {
         ...prev.guesses,
-        [userQuiz.seed]: [].concat(prev.guesses[userQuiz.seed] || [], entry.media.id),
+        [userQuiz.seed]: [].concat(prev.guesses[userQuiz.seed] || [], entry.id),
       },
     }));
   };
@@ -83,7 +83,7 @@ const UserQuiz = () => {
               <Fade mountOnEnter unmountOnExit in={userQuiz.isFinished}>
                 <QuizSummaryCard
                   ref={summaryCard}
-                  anime={userQuiz.anime.media}
+                  anime={userQuiz.anime}
                   attempts={userQuiz.guesses.length}
                   language={userStorage.settings.language}
                 />

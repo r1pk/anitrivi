@@ -12,7 +12,7 @@ export const useUserQuiz = ({ userId }) => {
   const series = useMemo(() => {
     const entries = data?.lists.map((list) => list.entries).flat();
 
-    return [...new Map(entries?.map((entry) => [entry.media.id, entry])).values()];
+    return [...new Map(entries?.map((entry) => [entry.media.id, entry.media])).values()];
   }, [data]);
 
   const quiz = useQuiz({ series: series, seed: seed });

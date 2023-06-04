@@ -37,8 +37,8 @@ export const useQuiz = ({ series, seed }) => {
   );
 
   const guessAnime = (answer) => {
-    const evaluation = evaluateAnswer(anime.media, answer.media);
-    const guess = { anime: answer.media, evaluation: evaluation };
+    const evaluation = evaluateAnswer(anime, answer);
+    const guess = { anime: answer, evaluation: evaluation };
 
     if (evaluation.anime === EVALUATION.CORRECT) {
       setIsFinished(true);
@@ -49,7 +49,7 @@ export const useQuiz = ({ series, seed }) => {
 
   const restoreGuesses = (animeIds) => {
     for (const animeId of animeIds) {
-      const answer = series.find((anime) => anime.media.id === animeId);
+      const answer = series.find((anime) => anime.id === animeId);
 
       if (answer) {
         guessAnime(answer);

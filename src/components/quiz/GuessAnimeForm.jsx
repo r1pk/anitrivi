@@ -30,7 +30,7 @@ const GuessAnimeForm = forwardRef(({ options, language, onSubmit, ...rest }, ref
     limit: 15,
     stringify: (option) => {
       // prettier-ignore
-      return Object.values(option.media.title).filter((title) => title).join('⋆');
+      return Object.values(option.title).filter((title) => title).join('⋆');
     },
   });
 
@@ -49,8 +49,8 @@ const GuessAnimeForm = forwardRef(({ options, language, onSubmit, ...rest }, ref
                 options={options}
                 filterOptions={filterOptions}
                 onChange={(_, option) => onChange(option)}
-                getOptionLabel={(option) => getTitleByPreference(option.media.title, language)}
-                isOptionEqualToValue={(option, value) => option.mediaId === value.mediaId}
+                getOptionLabel={(option) => getTitleByPreference(option.title, language)}
+                isOptionEqualToValue={(option, value) => option.id === value.id}
                 renderInput={(params) => <TextField label="Anime Title" {...params} />}
               />
             )}
@@ -68,13 +68,11 @@ GuessAnimeForm.displayName = 'GuessAnimeForm';
 GuessAnimeForm.propTypes = {
   options: PropTypes.arrayOf(
     PropTypes.shape({
-      mediaId: PropTypes.number.isRequired,
-      media: PropTypes.shape({
-        title: PropTypes.shape({
-          english: PropTypes.string,
-          romaji: PropTypes.string,
-          native: PropTypes.string,
-        }).isRequired,
+      id: PropTypes.number.isRequired,
+      title: PropTypes.shape({
+        english: PropTypes.string,
+        romaji: PropTypes.string,
+        native: PropTypes.string,
       }).isRequired,
     })
   ).isRequired,
