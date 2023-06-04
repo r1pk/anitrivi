@@ -2,14 +2,16 @@ import { forwardRef } from 'react';
 
 import PropTypes from 'prop-types';
 
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
 import { mergeSx } from '@/utils/merge-sx';
 
-const Chip = forwardRef(({ sx, color, children, ...rest }, ref) => {
+const Chip = forwardRef(({ sx, color, label, ...rest }, ref) => {
   return (
     <Box sx={mergeSx({ px: 1, py: 0.5, borderRadius: 1, backgroundColor: color }, sx)} ref={ref} {...rest}>
-      {children}
+      <Typography variant="caption" sx={{ whiteSpace: 'nowrap' }}>
+        {label}
+      </Typography>
     </Box>
   );
 });
@@ -22,7 +24,7 @@ Chip.propTypes = {
     PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.func, PropTypes.object, PropTypes.bool])),
   ]),
   color: PropTypes.string.isRequired,
-  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,
+  label: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
 };
 
 export default Chip;
