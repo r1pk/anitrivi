@@ -19,7 +19,7 @@ const GuessEvaluationCard = forwardRef(({ sx, anime, evaluation, language, ...re
     { label: 'Source', value: anime.source, evaluation: evaluation.source },
     { label: 'Average Score', value: `${anime.averageScore}%`, evaluation: evaluation.averageScore },
     { label: 'Season', value: anime.season, evaluation: evaluation.season },
-    { label: 'Year', value: anime.seasonYear, evaluation: evaluation.seasonYear },
+    { label: 'Season Year', value: anime.seasonYear, evaluation: evaluation.seasonYear },
     { label: 'Studio', value: studios, evaluation: evaluation.studios },
   ];
 
