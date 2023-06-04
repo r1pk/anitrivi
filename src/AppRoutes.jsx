@@ -1,9 +1,9 @@
 import { Route, Routes } from 'react-router-dom';
 
+import MainLayout from '@/layouts/main/MainLayout';
+
 import Home from '@/pages/Home';
 import UserQuiz from '@/pages/UserQuiz';
-
-import MainLayout from './layouts/main/MainLayout';
 
 const AppRoutes = () => {
   return (
