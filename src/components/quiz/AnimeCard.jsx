@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { Box, Paper, Stack, Typography } from '@mui/material';
 
 import Chip from '@/components/common/Chip';
+import PropertyTag from '@/components/common/PropertyTag';
 
 import { getOrDefault } from '@/utils/get-or-default';
 import { getTitleByPreference } from '@/utils/get-title-by-preference';
@@ -14,7 +15,7 @@ const AnimeCard = forwardRef(({ sx, anime, language, ...rest }, ref) => {
   const title = getTitleByPreference(anime.title, language);
   const studios = anime.studios.edges.map((edge) => edge.node.name).join(', ');
 
-  const items = [
+  const properties = [
     { label: 'Source', value: getOrDefault(anime.source) },
     { label: 'Format', value: getOrDefault(anime.format) },
     { label: 'Episodes', value: getOrDefault(anime.episodes) },
@@ -38,13 +39,8 @@ const AnimeCard = forwardRef(({ sx, anime, language, ...rest }, ref) => {
       <Paper sx={{ flex: 1, my: { xs: 1, md: 2 }, p: 2, borderRadius: ({ spacing }) => spacing(0, 1, 1, 0) }}>
         <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', height: 1, gap: 1 }}>
           <Stack>
-            {items.map(({ label, value }) => (
-              <Stack key={label} direction="row" gap={0.5} sx={{ alignItems: 'center' }}>
-                <Typography variant="caption" color="text.secondary">
-                  {label}:
-                </Typography>
-                <Typography variant="body2">{value}</Typography>
-              </Stack>
+            {properties.map(({ label, value }) => (
+              <PropertyTag key={label} label={label} value={value} />
             ))}
           </Stack>
           <Stack direction="row" sx={{ flexWrap: 'wrap', gap: 1 }}>
