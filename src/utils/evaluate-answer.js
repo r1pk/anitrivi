@@ -81,10 +81,7 @@ export const evaluateAnswer = (reference, target) => {
     evaluation[key] = evaluatePrimitiveValues(reference[key], target[key]);
   }
 
-  evaluation.studios = evaluateStudios(
-    reference.studios.edges.filter((studio) => studio.isMain),
-    target.studios.edges.filter((studio) => studio.isMain)
-  );
+  evaluation.studios = evaluateStudios(reference.studios.edges, target.studios.edges);
 
   return evaluation;
 };

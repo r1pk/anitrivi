@@ -4,35 +4,29 @@ import PropTypes from 'prop-types';
 
 import { Box, Card, CardContent, Stack, Typography, alpha, useTheme } from '@mui/material';
 
-import { getMainStudiosNames } from '@/utils/get-main-studios-names';
 import { getTitleByPreference } from '@/utils/get-title-by-preference';
 import { mergeSx } from '@/utils/merge-sx';
-import { removeUnderscore } from '@/utils/remove-underscore';
 
 import EvaluationChip from './EvaluationChip';
 
 const GuessEvaluationCard = forwardRef(({ sx, anime, evaluation, language, ...rest }, ref) => {
-  const { bannerImage, episodes, averageScore, seasonYear, season } = anime;
-
   const title = getTitleByPreference(anime.title, language);
-  const format = anime.format && removeUnderscore(anime.format);
-  const source = anime.source && removeUnderscore(anime.source);
-  const studios = anime.studios.edges && getMainStudiosNames(anime.studios.edges).join(', ');
+  const studios = anime.studios.edges.map((edge) => edge.node.name).join(', ');
 
   const evaluations = [
-    { label: 'Format', value: format, evaluation: evaluation.format },
-    { label: 'Episodes', value: episodes, evaluation: evaluation.episodes },
-    { label: 'Source', value: source, evaluation: evaluation.source },
-    { label: 'Average Score', value: averageScore, evaluation: evaluation.averageScore },
-    { label: 'Season', value: season, evaluation: evaluation.season },
-    { label: 'Year', value: seasonYear, evaluation: evaluation.seasonYear },
+    { label: 'Format', value: anime.format, evaluation: evaluation.format },
+    { label: 'Episodes', value: anime.episodes, evaluation: evaluation.episodes },
+    { label: 'Source', value: anime.source, evaluation: evaluation.source },
+    { label: 'Average Score', value: `${anime.averageScore}%`, evaluation: evaluation.averageScore },
+    { label: 'Season', value: anime.season, evaluation: evaluation.season },
+    { label: 'Year', value: anime.seasonYear, evaluation: evaluation.seasonYear },
     { label: 'Studio', value: studios, evaluation: evaluation.studios },
   ];
 
   const { palette } = useTheme();
   const backgroundColor = alpha(palette.background.paper, 0.8);
   const evaluationColor = alpha(palette.evaluation[evaluation.anime], 0.5);
-  const background = `linear-gradient(${backgroundColor}, ${backgroundColor}), url(${bannerImage}) center/cover no-repeat`;
+  const background = `linear-gradient(${backgroundColor}, ${backgroundColor}), url(${anime.bannerImage}) center/cover no-repeat`;
 
   return (
     <Card sx={mergeSx({ position: 'relative', display: 'flex' }, sx)} ref={ref} {...rest}>

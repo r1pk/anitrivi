@@ -6,32 +6,26 @@ import { Box, Paper, Stack, Typography } from '@mui/material';
 
 import Chip from '@/components/common/Chip';
 
-import { getMainStudiosNames } from '@/utils/get-main-studios-names';
 import { getOrDefault } from '@/utils/get-or-default';
 import { getTitleByPreference } from '@/utils/get-title-by-preference';
 import { mergeSx } from '@/utils/merge-sx';
-import { removeUnderscore } from '@/utils/remove-underscore';
 
 const AnimeCard = forwardRef(({ sx, anime, language, ...rest }, ref) => {
-  const { coverImage, episodes, seasonYear, season, genres } = anime;
-
   const title = getTitleByPreference(anime.title, language);
-  const format = anime.format && removeUnderscore(anime.format);
-  const source = anime.source && removeUnderscore(anime.source);
-  const studios = anime.studios.edges && getMainStudiosNames(anime.studios.edges).join(', ');
+  const studios = anime.studios.edges.map((edge) => edge.node.name).join(', ');
 
-  const informations = [
-    { label: 'Source', value: getOrDefault(source) },
-    { label: 'Format', value: getOrDefault(format) },
-    { label: 'Episodes', value: getOrDefault(episodes) },
-    { label: 'Season', value: `${getOrDefault(season)} ${getOrDefault(seasonYear)}` },
+  const items = [
+    { label: 'Source', value: getOrDefault(anime.source) },
+    { label: 'Format', value: getOrDefault(anime.format) },
+    { label: 'Episodes', value: getOrDefault(anime.episodes) },
+    { label: 'Season', value: `${getOrDefault(anime.season)} ${getOrDefault(anime.seasonYear)}` },
     { label: 'Average Score', value: `${getOrDefault(anime.averageScore)}%` },
   ];
 
   return (
     <Box sx={mergeSx({ display: 'flex' }, sx)} ref={ref} {...rest}>
       <Box sx={{ position: 'relative', display: 'flex', borderRadius: 1, overflow: 'hidden' }}>
-        <Box component="img" alt={title} src={coverImage.large} sx={{ width: { xs: 150, md: 165 } }} />
+        <Box component="img" alt={title} src={anime.coverImage.large} sx={{ width: { xs: 150, md: 165 } }} />
         <Box sx={{ position: 'absolute', alignSelf: 'flex-end', width: 1, p: 1, backgroundColor: '#121212cc' }}>
           <Stack gap={1}>
             <Typography variant="body2">{title}</Typography>
@@ -44,7 +38,7 @@ const AnimeCard = forwardRef(({ sx, anime, language, ...rest }, ref) => {
       <Paper sx={{ flex: 1, my: { xs: 1, md: 2 }, p: 2, borderRadius: ({ spacing }) => spacing(0, 1, 1, 0) }}>
         <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', height: 1, gap: 1 }}>
           <Stack>
-            {informations.map(({ label, value }) => (
+            {items.map(({ label, value }) => (
               <Stack key={label} direction="row" gap={0.5} sx={{ alignItems: 'center' }}>
                 <Typography variant="caption" color="text.secondary">
                   {label}:
@@ -54,7 +48,7 @@ const AnimeCard = forwardRef(({ sx, anime, language, ...rest }, ref) => {
             ))}
           </Stack>
           <Stack direction="row" sx={{ flexWrap: 'wrap', gap: 1 }}>
-            {genres.slice(0, 3).map((genre) => (
+            {anime.genres.slice(0, 3).map((genre) => (
               <Chip key={genre} color="#636e72" sx={{ flex: '1 0 45%', textAlign: 'center' }}>
                 <Typography variant="caption" component="div" sx={{ whiteSpace: 'nowrap' }}>
                   {genre}

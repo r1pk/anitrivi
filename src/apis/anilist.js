@@ -1,6 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import { gql, request } from 'graphql-request';
 
+import { normalizeEntryMedia } from '@/utils/normalize-entry-media';
+
 const ENDPOINT = 'https://graphql.anilist.co';
 
 export const useUsers = ({ searchTerm, limit = 6, placeholderData }) => {
@@ -88,7 +90,15 @@ export const useUserProfile = ({ userId }) => {
         { userId }
       );
 
-      return data.MediaListCollection;
+      return Object.assign({}, data.MediaListCollection, {
+        lists: data.MediaListCollection.lists.map((list) => ({
+          name: list.name,
+          entries: list.entries.map((entry) => ({
+            mediaId: entry.mediaId,
+            media: normalizeEntryMedia(entry.media),
+          })),
+        })),
+      });
     },
     enabled: !!userId,
   });
