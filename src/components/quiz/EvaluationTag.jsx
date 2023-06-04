@@ -9,8 +9,7 @@ import { EVALUATION } from '@/utils/evaluate-answer';
 import { getOrDefault } from '@/utils/get-or-default';
 import { mergeSx } from '@/utils/merge-sx';
 
-const EvaluationChip = forwardRef(({ sx, label, value, evaluation, ...rest }, ref) => {
-  const color = `evaluation.${evaluation}`;
+const EvaluationTag = forwardRef(({ sx, label, value, evaluation, ...rest }, ref) => {
   const icon = {
     [EVALUATION.HIGHER]: <ArrowUpward sx={{ fontSize: 'inherit' }} />,
     [EVALUATION.LOWER]: <ArrowDownward sx={{ fontSize: 'inherit' }} />,
@@ -22,15 +21,15 @@ const EvaluationChip = forwardRef(({ sx, label, value, evaluation, ...rest }, re
       <Typography variant="caption" color="text.secondary">
         {label}:
       </Typography>
-      <Typography variant="button" color={color} sx={{ display: 'flex', alignItems: 'center' }}>
+      <Typography variant="button" color={`evaluation.${evaluation}`} sx={{ display: 'flex', alignItems: 'center' }}>
         {getOrDefault(value)} {isIconIncluded && icon[evaluation]}
       </Typography>
     </Stack>
   );
 });
 
-EvaluationChip.displayName = 'EvaluationChip';
-EvaluationChip.propTypes = {
+EvaluationTag.displayName = 'EvaluationTag';
+EvaluationTag.propTypes = {
   sx: PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.object,
@@ -41,4 +40,4 @@ EvaluationChip.propTypes = {
   evaluation: PropTypes.oneOf(['correct', 'higher', 'lower', 'partial', 'incorrect', 'unknown']).isRequired,
 };
 
-export default EvaluationChip;
+export default EvaluationTag;

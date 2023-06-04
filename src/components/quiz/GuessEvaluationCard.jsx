@@ -7,7 +7,7 @@ import { Box, Card, CardContent, Stack, Typography, alpha, useTheme } from '@mui
 import { getTitleByPreference } from '@/utils/get-title-by-preference';
 import { mergeSx } from '@/utils/merge-sx';
 
-import EvaluationChip from './EvaluationChip';
+import EvaluationTag from './EvaluationTag';
 
 const GuessEvaluationCard = forwardRef(({ sx, anime, evaluation, language, ...rest }, ref) => {
   const title = getTitleByPreference(anime.title, language);
@@ -36,7 +36,7 @@ const GuessEvaluationCard = forwardRef(({ sx, anime, evaluation, language, ...re
         </Typography>
         <Stack direction="row" sx={{ flexWrap: 'wrap' }}>
           {evaluations.map(({ label, value, evaluation }) => (
-            <EvaluationChip
+            <EvaluationTag
               key={label}
               label={label}
               value={value}
