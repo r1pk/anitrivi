@@ -1,4 +1,4 @@
-import { findCommonElements } from './find-common-elements';
+import { getCommonElements } from './get-common-elements';
 
 export const EVALUATION = {
   CORRECT: 'correct',
@@ -43,7 +43,7 @@ export const evaluatePrimitiveValues = (reference, target) => {
 };
 
 export const evaluateArrays = (selector, reference, target) => {
-  const commonElements = findCommonElements(reference, target, selector);
+  const commonElements = getCommonElements(reference, target, selector);
   const isEachLengthEqual = [reference.length, commonElements.length, target.length].every(
     (length, _, lengths) => length === lengths[0]
   );
