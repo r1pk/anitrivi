@@ -12,7 +12,7 @@ import PanelCard from '@/components/misc/PanelCard';
 import GuessAnimeForm from '@/components/quiz/GuessAnimeForm';
 import GuessEvaluationCard from '@/components/quiz/GuessEvaluationCard';
 import NextAnimeCountdown from '@/components/quiz/NextAnimeCountdown';
-import QuizSummaryCard from '@/components/quiz/QuizSummaryCard';
+import SummaryCard from '@/components/quiz/SummaryCard';
 import UserChip from '@/components/users/UserChip';
 
 import { useUserQuiz } from '@/hooks/useUserQuiz';
@@ -81,7 +81,7 @@ const UserQuiz = () => {
           <Grid container xs={12} sx={{ justifyContent: 'center' }}>
             <Grid xs={12} sm={10} md={8} lg={6}>
               <Fade mountOnEnter unmountOnExit in={userQuiz.isFinished}>
-                <QuizSummaryCard
+                <SummaryCard
                   ref={summaryCard}
                   anime={userQuiz.anime}
                   attempts={userQuiz.guesses.length}

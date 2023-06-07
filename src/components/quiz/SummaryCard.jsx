@@ -6,7 +6,7 @@ import { Box, Card, CardContent, Stack, Typography } from '@mui/material';
 
 import AnimeCard from './AnimeCard';
 
-const QuizSummaryCard = forwardRef(({ anime, attempts, language, ...rest }, ref) => {
+const SummaryCard = forwardRef(({ anime, attempts, language, ...rest }, ref) => {
   return (
     <Card ref={ref} {...rest}>
       <CardContent
@@ -34,11 +34,11 @@ const QuizSummaryCard = forwardRef(({ anime, attempts, language, ...rest }, ref)
   );
 });
 
-QuizSummaryCard.displayName = 'QuizSummaryCard';
-QuizSummaryCard.propTypes = {
+SummaryCard.displayName = 'SummaryCard';
+SummaryCard.propTypes = {
   anime: PropTypes.object.isRequired,
   attempts: PropTypes.number.isRequired,
   language: PropTypes.oneOf(['english', 'romaji', 'native']),
 };
 
-export default QuizSummaryCard;
+export default SummaryCard;
