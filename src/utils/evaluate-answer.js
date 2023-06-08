@@ -1,3 +1,4 @@
+import { fallbackDecorator } from './fallback-decorator';
 import { getCommonElements } from './get-common-elements';
 
 export const EVALUATION = {
@@ -9,40 +10,37 @@ export const EVALUATION = {
   UNKNOWN: 'unknown',
 };
 
-export const evaluteNumbers = (reference, target) => {
-  const evaluations = [EVALUATION.LOWER, EVALUATION.CORRECT, EVALUATION.HIGHER];
-  const evaluationIndex = Math.sign(reference - target) + 1;
+const preliminaryEvaluation = (reference, target) => {
+  const isReferenceNullOrEmpty = reference === null || (Array.isArray(reference) && reference.length === 0);
+  const isTargetNullOrEmpty = target === null || (Array.isArray(target) && target.length === 0);
 
-  return evaluations[evaluationIndex];
+  if (isReferenceNullOrEmpty) {
+    return EVALUATION.UNKNOWN;
+  }
+
+  if (isTargetNullOrEmpty) {
+    return EVALUATION.INCORRECT;
+  }
+
+  return null;
 };
 
-export const evaluateStrings = (reference, target) => {
+const evaluateStrings = fallbackDecorator(preliminaryEvaluation, (reference, target) => {
   if (reference === target) {
     return EVALUATION.CORRECT;
   }
 
   return EVALUATION.INCORRECT;
-};
+});
 
-export const evaluatePrimitiveValues = (reference, target) => {
-  if (reference === null) {
-    return EVALUATION.UNKNOWN;
-  }
+const evaluateNumbers = fallbackDecorator(preliminaryEvaluation, (reference, target) => {
+  const evaluations = [EVALUATION.LOWER, EVALUATION.CORRECT, EVALUATION.HIGHER];
+  const evaluationIndex = Math.sign(reference - target) + 1;
 
-  if (target === null) {
-    return EVALUATION.INCORRECT;
-  }
+  return evaluations[evaluationIndex];
+});
 
-  if (typeof reference === 'number') {
-    return evaluteNumbers(reference, target);
-  }
-
-  if (typeof reference === 'string') {
-    return evaluateStrings(reference, target);
-  }
-};
-
-export const evaluateArrays = (selector, reference, target) => {
+const evaluateArrays = fallbackDecorator(preliminaryEvaluation, (reference, target, selector) => {
   const commonElements = getCommonElements(reference, target, selector);
   const isEachLengthEqual = [reference.length, commonElements.length, target.length].every(
     (length, _, lengths) => length === lengths[0]
@@ -57,31 +55,19 @@ export const evaluateArrays = (selector, reference, target) => {
   }
 
   return EVALUATION.INCORRECT;
-};
-
-export const evaluateStudios = (reference, target) => {
-  if (reference.length === 0) {
-    return EVALUATION.UNKNOWN;
-  }
-
-  if (target.length === 0) {
-    return EVALUATION.INCORRECT;
-  }
-
-  return evaluateArrays((studio) => studio.node.id, reference, target);
-};
+});
 
 export const evaluateAnswer = (reference, target) => {
   const evaluation = {
     anime: evaluateStrings(reference.id, target.id),
+    format: evaluateStrings(reference.format, target.format),
+    season: evaluateStrings(reference.season, target.season),
+    source: evaluateStrings(reference.source, target.source),
+    episodes: evaluateNumbers(reference.episodes, target.episodes),
+    averageScore: evaluateNumbers(reference.averageScore, target.averageScore),
+    seasonYear: evaluateNumbers(reference.seasonYear, target.seasonYear),
+    studios: evaluateArrays(reference.studios.edges, target.studios.edges, (edge) => edge.node.id),
   };
-  const KEYS_WITH_PRIMITIVE_VALUES = ['format', 'season', 'source', 'episodes', 'averageScore', 'seasonYear'];
-
-  for (const key of KEYS_WITH_PRIMITIVE_VALUES) {
-    evaluation[key] = evaluatePrimitiveValues(reference[key], target[key]);
-  }
-
-  evaluation.studios = evaluateStudios(reference.studios.edges, target.studios.edges);
 
   return evaluation;
 };
