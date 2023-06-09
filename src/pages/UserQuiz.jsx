@@ -1,17 +1,17 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { useParams } from 'react-router-dom';
 
-import { Shuffle } from '@mui/icons-material';
-import { Alert, Box, Button, Fade, Unstable_Grid2 as Grid, IconButton, Stack, Typography } from '@mui/material';
+import { Settings, Shuffle } from '@mui/icons-material';
+import { Alert, Box, Button, Dialog, Fade, Unstable_Grid2 as Grid, IconButton, Stack, Typography } from '@mui/material';
 
 import BrandHeader from '@/components/misc/BrandHeader';
-import LanguageSelect from '@/components/misc/LanguageSelect';
 import PageContainer from '@/components/misc/PageContainer';
 import PanelCard from '@/components/misc/PanelCard';
 import GuessAnimeForm from '@/components/quiz/GuessAnimeForm';
 import GuessEvaluationCard from '@/components/quiz/GuessEvaluationCard';
 import NextAnimeCountdown from '@/components/quiz/NextAnimeCountdown';
+import SettingsForm from '@/components/quiz/SettingsForm';
 import SummaryCard from '@/components/quiz/SummaryCard';
 import UserChip from '@/components/users/UserChip';
 
@@ -24,6 +24,7 @@ const UserQuiz = () => {
 
   const userQuiz = useUserQuiz({ userId: userId });
   const { userStorage, setUserStorage } = useUserStorage({ userId: userId });
+  const [isSettingsDialogOpen, setIsSettingsDialogOpen] = useState(false);
 
   const handleGuessAnime = (entry) => {
     userQuiz.guessAnime(entry);
@@ -40,14 +41,20 @@ const UserQuiz = () => {
     userQuiz.restoreGuesses(userStorage.guesses[userQuiz.seed]);
   };
 
-  const handleChangeLanguage = (language) => {
+  const handleOpenSettingsDialog = () => {
+    setIsSettingsDialogOpen(true);
+  };
+
+  const handleCloseSettingsDialog = () => {
+    setIsSettingsDialogOpen(false);
+  };
+
+  const handleSubmitSettings = (settings) => {
     setUserStorage((prev) => ({
       ...prev,
-      settings: {
-        ...prev.settings,
-        language: language,
-      },
+      settings: settings,
     }));
+    setIsSettingsDialogOpen(false);
   };
 
   useEffect(
@@ -97,14 +104,11 @@ const UserQuiz = () => {
             <Grid container xs={12} sx={{ justifyContent: 'center' }}>
               <Grid xs={12} sm={10} md={8} lg={6}>
                 <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>
-                  <LanguageSelect
-                    label="Title Language"
-                    value={userStorage.settings.language}
-                    languages={['english', 'romaji', 'native']}
-                    onChangeLanguage={handleChangeLanguage}
-                  />
                   <Box sx={{ flexGrow: 1 }} />
                   <UserChip user={userQuiz.user} />
+                  <IconButton onClick={handleOpenSettingsDialog}>
+                    <Settings />
+                  </IconButton>
                 </Stack>
               </Grid>
             </Grid>
@@ -167,6 +171,14 @@ const UserQuiz = () => {
           </>
         )}
       </Grid>
+
+      <Dialog fullWidth maxWidth="xs" open={isSettingsDialogOpen} onClose={handleCloseSettingsDialog}>
+        <SettingsForm
+          defaultValues={userStorage.settings}
+          onCancel={handleCloseSettingsDialog}
+          onSubmit={handleSubmitSettings}
+        />
+      </Dialog>
     </PageContainer>
   );
 };
