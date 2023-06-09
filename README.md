@@ -5,10 +5,10 @@ AniTrivi is a responsive web application that allows users to daily guess a rand
 ## Screenshots
 
 Guessing phase
-![Guessing phase](https://i.imgur.com/sxsgmyX.png)
+![Guessing phase](https://i.imgur.com/S0NOAKP.png)
 
 Answer revealed
-![Answer revealed](https://i.imgur.com/o37Dr5u.png)
+![Answer revealed](https://i.imgur.com/1hfvRZi.png)
 
 ## Pre-requisites
 
