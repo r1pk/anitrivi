@@ -73,7 +73,6 @@ const SettingsForm = forwardRef(({ defaultValues, onCancel, onSubmit, ...rest },
 });
 
 SettingsForm.displayName = 'SettingsForm';
-
 SettingsForm.propTypes = {
   defaultValues: PropTypes.shape({
     language: PropTypes.oneOf(['english', 'romaji', 'native']),
