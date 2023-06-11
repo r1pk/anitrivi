@@ -87,13 +87,14 @@ GuessEvaluationCard.propTypes = {
     }).isRequired,
   }).isRequired,
   evaluation: PropTypes.shape({
-    anime: PropTypes.oneOf(['correct', 'incorrect']).isRequired,
+    anime: PropTypes.oneOf(['correct', 'incorrect', 'unknown']).isRequired,
     format: PropTypes.oneOf(['correct', 'incorrect', 'unknown']).isRequired,
-    episodes: PropTypes.oneOf(['correct', 'higher', 'lower', 'unknown']).isRequired,
-    averageScore: PropTypes.oneOf(['correct', 'higher', 'lower', 'unknown']).isRequired,
     season: PropTypes.oneOf(['correct', 'incorrect', 'unknown']).isRequired,
-    seasonYear: PropTypes.oneOf(['correct', 'higher', 'lower', 'unknown']).isRequired,
-    source: PropTypes.oneOf(['correct', 'partial', 'incorrect', 'unknown']).isRequired,
+    source: PropTypes.oneOf(['correct', 'incorrect', 'unknown']).isRequired,
+    episodes: PropTypes.oneOf(['correct', 'higher', 'lower', 'incorrect', 'unknown']).isRequired,
+    averageScore: PropTypes.oneOf(['correct', 'higher', 'lower', 'incorrect', 'unknown']).isRequired,
+    seasonYear: PropTypes.oneOf(['correct', 'higher', 'lower', 'incorrect', 'unknown']).isRequired,
+    studios: PropTypes.oneOf(['correct', 'partial', 'incorrect', 'unknown']).isRequired,
   }).isRequired,
 };
 
