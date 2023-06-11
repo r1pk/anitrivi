@@ -1,8 +1,10 @@
-import { forwardRef } from 'react';
+import { forwardRef, useContext } from 'react';
 
 import PropTypes from 'prop-types';
 
 import { Box, Paper, Stack, Typography } from '@mui/material';
+
+import { SettingsContext } from '@/contexts/Settings';
 
 import Chip from '@/components/common/Chip';
 import PropertyTag from '@/components/common/PropertyTag';
@@ -11,8 +13,10 @@ import { getOrDefault } from '@/utils/get-or-default';
 import { getTitleByPreference } from '@/utils/get-title-by-preference';
 import { mergeSx } from '@/utils/merge-sx';
 
-const AnimeCard = forwardRef(({ sx, anime, language, ...rest }, ref) => {
-  const title = getTitleByPreference(anime.title, language);
+const AnimeCard = forwardRef(({ sx, anime, ...rest }, ref) => {
+  const settings = useContext(SettingsContext);
+
+  const title = getTitleByPreference(anime.title, settings.language);
   const studios = anime.studios.edges.map((edge) => edge.node.name).join(', ');
 
   const properties = [
@@ -88,7 +92,6 @@ AnimeCard.propTypes = {
       ).isRequired,
     }).isRequired,
   }).isRequired,
-  language: PropTypes.oneOf(['english', 'romaji', 'native']),
 };
 
 export default AnimeCard;

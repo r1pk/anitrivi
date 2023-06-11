@@ -6,7 +6,7 @@ import { Box, Card, CardContent, Stack, Typography } from '@mui/material';
 
 import AnimeCard from './AnimeCard';
 
-const SummaryCard = forwardRef(({ anime, attempts, language, ...rest }, ref) => {
+const SummaryCard = forwardRef(({ anime, attempts, ...rest }, ref) => {
   return (
     <Card ref={ref} {...rest}>
       <CardContent
@@ -23,7 +23,7 @@ const SummaryCard = forwardRef(({ anime, attempts, language, ...rest }, ref) => 
             The correct answer is:
           </Typography>
           <Box sx={{ my: 2 }}>
-            <AnimeCard anime={anime} language={language} />
+            <AnimeCard anime={anime} />
           </Box>
           <Typography variant="button" color="text.secondary" component="span">
             Number of attempts: {attempts}
@@ -38,7 +38,6 @@ SummaryCard.displayName = 'SummaryCard';
 SummaryCard.propTypes = {
   anime: PropTypes.object.isRequired,
   attempts: PropTypes.number.isRequired,
-  language: PropTypes.oneOf(['english', 'romaji', 'native']),
 };
 
 export default SummaryCard;

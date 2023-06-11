@@ -5,9 +5,6 @@ import ls from 'localstorage-slim';
 export const useUserStorage = ({ userId }) => {
   const [userStorage, setUserStorage] = useState(function getInitialUserStorage() {
     const initialUserStorage = {
-      settings: {
-        language: 'english',
-      },
       guesses: {},
     };
 

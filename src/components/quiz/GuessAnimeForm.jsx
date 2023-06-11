@@ -1,4 +1,4 @@
-import { forwardRef } from 'react';
+import { forwardRef, useContext } from 'react';
 
 import PropTypes from 'prop-types';
 
@@ -6,9 +6,13 @@ import { Controller, useForm } from 'react-hook-form';
 
 import { Autocomplete, Button, Card, CardActions, Stack, TextField, createFilterOptions } from '@mui/material';
 
+import { SettingsContext } from '@/contexts/Settings';
+
 import { getTitleByPreference } from '@/utils/get-title-by-preference';
 
-const GuessAnimeForm = forwardRef(({ options, language, onSubmit, ...rest }, ref) => {
+const GuessAnimeForm = forwardRef(({ options, onSubmit, ...rest }, ref) => {
+  const settings = useContext(SettingsContext);
+
   const { control, formState, handleSubmit, reset } = useForm({
     mode: 'all',
     defaultValues: {
@@ -49,7 +53,7 @@ const GuessAnimeForm = forwardRef(({ options, language, onSubmit, ...rest }, ref
                 options={options}
                 filterOptions={filterOptions}
                 onChange={(_, option) => onChange(option)}
-                getOptionLabel={(option) => getTitleByPreference(option.title, language)}
+                getOptionLabel={(option) => getTitleByPreference(option.title, settings.language)}
                 isOptionEqualToValue={(option, value) => option.id === value.id}
                 renderInput={(params) => <TextField label="Anime Title" {...params} />}
               />
@@ -76,7 +80,6 @@ GuessAnimeForm.propTypes = {
       }).isRequired,
     })
   ).isRequired,
-  language: PropTypes.oneOf(['english', 'romaji', 'native']),
   onSubmit: PropTypes.func.isRequired,
 };
 

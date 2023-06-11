@@ -47,6 +47,11 @@
             "position": "after"
           },
           {
+            "pattern": "@/contexts/**",
+            "group": "internal",
+            "position": "before"
+          },
+          {
             "pattern": "@/themes/**",
             "group": "internal",
             "position": "before"

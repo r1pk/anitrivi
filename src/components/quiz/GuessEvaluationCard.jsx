@@ -1,16 +1,20 @@
-import { forwardRef } from 'react';
+import { forwardRef, useContext } from 'react';
 
 import PropTypes from 'prop-types';
 
 import { Box, Card, CardContent, Stack, Typography, alpha, useTheme } from '@mui/material';
+
+import { SettingsContext } from '@/contexts/Settings';
 
 import { getTitleByPreference } from '@/utils/get-title-by-preference';
 import { mergeSx } from '@/utils/merge-sx';
 
 import EvaluationTag from './EvaluationTag';
 
-const GuessEvaluationCard = forwardRef(({ sx, anime, evaluation, language, ...rest }, ref) => {
-  const title = getTitleByPreference(anime.title, language);
+const GuessEvaluationCard = forwardRef(({ sx, anime, evaluation, ...rest }, ref) => {
+  const settings = useContext(SettingsContext);
+
+  const title = getTitleByPreference(anime.title, settings.language);
   const studios = anime.studios.edges.map((edge) => edge.node.name).join(', ');
 
   const evaluations = [
@@ -91,7 +95,6 @@ GuessEvaluationCard.propTypes = {
     seasonYear: PropTypes.oneOf(['correct', 'higher', 'lower', 'unknown']).isRequired,
     source: PropTypes.oneOf(['correct', 'partial', 'incorrect', 'unknown']).isRequired,
   }).isRequired,
-  language: PropTypes.oneOf(['english', 'romaji', 'native']),
 };
 
 export default GuessEvaluationCard;

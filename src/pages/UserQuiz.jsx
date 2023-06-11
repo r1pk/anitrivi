@@ -5,6 +5,8 @@ import { useParams } from 'react-router-dom';
 import { Settings, Shuffle } from '@mui/icons-material';
 import { Alert, Box, Button, Dialog, Fade, Unstable_Grid2 as Grid, IconButton, Stack, Typography } from '@mui/material';
 
+import { SettingsContext } from '@/contexts/Settings';
+
 import BrandHeader from '@/components/misc/BrandHeader';
 import PageContainer from '@/components/misc/PageContainer';
 import PanelCard from '@/components/misc/PanelCard';
@@ -15,6 +17,7 @@ import SettingsForm from '@/components/quiz/SettingsForm';
 import SummaryCard from '@/components/quiz/SummaryCard';
 import UserChip from '@/components/users/UserChip';
 
+import { useSettings } from '@/hooks/useSettings';
 import { useUserQuiz } from '@/hooks/useUserQuiz';
 import { useUserStorage } from '@/hooks/useUserStorage';
 
@@ -22,23 +25,25 @@ const UserQuiz = () => {
   const { userId } = useParams();
   const summaryCard = useRef(null);
 
-  const userQuiz = useUserQuiz({ userId: userId });
+  const { settings, setSettings } = useSettings();
   const { userStorage, setUserStorage } = useUserStorage({ userId: userId });
   const [isSettingsDialogOpen, setIsSettingsDialogOpen] = useState(false);
 
+  const quiz = useUserQuiz({ userId: userId });
+
   const handleGuessAnime = (entry) => {
-    userQuiz.guessAnime(entry);
+    quiz.guessAnime(entry);
     setUserStorage((prev) => ({
       ...prev,
       guesses: {
         ...prev.guesses,
-        [userQuiz.seed]: [].concat(prev.guesses[userQuiz.seed] || [], entry.id),
+        [quiz.seed]: [].concat(prev.guesses[quiz.seed] || [], entry.id),
       },
     }));
   };
 
   const handleRestoreGuesses = () => {
-    userQuiz.restoreGuesses(userStorage.guesses[userQuiz.seed]);
+    quiz.restoreGuesses(userStorage.guesses[quiz.seed]);
   };
 
   const handleOpenSettingsDialog = () => {
@@ -50,136 +55,117 @@ const UserQuiz = () => {
   };
 
   const handleSubmitSettings = (settings) => {
-    setUserStorage((prev) => ({
-      ...prev,
-      settings: settings,
-    }));
+    setSettings((prev) => ({ ...prev, ...settings }));
     setIsSettingsDialogOpen(false);
   };
 
   useEffect(
     function scrollSummaryCardIntoView() {
-      if (userQuiz.isFinished) {
+      if (quiz.isFinished) {
         summaryCard.current.scrollIntoView({ behavior: 'smooth' });
       }
     },
-    [userQuiz.isFinished]
+    [quiz.isFinished]
   );
 
   return (
-    <PageContainer isLoaderVisible={userQuiz.isInitialLoading}>
-      <Grid container spacing={2} sx={{ justifyContent: 'center' }}>
-        <Grid xs={12}>
-          <Stack spacing={1} sx={{ alignItems: 'center' }}>
-            <BrandHeader variant="h1" />
-            <NextAnimeCountdown />
-          </Stack>
-        </Grid>
-
-        {!(userQuiz.isInitialLoading || userQuiz.isRequirementFulfilled) && (
+    <SettingsContext.Provider value={settings}>
+      <PageContainer isLoaderVisible={quiz.isInitialLoading}>
+        <Grid container spacing={2} sx={{ justifyContent: 'center' }}>
           <Grid xs={12}>
-            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-              <Alert severity="error">User doesn't have enough completed anime to play the quiz</Alert>
-            </Box>
+            <Stack spacing={1} sx={{ alignItems: 'center' }}>
+              <BrandHeader variant="h1" />
+              <NextAnimeCountdown />
+            </Stack>
           </Grid>
-        )}
 
-        {userQuiz.isFinished && (
-          <Grid container xs={12} sx={{ justifyContent: 'center' }}>
-            <Grid xs={12} sm={10} md={8} lg={6}>
-              <Fade mountOnEnter unmountOnExit in={userQuiz.isFinished}>
-                <SummaryCard
-                  ref={summaryCard}
-                  anime={userQuiz.anime}
-                  attempts={userQuiz.guesses.length}
-                  language={userStorage.settings.language}
-                />
-              </Fade>
+          {!(quiz.isInitialLoading || quiz.isRequirementFulfilled) && (
+            <Grid xs={12}>
+              <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <Alert severity="error">User doesn't have enough completed anime to play the quiz</Alert>
+              </Box>
             </Grid>
-          </Grid>
-        )}
+          )}
 
-        {userQuiz.isReady && (
-          <>
+          {quiz.isFinished && (
             <Grid container xs={12} sx={{ justifyContent: 'center' }}>
               <Grid xs={12} sm={10} md={8} lg={6}>
-                <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>
-                  <Box sx={{ flexGrow: 1 }} />
-                  <UserChip user={userQuiz.user} />
-                  <IconButton onClick={handleOpenSettingsDialog}>
-                    <Settings />
-                  </IconButton>
-                </Stack>
+                <Fade mountOnEnter unmountOnExit in={quiz.isFinished}>
+                  <SummaryCard ref={summaryCard} anime={quiz.anime} attempts={quiz.guesses.length} />
+                </Fade>
               </Grid>
             </Grid>
+          )}
 
-            {!userQuiz.isFinished && (
+          {quiz.isReady && (
+            <>
               <Grid container xs={12} sx={{ justifyContent: 'center' }}>
                 <Grid xs={12} sm={10} md={8} lg={6}>
-                  <GuessAnimeForm
-                    options={userQuiz.series}
-                    language={userStorage.settings.language}
-                    onSubmit={handleGuessAnime}
-                  />
+                  <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>
+                    <Box sx={{ flexGrow: 1 }} />
+                    <UserChip user={quiz.user} />
+                    <IconButton onClick={handleOpenSettingsDialog}>
+                      <Settings />
+                    </IconButton>
+                  </Stack>
                 </Grid>
               </Grid>
-            )}
 
-            <Grid container xs={12} sx={{ justifyContent: 'center' }}>
-              <Grid xs={12} sm={10} md={8} lg={6}>
-                <PanelCard title={`Guess History (${userQuiz.guesses.length})`}>
-                  <Stack spacing={1}>
-                    {userQuiz.guesses.length === 0 && (
-                      <>
-                        <Typography variant="button" color="text.secondary" sx={{ alignSelf: 'center', py: 2 }}>
-                          No guesses yet
-                        </Typography>
-                        {userStorage.guesses[userQuiz.seed]?.length > 0 && (
-                          <Button onClick={handleRestoreGuesses} sx={{ alignSelf: 'center' }}>
-                            Restore previous guesses
-                          </Button>
-                        )}
-                      </>
-                    )}
-                    {userQuiz.guesses.map((guess, index) => (
-                      <Fade key={index} in={true}>
-                        <GuessEvaluationCard
-                          elevation={2}
-                          anime={guess.anime}
-                          evaluation={guess.evaluation}
-                          language={userStorage.settings.language}
-                        />
-                      </Fade>
-                    ))}
-                  </Stack>
-                </PanelCard>
+              {!quiz.isFinished && (
+                <Grid container xs={12} sx={{ justifyContent: 'center' }}>
+                  <Grid xs={12} sm={10} md={8} lg={6}>
+                    <GuessAnimeForm options={quiz.series} onSubmit={handleGuessAnime} />
+                  </Grid>
+                </Grid>
+              )}
+
+              <Grid container xs={12} sx={{ justifyContent: 'center' }}>
+                <Grid xs={12} sm={10} md={8} lg={6}>
+                  <PanelCard title={`Guess History (${quiz.guesses.length})`}>
+                    <Stack spacing={1}>
+                      {quiz.guesses.length === 0 && (
+                        <>
+                          <Typography variant="button" color="text.secondary" sx={{ alignSelf: 'center', py: 2 }}>
+                            No guesses yet
+                          </Typography>
+                          {userStorage.guesses[quiz.seed]?.length > 0 && (
+                            <Button onClick={handleRestoreGuesses} sx={{ alignSelf: 'center' }}>
+                              Restore previous guesses
+                            </Button>
+                          )}
+                        </>
+                      )}
+                      {quiz.guesses.map((guess, index) => (
+                        <Fade key={index} in={true}>
+                          <GuessEvaluationCard elevation={2} anime={guess.anime} evaluation={guess.evaluation} />
+                        </Fade>
+                      ))}
+                    </Stack>
+                  </PanelCard>
+                </Grid>
               </Grid>
-            </Grid>
 
-            <Grid container xs={12} sx={{ justifyContent: 'center' }}>
-              <Grid xs={12} sm={10} md={8} lg={6}>
-                <Box color="text.secondary" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                  <Typography variant="overline" color="inherit">
-                    Seed: {userQuiz.seed}
-                  </Typography>
-                  <IconButton size="small" color="inherit" onClick={userQuiz.randomizeSeed}>
-                    <Shuffle fontSize="inherit" />
-                  </IconButton>
-                </Box>
+              <Grid container xs={12} sx={{ justifyContent: 'center' }}>
+                <Grid xs={12} sm={10} md={8} lg={6}>
+                  <Box color="text.secondary" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                    <Typography variant="overline" color="inherit">
+                      Seed: {quiz.seed}
+                    </Typography>
+                    <IconButton size="small" color="inherit" onClick={quiz.randomizeSeed}>
+                      <Shuffle fontSize="inherit" />
+                    </IconButton>
+                  </Box>
+                </Grid>
               </Grid>
-            </Grid>
-          </>
-        )}
-      </Grid>
+            </>
+          )}
+        </Grid>
 
-      <Dialog fullWidth maxWidth="xs" open={isSettingsDialogOpen} onClose={handleCloseSettingsDialog}>
-        <SettingsForm
-          defaultValues={userStorage.settings}
-          onCancel={handleCloseSettingsDialog}
-          onSubmit={handleSubmitSettings}
-        />
-      </Dialog>
-    </PageContainer>
+        <Dialog fullWidth maxWidth="xs" open={isSettingsDialogOpen} onClose={handleCloseSettingsDialog}>
+          <SettingsForm defaultValues={settings} onCancel={handleCloseSettingsDialog} onSubmit={handleSubmitSettings} />
+        </Dialog>
+      </PageContainer>
+    </SettingsContext.Provider>
   );
 };
 
