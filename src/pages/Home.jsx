@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import { Box, Unstable_Grid2 as Grid } from '@mui/material';
 
 import BrandHeader from '@/components/misc/BrandHeader';
@@ -5,13 +7,14 @@ import PageContainer from '@/components/misc/PageContainer';
 import SearchUserForm from '@/components/users/SearchUserForm';
 import SearchUserResults from '@/components/users/SearchUserResults';
 
-import { useUserSearch } from '@/hooks/useUserSearch';
+import { useUsers } from '@/apis/anilist';
 
 const Home = () => {
-  const { users, isSuccess, isInitialLoading, searchUsers } = useUserSearch({ limit: 6 });
+  const [searchTerm, setSearchTerm] = useState('');
+  const { data, isSuccess, isInitialLoading } = useUsers({ searchTerm: searchTerm, limit: 6 });
 
   const handleSearchUser = (data) => {
-    searchUsers(data.username);
+    setSearchTerm(data.username);
   };
 
   return (
@@ -32,7 +35,7 @@ const Home = () => {
         {isSuccess && (
           <Grid container xs={12} sx={{ justifyContent: 'center' }}>
             <Grid xs={12} sm={10} md={8} lg={6}>
-              <SearchUserResults results={users} />
+              <SearchUserResults results={data?.users} />
             </Grid>
           </Grid>
         )}
