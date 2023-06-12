@@ -31,7 +31,11 @@ const SearchUserResults = forwardRef(({ results, ...rest }, ref) => {
 
 SearchUserResults.displayName = 'SearchUserResults';
 SearchUserResults.propTypes = {
-  results: PropTypes.arrayOf(PropTypes.object).isRequired,
+  results: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+    })
+  ).isRequired,
 };
 
 export default SearchUserResults;
