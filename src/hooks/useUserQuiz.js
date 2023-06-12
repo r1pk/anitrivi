@@ -10,9 +10,10 @@ export const useUserQuiz = ({ userId }) => {
   const { seed, randomizeSeed } = useSeed({ additionalFactor: userId * 123 });
 
   const series = useMemo(() => {
-    const entries = data?.lists.map((list) => list.entries).flat();
+    const lists = data?.lists.map((list) => list.entries).flat();
+    const entries = lists?.map((entry) => [entry.media.id, entry.media]);
 
-    return [...new Map(entries?.map((entry) => [entry.media.id, entry.media])).values()];
+    return [...new Map(entries).values()];
   }, [data]);
 
   const quiz = useQuiz({ series: series, seed: seed });
