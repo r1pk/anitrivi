@@ -1,3 +1,5 @@
 import { createContext } from 'react';
 
-export const SettingsContext = createContext(null);
+import { defaultSettings } from '@/configs/default-settings';
+
+export const SettingsContext = createContext(defaultSettings);

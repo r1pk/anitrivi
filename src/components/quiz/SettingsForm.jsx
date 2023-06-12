@@ -8,6 +8,8 @@ import { Button, FormControl, MenuItem, Select, Stack, Typography } from '@mui/m
 
 import PanelCard from '@/components/misc/PanelCard';
 
+import { defaultSettings } from '@/configs/default-settings';
+
 const blueprint = {
   language: {
     options: [
@@ -21,12 +23,7 @@ const blueprint = {
 const SettingsForm = forwardRef(({ defaultValues, onCancel, onSubmit, ...rest }, ref) => {
   const { control, formState, handleSubmit } = useForm({
     mode: 'all',
-    defaultValues: Object.assign(
-      {
-        language: 'english',
-      },
-      defaultValues
-    ),
+    defaultValues: Object.assign({}, defaultSettings, defaultValues),
   });
   const { isDirty } = formState;
 
