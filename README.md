@@ -54,8 +54,10 @@ anitrivi/             # root directory
 │  ├─ apis/           # api related files
 │  ├─ components/     # reusable components grouped by features
 │  ├─ configs/        # configuration files
+│  ├─ contexts/       # context declarations
 │  ├─ hooks/          # custom hooks
 │  ├─ layouts/        # layout components grouped by layout type
+│  ├─ lib/            # declarations related to external libraries
 │  ├─ pages/          # page components
 │  ├─ themes/         # theme related files (e.g. colors, fonts)
 │  ├─ utils/          # utility functions

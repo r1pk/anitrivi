@@ -47,12 +47,17 @@
             "position": "after"
           },
           {
-            "pattern": "@/contexts/**",
+            "pattern": "@/lib/**",
+            "group": "internal",
+            "position": "after"
+          },
+          {
+            "pattern": "@/themes/**",
             "group": "internal",
             "position": "before"
           },
           {
-            "pattern": "@/themes/**",
+            "pattern": "@/contexts/**",
             "group": "internal",
             "position": "before"
           },
@@ -82,7 +87,12 @@
             "position": "after"
           },
           {
-            "pattern": "{@/configs/**,@/utils/**}",
+            "pattern": "@/configs/**",
+            "group": "internal",
+            "position": "after"
+          },
+          {
+            "pattern": "@/utils/**",
             "group": "internal",
             "position": "after"
           }
