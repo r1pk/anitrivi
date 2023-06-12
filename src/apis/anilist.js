@@ -5,7 +5,7 @@ import { normalizeEntryMedia } from '@/utils/normalize-entry-media';
 
 const ENDPOINT = 'https://graphql.anilist.co';
 
-export const useUsers = ({ searchTerm, limit = 6, placeholderData }) => {
+export const useUsers = ({ searchTerm, limit = 6 }) => {
   return useQuery({
     queryKey: ['users', searchTerm, limit],
     queryFn: async () => {
@@ -29,7 +29,6 @@ export const useUsers = ({ searchTerm, limit = 6, placeholderData }) => {
 
       return data.Page;
     },
-    placeholderData: placeholderData,
     enabled: !!searchTerm,
   });
 };
