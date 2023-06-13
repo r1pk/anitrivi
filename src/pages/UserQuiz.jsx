@@ -3,15 +3,14 @@ import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { Settings, Shuffle } from '@mui/icons-material';
-import { Alert, Box, Button, Dialog, Fade, Unstable_Grid2 as Grid, IconButton, Stack, Typography } from '@mui/material';
+import { Alert, Box, Dialog, Fade, Unstable_Grid2 as Grid, IconButton, Stack, Typography } from '@mui/material';
 
 import { SettingsContext } from '@/contexts/Settings';
 
 import BrandHeader from '@/components/misc/BrandHeader';
 import PageContainer from '@/components/misc/PageContainer';
-import PanelCard from '@/components/misc/PanelCard';
 import GuessAnimeForm from '@/components/quiz/GuessAnimeForm';
-import GuessEvaluationCard from '@/components/quiz/GuessEvaluationCard';
+import GuessHistory from '@/components/quiz/GuessHistory';
 import NextAnimeCountdown from '@/components/quiz/NextAnimeCountdown';
 import SettingsForm from '@/components/quiz/SettingsForm';
 import SummaryCard from '@/components/quiz/SummaryCard';
@@ -121,27 +120,11 @@ const UserQuiz = () => {
 
               <Grid container xs={12} sx={{ justifyContent: 'center' }}>
                 <Grid xs={12} sm={10} md={8} lg={6}>
-                  <PanelCard title={`Guess History (${quiz.guesses.length})`}>
-                    <Stack spacing={1}>
-                      {quiz.guesses.length === 0 && (
-                        <>
-                          <Typography variant="button" color="text.secondary" sx={{ alignSelf: 'center', py: 2 }}>
-                            No guesses yet
-                          </Typography>
-                          {userStorage.guesses[quiz.seed]?.length > 0 && (
-                            <Button onClick={handleRestoreGuesses} sx={{ alignSelf: 'center' }}>
-                              Restore previous guesses
-                            </Button>
-                          )}
-                        </>
-                      )}
-                      {quiz.guesses.map((guess, index) => (
-                        <Fade key={index} in={true}>
-                          <GuessEvaluationCard elevation={2} anime={guess.anime} evaluation={guess.evaluation} />
-                        </Fade>
-                      ))}
-                    </Stack>
-                  </PanelCard>
+                  <GuessHistory
+                    guesses={quiz.guesses}
+                    isRestoreButtonEnabled={userStorage.guesses[quiz.seed]?.length > 0}
+                    onRestoreButtonClick={handleRestoreGuesses}
+                  />
                 </Grid>
               </Grid>
 
