@@ -2,8 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 
 import { useParams } from 'react-router-dom';
 
-import { Settings, Shuffle } from '@mui/icons-material';
-import { Alert, Box, Dialog, Fade, Unstable_Grid2 as Grid, IconButton, Stack, Typography } from '@mui/material';
+import { Settings } from '@mui/icons-material';
+import { Alert, Box, Dialog, Fade, Unstable_Grid2 as Grid, IconButton, Stack } from '@mui/material';
 
 import { SettingsContext } from '@/contexts/Settings';
 
@@ -12,6 +12,7 @@ import PageContainer from '@/components/misc/PageContainer';
 import GuessAnimeForm from '@/components/quiz/GuessAnimeForm';
 import GuessHistory from '@/components/quiz/GuessHistory';
 import NextAnimeCountdown from '@/components/quiz/NextAnimeCountdown';
+import SeedControl from '@/components/quiz/SeedControl';
 import SettingsForm from '@/components/quiz/SettingsForm';
 import SummaryCard from '@/components/quiz/SummaryCard';
 import UserChip from '@/components/users/UserChip';
@@ -130,14 +131,7 @@ const UserQuiz = () => {
 
               <Grid container xs={12} sx={{ justifyContent: 'center' }}>
                 <Grid xs={12} sm={10} md={8} lg={6}>
-                  <Box color="text.secondary" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                    <Typography variant="overline" color="inherit">
-                      Seed: {quiz.seed}
-                    </Typography>
-                    <IconButton size="small" color="inherit" onClick={quiz.randomizeSeed}>
-                      <Shuffle fontSize="inherit" />
-                    </IconButton>
-                  </Box>
+                  <SeedControl seed={quiz.seed} onRandomizeSeed={quiz.randomizeSeed} sx={{ color: 'text.secondary' }} />
                 </Grid>
               </Grid>
             </>
