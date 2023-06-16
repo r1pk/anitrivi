@@ -10,16 +10,16 @@ import PanelCard from '@/components/misc/PanelCard';
 
 import UserChip from './UserChip';
 
-const SearchUserResults = forwardRef(({ results, ...rest }, ref) => {
+const SearchUserResults = forwardRef(({ users, ...rest }, ref) => {
   return (
     <PanelCard title="Search Results" ref={ref} {...rest}>
       <Stack spacing={1}>
-        {results.length === 0 && (
+        {users.length === 0 && (
           <Typography variant="button" color="text.secondary" sx={{ alignSelf: 'center', py: 2 }}>
             No users found
           </Typography>
         )}
-        {results.map((user) => (
+        {users.map((user) => (
           <Link component={RouterLink} to={`/user-quiz/${user.id}`} underline="none" key={user.id}>
             <UserChip user={user} />
           </Link>
@@ -31,7 +31,7 @@ const SearchUserResults = forwardRef(({ results, ...rest }, ref) => {
 
 SearchUserResults.displayName = 'SearchUserResults';
 SearchUserResults.propTypes = {
-  results: PropTypes.arrayOf(
+  users: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
     })

@@ -35,7 +35,7 @@ const Home = () => {
         {isSuccess && (
           <Grid container xs={12} sx={{ justifyContent: 'center' }}>
             <Grid xs={12} sm={10} md={8} lg={6}>
-              <SearchUserResults results={data?.users} />
+              <SearchUserResults users={data?.users} />
             </Grid>
           </Grid>
         )}
