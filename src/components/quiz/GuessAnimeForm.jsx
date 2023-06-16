@@ -30,10 +30,18 @@ const GuessAnimeForm = forwardRef(({ options, onSubmit, ...rest }, ref) => {
     reset();
   };
 
+  const getOptionLabel = (option) => {
+    return getTitleByPreference(option.title, settings.language);
+  };
+
+  const isOptionEqualToValue = (option, value) => {
+    return option.id === value.id;
+  };
+
+  // prettier-ignore
   const filterOptions = createFilterOptions({
-    limit: 15,
+    limit: settings.suggestionLimit,
     stringify: (option) => {
-      // prettier-ignore
       return Object.values(option.title).filter((title) => title).join('⋆');
     },
   });
@@ -46,15 +54,15 @@ const GuessAnimeForm = forwardRef(({ options, onSubmit, ...rest }, ref) => {
             name="answer"
             control={control}
             rules={{ required: true }}
-            render={({ field: { value, onChange } }) => (
+            render={({ field }) => (
               <Autocomplete
                 fullWidth
-                value={value}
                 options={options}
+                value={field.value}
                 filterOptions={filterOptions}
-                onChange={(_, option) => onChange(option)}
-                getOptionLabel={(option) => getTitleByPreference(option.title, settings.language)}
-                isOptionEqualToValue={(option, value) => option.id === value.id}
+                getOptionLabel={getOptionLabel}
+                isOptionEqualToValue={isOptionEqualToValue}
+                onChange={(_, option) => field.onChange(option)}
                 renderInput={(params) => <TextField label="Anime Title" {...params} />}
               />
             )}
