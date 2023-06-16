@@ -4,13 +4,15 @@ import PropTypes from 'prop-types';
 
 import { Stack, Typography } from '@mui/material';
 
+import { getOrDefault } from '@/utils/get-or-default';
+
 const PropertyTag = forwardRef(({ sx, label, value, ...rest }, ref) => {
   return (
     <Stack direction="row" gap={0.5} sx={{ alignItems: 'center' }} ref={ref} {...rest}>
       <Typography variant="caption" color="text.secondary">
         {label}:
       </Typography>
-      <Typography variant="body2">{value}</Typography>
+      <Typography variant="body2">{getOrDefault(value)}</Typography>
     </Stack>
   );
 });

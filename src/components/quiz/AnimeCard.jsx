@@ -20,11 +20,11 @@ const AnimeCard = forwardRef(({ sx, anime, ...rest }, ref) => {
   const studios = anime.studios.edges.map((edge) => edge.node.name).join(', ');
 
   const properties = [
-    { label: 'Source', value: getOrDefault(anime.source) },
-    { label: 'Format', value: getOrDefault(anime.format) },
-    { label: 'Episodes', value: getOrDefault(anime.episodes) },
+    { label: 'Source', value: anime.source },
+    { label: 'Format', value: anime.format },
+    { label: 'Episodes', value: anime.episodes },
     { label: 'Season', value: `${getOrDefault(anime.season)} ${getOrDefault(anime.seasonYear)}` },
-    { label: 'Average Score', value: `${getOrDefault(anime.averageScore)}%` },
+    { label: 'Average Score', value: anime.averageScore },
   ];
 
   return (
@@ -35,7 +35,7 @@ const AnimeCard = forwardRef(({ sx, anime, ...rest }, ref) => {
           <Stack gap={1}>
             <Typography variant="body2">{title}</Typography>
             <Typography variant="caption" color="text.secondary">
-              {studios}
+              {getOrDefault(studios)}
             </Typography>
           </Stack>
         </Box>
