@@ -2,13 +2,11 @@ import { useEffect, useState } from 'react';
 
 import ls from 'localstorage-slim';
 
+import { defaultUserStorage } from '@/configs/default-user-storage';
+
 export const useUserStorage = ({ userId }) => {
   const [userStorage, setUserStorage] = useState(function getInitialUserStorage() {
-    const initialUserStorage = {
-      guesses: {},
-    };
-
-    return Object.assign({}, initialUserStorage, ls.get(userId));
+    return Object.assign({}, defaultUserStorage, ls.get(userId));
   });
 
   useEffect(
