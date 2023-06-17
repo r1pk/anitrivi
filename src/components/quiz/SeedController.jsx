@@ -8,7 +8,7 @@ import { Box, IconButton, Typography } from '@mui/material';
 import { getOrDefault } from '@/utils/get-or-default';
 import { mergeSx } from '@/utils/merge-sx';
 
-const SeedControl = forwardRef(({ sx, seed, onRandomizeSeed, ...rest }, ref) => {
+const SeedController = forwardRef(({ sx, seed, onRandomizeSeed, ...rest }, ref) => {
   return (
     <Box sx={mergeSx({ display: 'flex', justifyContent: 'center', alignItems: 'center' }, sx)} ref={ref} {...rest}>
       <Typography variant="overline" color="inherit">
@@ -21,8 +21,8 @@ const SeedControl = forwardRef(({ sx, seed, onRandomizeSeed, ...rest }, ref) => 
   );
 });
 
-SeedControl.displayName = 'SeedControl';
-SeedControl.propTypes = {
+SeedController.displayName = 'SeedController';
+SeedController.propTypes = {
   sx: PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.object,
@@ -32,4 +32,4 @@ SeedControl.propTypes = {
   onRandomizeSeed: PropTypes.func.isRequired,
 };
 
-export default SeedControl;
+export default SeedController;
