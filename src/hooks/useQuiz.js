@@ -24,7 +24,9 @@ export const useQuiz = ({ series, seed }) => {
 
   useEffect(
     function pickRandomAnime() {
-      if (!isRequirementFulfilled) return;
+      if (!isRequirementFulfilled) {
+        return;
+      }
 
       const sin = Math.sin(seed) * 10000;
       const randomFraction = sin - Math.floor(sin);
