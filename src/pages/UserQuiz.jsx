@@ -31,8 +31,8 @@ const UserQuiz = () => {
 
   const quiz = useUserQuiz({ userId: userId });
 
-  const handleGuessAnime = (entry) => {
-    quiz.guessAnime(entry);
+  const handleSubmitGuess = (entry) => {
+    quiz.checkGuess(entry);
     setUserStorage((prev) => ({
       ...prev,
       guesses: {
@@ -43,7 +43,7 @@ const UserQuiz = () => {
   };
 
   const handleRestoreGuesses = () => {
-    quiz.restoreGuesses(userStorage.guesses[quiz.seed]);
+    quiz.restore(userStorage.guesses[quiz.seed]);
   };
 
   const handleOpenSettingsDialog = () => {
@@ -91,7 +91,7 @@ const UserQuiz = () => {
             <Grid container xs={12} sx={{ justifyContent: 'center' }}>
               <Grid xs={12} sm={10} md={8} lg={6}>
                 <Fade mountOnEnter unmountOnExit in={quiz.isFinished}>
-                  <SummaryCard ref={summaryCard} anime={quiz.anime} attempts={quiz.guesses.length} />
+                  <SummaryCard ref={summaryCard} anime={quiz.featuredAnime} attempts={quiz.guesses.length} />
                 </Fade>
               </Grid>
             </Grid>
@@ -114,7 +114,7 @@ const UserQuiz = () => {
               {!quiz.isFinished && (
                 <Grid container xs={12} sx={{ justifyContent: 'center' }}>
                   <Grid xs={12} sm={10} md={8} lg={6}>
-                    <GuessAnimeForm options={quiz.series} onSubmit={handleGuessAnime} />
+                    <GuessAnimeForm options={quiz.series} onSubmit={handleSubmitGuess} />
                   </Grid>
                 </Grid>
               )}

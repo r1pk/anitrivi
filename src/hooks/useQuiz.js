@@ -6,7 +6,7 @@ export const useQuiz = ({ series, seed }) => {
   const [isReady, setIsReady] = useState(false);
   const [isFinished, setIsFinished] = useState(false);
 
-  const [anime, setAnime] = useState(null);
+  const [featuredAnime, setFeaturedAnime] = useState(null);
   const [guesses, setGuesses] = useState([]);
 
   const isRequirementFulfilled = series?.length > 0;
@@ -16,14 +16,14 @@ export const useQuiz = ({ series, seed }) => {
       setIsReady(false);
       setIsFinished(false);
 
-      setAnime(null);
+      setFeaturedAnime(null);
       setGuesses([]);
     },
     [seed]
   );
 
   useEffect(
-    function pickRandomAnime() {
+    function pickFeaturedAnime() {
       if (!isRequirementFulfilled) {
         return;
       }
@@ -32,15 +32,15 @@ export const useQuiz = ({ series, seed }) => {
       const randomFraction = sin - Math.floor(sin);
       const randomIndex = Math.floor(randomFraction * series.length);
 
-      setAnime(series[randomIndex]);
+      setFeaturedAnime(series[randomIndex]);
       setIsReady(true);
     },
     [isRequirementFulfilled, series, seed]
   );
 
-  const guessAnime = (answer) => {
-    const evaluation = evaluateAnime(anime, answer);
-    const guess = { anime: answer, evaluation: evaluation };
+  const checkGuess = (anime) => {
+    const evaluation = evaluateAnime(featuredAnime, anime);
+    const guess = { anime: anime, evaluation: evaluation };
 
     if (evaluation.anime === EVALUATION.CORRECT) {
       setIsFinished(true);
@@ -49,12 +49,12 @@ export const useQuiz = ({ series, seed }) => {
     setGuesses((prev) => [guess, ...prev]);
   };
 
-  const restoreGuesses = (animeIds) => {
+  const restore = (animeIds) => {
     for (const animeId of animeIds) {
-      const answer = series.find((anime) => anime.id === animeId);
+      const anime = series.find((anime) => anime.id === animeId);
 
-      if (answer) {
-        guessAnime(answer);
+      if (anime) {
+        checkGuess(anime);
       }
     }
   };
@@ -67,10 +67,10 @@ export const useQuiz = ({ series, seed }) => {
     seed: seed,
     series: series,
 
-    anime: anime,
+    featuredAnime: featuredAnime,
     guesses: guesses,
 
-    guessAnime: guessAnime,
-    restoreGuesses: restoreGuesses,
+    checkGuess: checkGuess,
+    restore: restore,
   };
 };
