@@ -18,21 +18,12 @@ export const useUserQuiz = ({ userId }) => {
 
   const quiz = useQuiz({ series: series, seed: seed });
 
-  return {
+  return Object.assign({}, quiz, {
     isReady: isSuccess && quiz.isReady,
-    isFinished: quiz.isFinished,
     isInitialLoading: isInitialLoading,
-    isRequirementFulfilled: quiz.isRequirementFulfilled,
 
     user: data?.user,
-    series: quiz.series,
-    seed: quiz.seed,
 
-    anime: quiz.anime,
-    guesses: quiz.guesses,
-
-    guessAnime: quiz.guessAnime,
-    restoreGuesses: quiz.restoreGuesses,
     randomizeSeed: randomizeSeed,
-  };
+  });
 };
