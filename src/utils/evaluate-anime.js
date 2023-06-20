@@ -57,7 +57,7 @@ const evaluateArrays = fallbackDecorator(preliminaryEvaluation, (reference, targ
   return EVALUATION.INCORRECT;
 });
 
-export const evaluateAnswer = (reference, target) => {
+export const evaluateAnime = (reference, target) => {
   const evaluation = {
     anime: evaluateStrings(reference.id, target.id),
     format: evaluateStrings(reference.format, target.format),

@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { ArrowDownward, ArrowUpward } from '@mui/icons-material';
 import { Stack, Typography } from '@mui/material';
 
-import { EVALUATION } from '@/utils/evaluate-answer';
+import { EVALUATION } from '@/utils/evaluate-anime';
 import { getOrDefault } from '@/utils/get-or-default';
 import { mergeSx } from '@/utils/merge-sx';
 

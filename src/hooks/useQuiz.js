@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { EVALUATION, evaluateAnswer } from '@/utils/evaluate-answer';
+import { EVALUATION, evaluateAnime } from '@/utils/evaluate-anime';
 
 export const useQuiz = ({ series, seed }) => {
   const [isReady, setIsReady] = useState(false);
@@ -39,7 +39,7 @@ export const useQuiz = ({ series, seed }) => {
   );
 
   const guessAnime = (answer) => {
-    const evaluation = evaluateAnswer(anime, answer);
+    const evaluation = evaluateAnime(anime, answer);
     const guess = { anime: answer, evaluation: evaluation };
 
     if (evaluation.anime === EVALUATION.CORRECT) {
