@@ -13,6 +13,7 @@ export const useSeed = ({ additionalFactor = 1000 }) => {
 
   return {
     seed: seed,
+    setSeed: setSeed,
     randomizeSeed: randomizeSeed,
   };
 };

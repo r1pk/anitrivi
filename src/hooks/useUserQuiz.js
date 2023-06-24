@@ -7,7 +7,7 @@ import { useSeed } from './useSeed';
 
 export const useUserQuiz = ({ userId }) => {
   const { data, isSuccess, isInitialLoading } = useUserProfile({ userId: userId });
-  const { seed, randomizeSeed } = useSeed({ additionalFactor: userId * 123 });
+  const { seed, setSeed, randomizeSeed } = useSeed({ additionalFactor: userId * 123 });
 
   const series = useMemo(() => {
     const lists = data?.lists.map((list) => list.entries).flat();
@@ -24,6 +24,7 @@ export const useUserQuiz = ({ userId }) => {
 
     user: data?.user,
 
+    setSeed: setSeed,
     randomizeSeed: randomizeSeed,
   });
 };

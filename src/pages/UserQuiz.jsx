@@ -112,6 +112,7 @@ const UserQuiz = () => {
                 <Grid xs={12} sm={10} md={8} lg={6}>
                   <SeedController
                     seed={quiz.seed}
+                    onChangeSeed={quiz.setSeed}
                     onRandomizeSeed={quiz.randomizeSeed}
                     sx={{ color: 'text.secondary' }}
                   />
