@@ -19,32 +19,15 @@ import UserChip from '@/components/users/UserChip';
 
 import { useSettings } from '@/hooks/useSettings';
 import { useUserQuiz } from '@/hooks/useUserQuiz';
-import { useUserStorage } from '@/hooks/useUserStorage';
 
 const UserQuiz = () => {
   const { userId } = useParams();
   const summaryCard = useRef(null);
 
   const { settings, setSettings } = useSettings();
-  const { userStorage, setUserStorage } = useUserStorage({ userId: userId });
   const [isSettingsDialogOpen, setIsSettingsDialogOpen] = useState(false);
 
   const quiz = useUserQuiz({ userId: userId });
-
-  const handleSubmitGuess = (entry) => {
-    quiz.checkGuess(entry);
-    setUserStorage((prev) => ({
-      ...prev,
-      guesses: {
-        ...prev.guesses,
-        [quiz.seed]: [].concat(prev.guesses[quiz.seed] || [], entry.id),
-      },
-    }));
-  };
-
-  const handleRestoreGuesses = () => {
-    quiz.restore(userStorage.guesses[quiz.seed]);
-  };
 
   const handleOpenSettingsDialog = () => {
     setIsSettingsDialogOpen(true);
@@ -114,18 +97,14 @@ const UserQuiz = () => {
               {!quiz.isFinished && (
                 <Grid container xs={12} sx={{ justifyContent: 'center' }}>
                   <Grid xs={12} sm={10} md={8} lg={6}>
-                    <GuessAnimeForm options={quiz.series} onSubmit={handleSubmitGuess} />
+                    <GuessAnimeForm options={quiz.series} onSubmit={quiz.checkGuess} />
                   </Grid>
                 </Grid>
               )}
 
               <Grid container xs={12} sx={{ justifyContent: 'center' }}>
                 <Grid xs={12} sm={10} md={8} lg={6}>
-                  <GuessHistory
-                    guesses={quiz.guesses}
-                    isRestoreButtonEnabled={userStorage.guesses[quiz.seed]?.length > 0}
-                    onRestoreButtonClick={handleRestoreGuesses}
-                  />
+                  <GuessHistory guesses={quiz.guesses} />
                 </Grid>
               </Grid>
 

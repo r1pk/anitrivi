@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 
+import ls from 'localstorage-slim';
+
 import { EVALUATION, evaluateAnime } from '@/utils/evaluate-anime';
 
-export const useQuiz = ({ series, seed }) => {
+export const useQuiz = ({ id, series, seed }) => {
   const [isReady, setIsReady] = useState(false);
   const [isFinished, setIsFinished] = useState(false);
 
@@ -38,6 +40,43 @@ export const useQuiz = ({ series, seed }) => {
     [isRequirementFulfilled, series, seed]
   );
 
+  useEffect(
+    function restorePersistedGuesses() {
+      if (!featuredAnime) {
+        return;
+      }
+
+      const storage = ls.get(id) || {};
+      const animeIds = storage[seed] || [];
+
+      setGuesses([]);
+      animeIds.forEach((animeId) => {
+        const anime = series.find((anime) => anime.id === animeId);
+
+        if (anime) {
+          const evaluation = evaluateAnime(featuredAnime, anime);
+          const guess = { anime: anime, evaluation: evaluation };
+
+          if (evaluation.anime === EVALUATION.CORRECT) {
+            setIsFinished(true);
+          }
+
+          setGuesses((prev) => [guess, ...prev]);
+        }
+      });
+    },
+    [id, series, seed, featuredAnime]
+  );
+
+  const persistGuess = (anime) => {
+    const currentStorage = ls.get(id) || {};
+    const updatedStorage = Object.assign({}, currentStorage, {
+      [seed]: [].concat(currentStorage[seed] || [], anime.id),
+    });
+
+    ls.set(id, updatedStorage);
+  };
+
   const checkGuess = (anime) => {
     const evaluation = evaluateAnime(featuredAnime, anime);
     const guess = { anime: anime, evaluation: evaluation };
@@ -47,16 +86,7 @@ export const useQuiz = ({ series, seed }) => {
     }
 
     setGuesses((prev) => [guess, ...prev]);
-  };
-
-  const restore = (animeIds) => {
-    for (const animeId of animeIds) {
-      const anime = series.find((anime) => anime.id === animeId);
-
-      if (anime) {
-        checkGuess(anime);
-      }
-    }
+    persistGuess(anime);
   };
 
   return {
@@ -71,6 +101,5 @@ export const useQuiz = ({ series, seed }) => {
     guesses: guesses,
 
     checkGuess: checkGuess,
-    restore: restore,
   };
 };

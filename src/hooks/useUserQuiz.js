@@ -16,7 +16,7 @@ export const useUserQuiz = ({ userId }) => {
     return [...new Map(entries).values()];
   }, [data]);
 
-  const quiz = useQuiz({ series: series, seed: seed });
+  const quiz = useQuiz({ id: userId, series: series, seed: seed });
 
   return Object.assign({}, quiz, {
     isReady: isSuccess && quiz.isReady,
