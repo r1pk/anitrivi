@@ -20,7 +20,7 @@ const SummaryCard = forwardRef(({ anime, attempts, ...rest }, ref) => {
             You guessed right!
           </Typography>
           <Typography variant="button" color="text.secondary" component="span">
-            The correct answer is:
+            The featured anime is:
           </Typography>
           <Box sx={{ my: 2 }}>
             <AnimeCard anime={anime} />

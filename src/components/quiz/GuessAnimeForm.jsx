@@ -16,7 +16,7 @@ const GuessAnimeForm = forwardRef(({ options, onSubmit, ...rest }, ref) => {
   const { control, formState, handleSubmit, reset } = useForm({
     mode: 'all',
     defaultValues: {
-      answer: null,
+      guess: null,
     },
   });
   const { isValid, isDirty } = formState;
@@ -26,7 +26,7 @@ const GuessAnimeForm = forwardRef(({ options, onSubmit, ...rest }, ref) => {
       return;
     }
 
-    onSubmit(data.answer);
+    onSubmit(data.guess);
     reset();
   };
 
@@ -51,7 +51,7 @@ const GuessAnimeForm = forwardRef(({ options, onSubmit, ...rest }, ref) => {
       <CardActions>
         <Stack direction="row" spacing={1} sx={{ alignItems: 'center', width: 1 }}>
           <Controller
-            name="answer"
+            name="guess"
             control={control}
             rules={{ required: true }}
             render={({ field }) => (
