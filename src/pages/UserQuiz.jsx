@@ -12,7 +12,7 @@ import PageContainer from '@/components/misc/PageContainer';
 import GuessAnimeForm from '@/components/quiz/GuessAnimeForm';
 import GuessHistory from '@/components/quiz/GuessHistory';
 import NextAnimeCountdown from '@/components/quiz/NextAnimeCountdown';
-import SeedController from '@/components/quiz/SeedController';
+import SeedControlPanel from '@/components/quiz/SeedControlPanel';
 import SettingsForm from '@/components/quiz/SettingsForm';
 import SummaryCard from '@/components/quiz/SummaryCard';
 import UserChip from '@/components/users/UserChip';
@@ -110,7 +110,7 @@ const UserQuiz = () => {
 
               <Grid container xs={12} sx={{ justifyContent: 'center' }}>
                 <Grid xs={12} sm={10} md={8} lg={6}>
-                  <SeedController
+                  <SeedControlPanel
                     seed={quiz.seed}
                     onChangeSeed={quiz.changeSeed}
                     onRandomizeSeed={quiz.randomizeSeed}
