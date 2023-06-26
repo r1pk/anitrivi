@@ -8,7 +8,7 @@ import { mergeSx } from '@/utils/merge-sx';
 
 const Chip = forwardRef(({ sx, label, ...rest }, ref) => {
   return (
-    <Box sx={mergeSx({ px: 1, borderRadius: 1 }, sx)} ref={ref} {...rest}>
+    <Box sx={mergeSx({ display: 'flex', justifyContent: 'center', p: 0.2, borderRadius: 1 }, sx)} ref={ref} {...rest}>
       <Typography variant="caption" sx={{ whiteSpace: 'nowrap' }}>
         {label}
       </Typography>
