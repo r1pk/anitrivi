@@ -3,7 +3,7 @@ import { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 
 import { Edit, Shuffle } from '@mui/icons-material';
-import { Box, IconButton, Stack, Typography } from '@mui/material';
+import { Box, Divider, IconButton, Stack, Typography } from '@mui/material';
 
 import { getOrDefault } from '@/utils/get-or-default';
 import { mergeSx } from '@/utils/merge-sx';
@@ -14,7 +14,8 @@ const SeedControlPanel = forwardRef(({ sx, seed, onChangeSeed, onRandomizeSeed, 
       <Typography variant="overline" color="inherit">
         Seed: {getOrDefault(seed)}
       </Typography>
-      <Stack direction="row" sx={{ ml: 1 }}>
+      <Divider orientation="vertical" flexItem sx={{ m: 1 }} />
+      <Stack direction="row">
         <IconButton size="small" color="inherit" onClick={onChangeSeed}>
           <Edit fontSize="inherit" />
         </IconButton>
