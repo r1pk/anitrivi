@@ -5,10 +5,10 @@ AniTrivi is a responsive web application that allows users to daily guess a rand
 ## Screenshots
 
 Guessing phase
-![Guessing phase](https://i.imgur.com/RwawQ0w.png)
+![Guessing phase](https://i.imgur.com/3O8S0xi.png)
 
 Featured anime revealed
-![Featured anime revealed](https://i.imgur.com/KtNId4T.png)
+![Featured anime revealed](https://i.imgur.com/hhcYY5D.png)
 
 ## Pre-requisites
 
