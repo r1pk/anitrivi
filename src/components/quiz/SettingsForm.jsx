@@ -6,33 +6,15 @@ import { Controller, useForm } from 'react-hook-form';
 
 import { Button, FormControl, MenuItem, Select, Stack, Typography } from '@mui/material';
 
+import { useSettingsContext } from '@/contexts/Settings';
+
 import PanelCard from '@/components/misc/PanelCard';
 
-import { defaultSettings } from '@/configs/default-settings';
-
-const blueprint = {
-  language: {
-    options: [
-      { label: 'English', value: 'english' },
-      { label: 'Romaji', value: 'romaji' },
-      { label: 'Native', value: 'native' },
-    ],
-  },
-  suggestionLimit: {
-    options: [
-      { label: '1', value: 1 },
-      { label: '5', value: 5 },
-      { label: '10', value: 10 },
-      { label: '15', value: 15 },
-      { label: 'None', value: false },
-    ],
-  },
-};
-
-const SettingsForm = forwardRef(({ defaultValues, onCancel, onSubmit, ...rest }, ref) => {
+const SettingsForm = forwardRef(({ onCancel, onSubmit, ...rest }, ref) => {
+  const { settings, setSettings } = useSettingsContext();
   const { control, formState, handleSubmit } = useForm({
     mode: 'all',
-    defaultValues: Object.assign({}, defaultSettings, defaultValues),
+    defaultValues: settings,
   });
   const { isDirty } = formState;
 
@@ -41,6 +23,7 @@ const SettingsForm = forwardRef(({ defaultValues, onCancel, onSubmit, ...rest },
       return;
     }
 
+    setSettings(data);
     onSubmit(data);
   };
 
@@ -56,11 +39,9 @@ const SettingsForm = forwardRef(({ defaultValues, onCancel, onSubmit, ...rest },
             control={control}
             render={({ field }) => (
               <Select size="small" {...field}>
-                {blueprint.language.options.map(({ label, value }) => (
-                  <MenuItem key={value} value={value}>
-                    {label}
-                  </MenuItem>
-                ))}
+                <MenuItem value="english">English</MenuItem>
+                <MenuItem value="romaji">Romaji</MenuItem>
+                <MenuItem value="native">Native</MenuItem>
               </Select>
             )}
           />
@@ -74,19 +55,21 @@ const SettingsForm = forwardRef(({ defaultValues, onCancel, onSubmit, ...rest },
             control={control}
             render={({ field }) => (
               <Select size="small" {...field}>
-                {blueprint.suggestionLimit.options.map(({ label, value }) => (
-                  <MenuItem key={value} value={value}>
-                    {label}
-                  </MenuItem>
-                ))}
+                <MenuItem value={false}>None</MenuItem>
+                <MenuItem value={1}>1</MenuItem>
+                <MenuItem value={5}>5</MenuItem>
+                <MenuItem value={10}>10</MenuItem>
+                <MenuItem value={15}>15</MenuItem>
               </Select>
             )}
           />
         </FormControl>
         <Stack direction="row" spacing={1} justifyContent="flex-end">
-          <Button variant="outlined" onClick={onCancel}>
-            Cancel
-          </Button>
+          {onCancel && (
+            <Button variant="outlined" onClick={onCancel}>
+              Cancel
+            </Button>
+          )}
           <Button variant="contained" type="submit" disabled={!isDirty}>
             Save
           </Button>
@@ -98,11 +81,7 @@ const SettingsForm = forwardRef(({ defaultValues, onCancel, onSubmit, ...rest },
 
 SettingsForm.displayName = 'SettingsForm';
 SettingsForm.propTypes = {
-  defaultValues: PropTypes.shape({
-    language: PropTypes.oneOf(['english', 'romaji', 'native']),
-    suggestionLimit: PropTypes.oneOfType([PropTypes.number, PropTypes.bool]),
-  }),
-  onCancel: PropTypes.func.isRequired,
+  onCancel: PropTypes.func,
   onSubmit: PropTypes.func.isRequired,
 };
 

@@ -1,4 +1,4 @@
-import { forwardRef, useContext } from 'react';
+import { forwardRef } from 'react';
 
 import PropTypes from 'prop-types';
 
@@ -6,13 +6,12 @@ import { Controller, useForm } from 'react-hook-form';
 
 import { Autocomplete, Button, Card, CardActions, Stack, TextField, createFilterOptions } from '@mui/material';
 
-import { SettingsContext } from '@/contexts/Settings';
+import { useSettingsContext } from '@/contexts/Settings';
 
 import { getTitleByPreference } from '@/utils/get-title-by-preference';
 
 const GuessAnimeForm = forwardRef(({ options, onSubmit, ...rest }, ref) => {
-  const settings = useContext(SettingsContext);
-
+  const { settings } = useSettingsContext();
   const { control, formState, handleSubmit, reset } = useForm({
     mode: 'all',
     defaultValues: {

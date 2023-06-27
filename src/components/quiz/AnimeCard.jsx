@@ -1,10 +1,10 @@
-import { forwardRef, useContext } from 'react';
+import { forwardRef } from 'react';
 
 import PropTypes from 'prop-types';
 
 import { Box, Paper, Stack, Typography } from '@mui/material';
 
-import { SettingsContext } from '@/contexts/Settings';
+import { useSettingsContext } from '@/contexts/Settings';
 
 import Chip from '@/components/common/Chip';
 import PropertyTag from '@/components/common/PropertyTag';
@@ -14,7 +14,7 @@ import { getTitleByPreference } from '@/utils/get-title-by-preference';
 import { mergeSx } from '@/utils/merge-sx';
 
 const AnimeCard = forwardRef(({ sx, anime, ...rest }, ref) => {
-  const settings = useContext(SettingsContext);
+  const { settings } = useSettingsContext();
 
   const title = getTitleByPreference(anime.title, settings.language);
   const studios = anime.studios.edges.map((edge) => edge.node.name).join(', ');

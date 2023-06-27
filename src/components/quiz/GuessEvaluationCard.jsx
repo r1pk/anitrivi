@@ -1,10 +1,10 @@
-import { forwardRef, useContext } from 'react';
+import { forwardRef } from 'react';
 
 import PropTypes from 'prop-types';
 
 import { Box, Card, CardContent, Stack, Typography, alpha, useTheme } from '@mui/material';
 
-import { SettingsContext } from '@/contexts/Settings';
+import { useSettingsContext } from '@/contexts/Settings';
 
 import { getTitleByPreference } from '@/utils/get-title-by-preference';
 import { mergeSx } from '@/utils/merge-sx';
@@ -12,7 +12,7 @@ import { mergeSx } from '@/utils/merge-sx';
 import EvaluationTag from './EvaluationTag';
 
 const GuessEvaluationCard = forwardRef(({ sx, anime, evaluation, ...rest }, ref) => {
-  const settings = useContext(SettingsContext);
+  const { settings } = useSettingsContext();
 
   const title = getTitleByPreference(anime.title, settings.language);
   const studios = anime.studios.edges.map((edge) => edge.node.name).join(', ');

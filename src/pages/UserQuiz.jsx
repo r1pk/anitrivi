@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import { Settings } from '@mui/icons-material';
 import { Alert, Box, Dialog, Fade, Unstable_Grid2 as Grid, IconButton, Stack } from '@mui/material';
 
-import { SettingsContext } from '@/contexts/Settings';
+import SettingsContextProvider from '@/contexts/Settings';
 
 import BrandHeader from '@/components/misc/BrandHeader';
 import PageContainer from '@/components/misc/PageContainer';
@@ -17,14 +17,12 @@ import SettingsForm from '@/components/quiz/SettingsForm';
 import SummaryCard from '@/components/quiz/SummaryCard';
 import UserChip from '@/components/users/UserChip';
 
-import { useSettings } from '@/hooks/useSettings';
 import { useUserQuiz } from '@/hooks/useUserQuiz';
 
 const UserQuiz = () => {
   const { userId } = useParams();
   const summaryCard = useRef(null);
 
-  const { settings, setSettings } = useSettings();
   const [isSettingsDialogOpen, setIsSettingsDialogOpen] = useState(false);
 
   const quiz = useUserQuiz({ userId: userId });
@@ -37,8 +35,7 @@ const UserQuiz = () => {
     setIsSettingsDialogOpen(false);
   };
 
-  const handleSubmitSettings = (settings) => {
-    setSettings((prev) => ({ ...prev, ...settings }));
+  const handleSubmitSettings = () => {
     setIsSettingsDialogOpen(false);
   };
 
@@ -52,7 +49,7 @@ const UserQuiz = () => {
   );
 
   return (
-    <SettingsContext.Provider value={settings}>
+    <SettingsContextProvider>
       <PageContainer isLoaderVisible={quiz.isInitialLoading}>
         <Grid container spacing={2} sx={{ justifyContent: 'center' }}>
           <Grid xs={12}>
@@ -123,10 +120,10 @@ const UserQuiz = () => {
         </Grid>
 
         <Dialog fullWidth maxWidth="xs" open={isSettingsDialogOpen} onClose={handleCloseSettingsDialog}>
-          <SettingsForm defaultValues={settings} onCancel={handleCloseSettingsDialog} onSubmit={handleSubmitSettings} />
+          <SettingsForm onCancel={handleCloseSettingsDialog} onSubmit={handleSubmitSettings} />
         </Dialog>
       </PageContainer>
-    </SettingsContext.Provider>
+    </SettingsContextProvider>
   );
 };
 
