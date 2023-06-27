@@ -37,12 +37,8 @@ const GuessAnimeForm = forwardRef(({ options, onSubmit, ...rest }, ref) => {
     return option.id === value.id;
   };
 
-  // prettier-ignore
   const filterOptions = createFilterOptions({
     limit: quizSettings.suggestionLimit,
-    stringify: (option) => {
-      return Object.values(option.title).filter((title) => title).join('⋆');
-    },
   });
 
   return (
