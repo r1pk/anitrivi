@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { Settings } from '@mui/icons-material';
-import { Alert, Box, Dialog, Fade, Unstable_Grid2 as Grid, IconButton, Stack } from '@mui/material';
+import { Alert, Box, Fade, Unstable_Grid2 as Grid, IconButton, Stack } from '@mui/material';
 
 import QuizSettingsContextProvider from '@/contexts/QuizSettings';
 
@@ -13,7 +13,7 @@ import GuessAnimeForm from '@/components/quiz/GuessAnimeForm';
 import GuessHistory from '@/components/quiz/GuessHistory';
 import NextAnimeCountdown from '@/components/quiz/NextAnimeCountdown';
 import SeedControlPanel from '@/components/quiz/SeedControlPanel';
-import SettingsForm from '@/components/quiz/SettingsForm';
+import SettingsDialog from '@/components/quiz/SettingsDialog';
 import SummaryCard from '@/components/quiz/SummaryCard';
 import UserChip from '@/components/users/UserChip';
 
@@ -32,10 +32,6 @@ const UserQuiz = () => {
   };
 
   const handleCloseSettingsDialog = () => {
-    setIsSettingsDialogOpen(false);
-  };
-
-  const handleSubmitSettings = () => {
     setIsSettingsDialogOpen(false);
   };
 
@@ -119,9 +115,7 @@ const UserQuiz = () => {
           )}
         </Grid>
 
-        <Dialog fullWidth maxWidth="xs" open={isSettingsDialogOpen} onClose={handleCloseSettingsDialog}>
-          <SettingsForm onCancel={handleCloseSettingsDialog} onSubmit={handleSubmitSettings} />
-        </Dialog>
+        <SettingsDialog isOpen={isSettingsDialogOpen} onClose={handleCloseSettingsDialog} />
       </PageContainer>
     </QuizSettingsContextProvider>
   );

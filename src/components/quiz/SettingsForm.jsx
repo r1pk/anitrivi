@@ -28,7 +28,7 @@ const SettingsForm = forwardRef(({ onCancel, onSubmit, ...rest }, ref) => {
   };
 
   return (
-    <PanelCard title="Settings" component="form" onSubmit={handleSubmit(handleFormSubmit)} ref={ref} {...rest}>
+    <PanelCard title="Quiz Settings" component="form" onSubmit={handleSubmit(handleFormSubmit)} ref={ref} {...rest}>
       <Stack spacing={2}>
         <FormControl fullWidth component="fieldset">
           <Typography variant="overline" color="text.secondary" component="legend" sx={{ p: 0 }}>
