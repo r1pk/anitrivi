@@ -6,15 +6,15 @@ import { Controller, useForm } from 'react-hook-form';
 
 import { Button, FormControl, MenuItem, Select, Stack, Typography } from '@mui/material';
 
-import { useSettingsContext } from '@/contexts/Settings';
+import { useQuizSettingsContext } from '@/contexts/QuizSettings';
 
 import PanelCard from '@/components/misc/PanelCard';
 
 const SettingsForm = forwardRef(({ onCancel, onSubmit, ...rest }, ref) => {
-  const { settings, setSettings } = useSettingsContext();
+  const { quizSettings, setQuizSettings } = useQuizSettingsContext();
   const { control, formState, handleSubmit } = useForm({
     mode: 'all',
-    defaultValues: settings,
+    defaultValues: quizSettings,
   });
   const { isDirty } = formState;
 
@@ -23,7 +23,7 @@ const SettingsForm = forwardRef(({ onCancel, onSubmit, ...rest }, ref) => {
       return;
     }
 
-    setSettings(data);
+    setQuizSettings(data);
     onSubmit(data);
   };
 
@@ -35,7 +35,7 @@ const SettingsForm = forwardRef(({ onCancel, onSubmit, ...rest }, ref) => {
             Title Language
           </Typography>
           <Controller
-            name="language"
+            name="titleLanguage"
             control={control}
             render={({ field }) => (
               <Select size="small" {...field}>

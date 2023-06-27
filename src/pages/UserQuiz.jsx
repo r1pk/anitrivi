@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import { Settings } from '@mui/icons-material';
 import { Alert, Box, Dialog, Fade, Unstable_Grid2 as Grid, IconButton, Stack } from '@mui/material';
 
-import SettingsContextProvider from '@/contexts/Settings';
+import QuizSettingsContextProvider from '@/contexts/QuizSettings';
 
 import BrandHeader from '@/components/misc/BrandHeader';
 import PageContainer from '@/components/misc/PageContainer';
@@ -49,7 +49,7 @@ const UserQuiz = () => {
   );
 
   return (
-    <SettingsContextProvider>
+    <QuizSettingsContextProvider>
       <PageContainer isLoaderVisible={quiz.isInitialLoading}>
         <Grid container spacing={2} sx={{ justifyContent: 'center' }}>
           <Grid xs={12}>
@@ -123,7 +123,7 @@ const UserQuiz = () => {
           <SettingsForm onCancel={handleCloseSettingsDialog} onSubmit={handleSubmitSettings} />
         </Dialog>
       </PageContainer>
-    </SettingsContextProvider>
+    </QuizSettingsContextProvider>
   );
 };
 

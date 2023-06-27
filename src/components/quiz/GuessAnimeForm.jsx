@@ -6,12 +6,12 @@ import { Controller, useForm } from 'react-hook-form';
 
 import { Autocomplete, Button, Card, CardActions, Stack, TextField, createFilterOptions } from '@mui/material';
 
-import { useSettingsContext } from '@/contexts/Settings';
+import { useQuizSettingsContext } from '@/contexts/QuizSettings';
 
 import { getTitleByPreference } from '@/utils/get-title-by-preference';
 
 const GuessAnimeForm = forwardRef(({ options, onSubmit, ...rest }, ref) => {
-  const { settings } = useSettingsContext();
+  const { quizSettings } = useQuizSettingsContext();
   const { control, formState, handleSubmit, reset } = useForm({
     mode: 'all',
     defaultValues: {
@@ -30,7 +30,7 @@ const GuessAnimeForm = forwardRef(({ options, onSubmit, ...rest }, ref) => {
   };
 
   const getOptionLabel = (option) => {
-    return getTitleByPreference(option.title, settings.language);
+    return getTitleByPreference(option.title, quizSettings.titleLanguage);
   };
 
   const isOptionEqualToValue = (option, value) => {
@@ -39,7 +39,7 @@ const GuessAnimeForm = forwardRef(({ options, onSubmit, ...rest }, ref) => {
 
   // prettier-ignore
   const filterOptions = createFilterOptions({
-    limit: settings.suggestionLimit,
+    limit: quizSettings.suggestionLimit,
     stringify: (option) => {
       return Object.values(option.title).filter((title) => title).join('⋆');
     },

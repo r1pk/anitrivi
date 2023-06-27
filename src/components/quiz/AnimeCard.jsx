@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import { Box, Paper, Stack, Typography } from '@mui/material';
 
-import { useSettingsContext } from '@/contexts/Settings';
+import { useQuizSettingsContext } from '@/contexts/QuizSettings';
 
 import Chip from '@/components/common/Chip';
 import PropertyTag from '@/components/common/PropertyTag';
@@ -14,9 +14,9 @@ import { getTitleByPreference } from '@/utils/get-title-by-preference';
 import { mergeSx } from '@/utils/merge-sx';
 
 const AnimeCard = forwardRef(({ sx, anime, ...rest }, ref) => {
-  const { settings } = useSettingsContext();
+  const { quizSettings } = useQuizSettingsContext();
 
-  const title = getTitleByPreference(anime.title, settings.language);
+  const title = getTitleByPreference(anime.title, quizSettings.titleLanguage);
   const studios = anime.studios.edges.map((edge) => edge.node.name).join(', ');
 
   const properties = [
