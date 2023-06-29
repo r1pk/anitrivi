@@ -38,7 +38,9 @@ const GuessAnimeForm = forwardRef(({ options, onSubmit, ...rest }, ref) => {
   };
 
   const filterOptions = createFilterOptions({
+    trim: true,
     limit: quizSettings.suggestionLimit,
+    stringify: (option) => Object.values(option.title).filter(Boolean).join('⚛'),
   });
 
   return (
