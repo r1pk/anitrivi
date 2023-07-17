@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 
 import PropTypes from 'prop-types';
 
@@ -17,6 +17,13 @@ const QuizSettingsContextProvider = ({ children, ...rest }) => {
   const [quizSettings, setQuizSettings] = useState(function getInitialQuizSettings() {
     return Object.assign({}, defaultQuizSettings, ls.get('quiz-settings'));
   });
+  const memoizedContextValue = useMemo(
+    () => ({
+      quizSettings: quizSettings,
+      setQuizSettings: setQuizSettings,
+    }),
+    [quizSettings, setQuizSettings]
+  );
 
   useEffect(
     function persistQuizSettings() {
@@ -26,7 +33,7 @@ const QuizSettingsContextProvider = ({ children, ...rest }) => {
   );
 
   return (
-    <QuizSettingsContext.Provider value={{ quizSettings, setQuizSettings }} {...rest}>
+    <QuizSettingsContext.Provider value={memoizedContextValue} {...rest}>
       {children}
     </QuizSettingsContext.Provider>
   );

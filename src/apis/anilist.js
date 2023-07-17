@@ -24,7 +24,7 @@ export const useUsers = ({ searchTerm, limit = 6 }) => {
             }
           }
         `,
-        { searchTerm, limit }
+        { searchTerm: searchTerm, limit: limit }
       );
 
       return data.Page;
@@ -86,7 +86,7 @@ export const useUserProfile = ({ userId }) => {
             }
           }
         `,
-        { userId }
+        { userId: userId }
       );
 
       return Object.assign({}, data.MediaListCollection, {
