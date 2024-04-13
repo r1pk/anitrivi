@@ -16,15 +16,17 @@ const GuessEvaluationCard = forwardRef(({ sx, anime, evaluation, ...rest }, ref)
 
   const title = getTitleByPreference(anime.title, quizSettings.titleLanguage);
   const studios = anime.studios.edges.map((edge) => edge.node.name).join(', ');
+  const genres = anime.genres.join(', ');
 
   const evaluations = [
-    { label: 'Format', value: anime.format, evaluation: evaluation.format },
-    { label: 'Episodes', value: anime.episodes, evaluation: evaluation.episodes },
-    { label: 'Source', value: anime.source, evaluation: evaluation.source },
-    { label: 'Average Score', value: anime.averageScore, evaluation: evaluation.averageScore },
-    { label: 'Season', value: anime.season, evaluation: evaluation.season },
-    { label: 'Season Year', value: anime.seasonYear, evaluation: evaluation.seasonYear },
-    { label: 'Studio', value: studios, evaluation: evaluation.studios },
+    { label: 'Format', value: anime.format, evaluation: evaluation.format, inline: true },
+    { label: 'Episodes', value: anime.episodes, evaluation: evaluation.episodes, inline: true },
+    { label: 'Source', value: anime.source, evaluation: evaluation.source, inline: true },
+    { label: 'Average Score', value: anime.averageScore, evaluation: evaluation.averageScore, inline: true },
+    { label: 'Season', value: anime.season, evaluation: evaluation.season, inline: true },
+    { label: 'Season Year', value: anime.seasonYear, evaluation: evaluation.seasonYear, inline: true },
+    { label: 'Genres', value: genres, evaluation: evaluation.genres, inline: false },
+    { label: 'Studio', value: studios, evaluation: evaluation.studios, inline: false },
   ];
 
   const { palette } = useTheme();
@@ -39,13 +41,13 @@ const GuessEvaluationCard = forwardRef(({ sx, anime, evaluation, ...rest }, ref)
           {title}
         </Typography>
         <Stack direction="row" sx={{ flexWrap: 'wrap' }}>
-          {evaluations.map(({ label, value, evaluation }) => (
+          {evaluations.map(({ label, value, evaluation, inline }) => (
             <EvaluationTag
               key={label}
               label={label}
               value={value}
               evaluation={evaluation}
-              sx={{ flex: { xs: '1 0 100%', sm: '1 0 45%' } }}
+              sx={{ flex: inline ? { xs: '1 0 100%', sm: '1 0 45%' } : '1 0 100%' }}
             />
           ))}
         </Stack>
@@ -75,6 +77,7 @@ GuessEvaluationCard.propTypes = {
     season: PropTypes.string,
     seasonYear: PropTypes.number,
     source: PropTypes.string,
+    genres: PropTypes.arrayOf(PropTypes.string).isRequired,
     studios: PropTypes.shape({
       edges: PropTypes.arrayOf(
         PropTypes.shape({
@@ -94,6 +97,7 @@ GuessEvaluationCard.propTypes = {
     episodes: PropTypes.oneOf(['correct', 'higher', 'lower', 'incorrect', 'unknown']).isRequired,
     averageScore: PropTypes.oneOf(['correct', 'higher', 'lower', 'incorrect', 'unknown']).isRequired,
     seasonYear: PropTypes.oneOf(['correct', 'higher', 'lower', 'incorrect', 'unknown']).isRequired,
+    genres: PropTypes.oneOf(['correct', 'partial', 'incorrect', 'unknown']).isRequired,
     studios: PropTypes.oneOf(['correct', 'partial', 'incorrect', 'unknown']).isRequired,
   }).isRequired,
 };

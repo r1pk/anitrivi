@@ -66,6 +66,7 @@ export const evaluateAnime = (reference, target) => {
     episodes: evaluateNumbers(reference.episodes, target.episodes),
     averageScore: evaluateNumbers(reference.averageScore, target.averageScore),
     seasonYear: evaluateNumbers(reference.seasonYear, target.seasonYear),
+    genres: evaluateArrays(reference.genres, target.genres, (genre) => genre),
     studios: evaluateArrays(reference.studios.edges, target.studios.edges, (edge) => edge.node.id),
   };
 
