@@ -64,6 +64,27 @@ const SettingsForm = forwardRef(({ onCancel, onSubmit, ...rest }, ref) => {
             )}
           />
         </FormControl>
+        <FormControl fullWidth component="fieldset">
+          <Typography variant="overline" color="text.secondary" component="legend" sx={{ p: 0 }}>
+            Guess Evaluation Fields
+          </Typography>
+          <Controller
+            name="guessEvaluationFields"
+            control={control}
+            render={({ field }) => (
+              <Select size="small" multiple {...field}>
+                <MenuItem value="format">Format</MenuItem>
+                <MenuItem value="episodes">Episodes</MenuItem>
+                <MenuItem value="source">Source</MenuItem>
+                <MenuItem value="averageScore">Average Score</MenuItem>
+                <MenuItem value="season">Season</MenuItem>
+                <MenuItem value="seasonYear">Season Year</MenuItem>
+                <MenuItem value="genres">Genres</MenuItem>
+                <MenuItem value="studios">Studios</MenuItem>
+              </Select>
+            )}
+          />
+        </FormControl>
         <Stack direction="row" spacing={1} justifyContent="flex-end">
           {onCancel && (
             <Button variant="outlined" onClick={onCancel}>

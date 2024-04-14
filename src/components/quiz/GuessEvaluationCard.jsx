@@ -6,6 +6,7 @@ import { Box, Card, CardContent, Stack, Typography, alpha, useTheme } from '@mui
 
 import { useQuizSettingsContext } from '@/contexts/QuizSettings';
 
+import { getGuessCardEvaluations } from '@/utils/get-guess-card-evaluations';
 import { getTitleByPreference } from '@/utils/get-title-by-preference';
 import { mergeSx } from '@/utils/merge-sx';
 
@@ -15,19 +16,7 @@ const GuessEvaluationCard = forwardRef(({ sx, anime, evaluation, ...rest }, ref)
   const { quizSettings } = useQuizSettingsContext();
 
   const title = getTitleByPreference(anime.title, quizSettings.titleLanguage);
-  const studios = anime.studios.edges.map((edge) => edge.node.name).join(', ');
-  const genres = anime.genres.join(', ');
-
-  const evaluations = [
-    { label: 'Format', value: anime.format, evaluation: evaluation.format, inline: true },
-    { label: 'Episodes', value: anime.episodes, evaluation: evaluation.episodes, inline: true },
-    { label: 'Source', value: anime.source, evaluation: evaluation.source, inline: true },
-    { label: 'Average Score', value: anime.averageScore, evaluation: evaluation.averageScore, inline: true },
-    { label: 'Season', value: anime.season, evaluation: evaluation.season, inline: true },
-    { label: 'Season Year', value: anime.seasonYear, evaluation: evaluation.seasonYear, inline: true },
-    { label: 'Genres', value: genres, evaluation: evaluation.genres, inline: false },
-    { label: 'Studio', value: studios, evaluation: evaluation.studios, inline: false },
-  ];
+  const evaluations = getGuessCardEvaluations(quizSettings.guessEvaluationFields, anime, evaluation);
 
   const { palette } = useTheme();
   const backgroundColor = alpha(palette.background.paper, 0.8);
@@ -35,7 +24,7 @@ const GuessEvaluationCard = forwardRef(({ sx, anime, evaluation, ...rest }, ref)
   const background = `linear-gradient(${backgroundColor}, ${backgroundColor}), url(${anime.bannerImage}) center/cover no-repeat`;
 
   return (
-    <Card sx={mergeSx({ position: 'relative', display: 'flex' }, sx)} ref={ref} {...rest}>
+    <Card sx={mergeSx({ position: 'relative', display: 'flex', minHeight: 128 }, sx)} ref={ref} {...rest}>
       <CardContent sx={{ flex: 1, zIndex: 1, background: background }}>
         <Typography variant="button" gutterBottom>
           {title}
