@@ -1,6 +1,6 @@
 # AniTrivi
 
-AniTrivi is a responsive web application that allows users to daily guess a randomly selected anime based on their completed anime list. AniTrivi is built using technologies such as [React](https://reactjs.org/), [React-Router](https://reactrouter.com), [Material-UI](https://mui.com/), and [AniList API](https://anilist.gitbook.io/anilist-apiv2-docs/) to fetch user data and anime series information.
+AniTrivi is a web application developed using [React](https://reactjs.org/) and [AniList API](https://anilist.gitbook.io/anilist-apiv2-docs/) that allows users to guess anime titles from their completed anime list based on provided clues.
 
 ## Screenshots
 
