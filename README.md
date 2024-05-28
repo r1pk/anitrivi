@@ -5,10 +5,10 @@ AniTrivi is a web application developed using [React](https://reactjs.org/) and 
 ## Screenshots
 
 Guessing phase
-![Guessing phase](https://i.imgur.com/3O8S0xi.png)
+![Guessing phase](https://i.imgur.com/L7mmoRZ.png)
 
 Featured anime revealed
-![Featured anime revealed](https://i.imgur.com/hhcYY5D.png)
+![Featured anime revealed](https://i.imgur.com/d7stxhS.png)
 
 ## Pre-requisites
 

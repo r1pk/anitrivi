@@ -12,10 +12,10 @@ const MainLayout = () => {
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundAttachment: 'fixed',
-            backgroundImage: 'url(/assets/background_9-16.svg)',
+            backgroundImage: 'url(/assets/background_9-16.svg), url(/assets/background.png)',
 
             [theme.breakpoints.up('md')]: {
-              backgroundImage: 'url(/assets/background_16-9.svg)',
+              backgroundImage: 'url(/assets/background_16-9.svg), url(/assets/background.png)',
             },
           },
         })}
