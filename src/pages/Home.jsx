@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { Box, Unstable_Grid2 as Grid } from '@mui/material';
+import { Box, Stack } from '@mui/material';
 
 import BrandHeader from '@/components/misc/BrandHeader';
 import PageContainer from '@/components/misc/PageContainer';
@@ -19,27 +19,19 @@ const Home = () => {
 
   return (
     <PageContainer isLoaderVisible={isInitialLoading}>
-      <Grid container spacing={2} sx={{ justifyContent: 'center' }}>
-        <Grid xs={12}>
-          <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-            <BrandHeader variant="h1" />
-          </Box>
-        </Grid>
-
-        <Grid container xs={12} sx={{ justifyContent: 'center' }}>
-          <Grid xs={12} sm={10} md={8} lg={6}>
+      <Box sx={{ width: { xs: 1, sm: 0.9, md: 0.7, lg: 0.5 } }}>
+        <Stack spacing={2} sx={{ alignItems: 'center' }}>
+          <BrandHeader variant="h1" />
+          <Box sx={{ width: 1 }}>
             <SearchUserForm placeholder="AniList Username" onSubmit={handleSearchUser} />
-          </Grid>
-        </Grid>
-
-        {isSuccess && (
-          <Grid container xs={12} sx={{ justifyContent: 'center' }}>
-            <Grid xs={12} sm={10} md={8} lg={6}>
+          </Box>
+          {isSuccess && (
+            <Box sx={{ width: 1 }}>
               <SearchUserResults users={data?.users} />
-            </Grid>
-          </Grid>
-        )}
-      </Grid>
+            </Box>
+          )}
+        </Stack>
+      </Box>
     </PageContainer>
   );
 };

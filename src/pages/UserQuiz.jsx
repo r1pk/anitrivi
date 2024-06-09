@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { Settings } from '@mui/icons-material';
-import { Alert, Box, Fade, Unstable_Grid2 as Grid, IconButton, Stack } from '@mui/material';
+import { Alert, Box, Fade, IconButton, Stack } from '@mui/material';
 
 import QuizSettingsContextProvider from '@/contexts/QuizSettings';
 
@@ -47,73 +47,59 @@ const UserQuiz = () => {
   return (
     <QuizSettingsContextProvider>
       <PageContainer isLoaderVisible={quiz.isInitialLoading}>
-        <Grid container spacing={2} sx={{ justifyContent: 'center' }}>
-          <Grid xs={12}>
+        <Box sx={{ width: { xs: 1, sm: 0.9, md: 0.7, lg: 0.5 } }}>
+          <Stack spacing={2} sx={{ alignItems: 'center' }}>
             <Stack spacing={1} sx={{ alignItems: 'center' }}>
               <BrandHeader variant="h1" />
               <NextAnimeCountdown />
             </Stack>
-          </Grid>
 
-          {!(quiz.isInitialLoading || quiz.isRequirementFulfilled) && (
-            <Grid xs={12}>
-              <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <Alert severity="error">User doesn't have enough completed anime to play the quiz</Alert>
-              </Box>
-            </Grid>
-          )}
+            {!(quiz.isInitialLoading || quiz.isRequirementFulfilled) && (
+              <Alert severity="error">User doesn't have enough completed anime to play the quiz</Alert>
+            )}
 
-          {quiz.isFinished && (
-            <Grid container xs={12} sx={{ justifyContent: 'center' }}>
-              <Grid xs={12} sm={10} md={8} lg={6}>
+            {quiz.isFinished && (
+              <Box sx={{ width: 1 }}>
                 <Fade mountOnEnter unmountOnExit in={quiz.isFinished}>
                   <SummaryCard ref={summaryCard} anime={quiz.featuredAnime} attempts={quiz.guesses.length} />
                 </Fade>
-              </Grid>
-            </Grid>
-          )}
+              </Box>
+            )}
 
-          {quiz.isReady && (
-            <>
-              <Grid container xs={12} sx={{ justifyContent: 'center' }}>
-                <Grid xs={12} sm={10} md={8} lg={6}>
-                  <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>
-                    <Box sx={{ flexGrow: 1 }} />
-                    <UserChip user={quiz.user} />
-                    <IconButton onClick={handleOpenSettingsDialog}>
-                      <Settings />
-                    </IconButton>
-                  </Stack>
-                </Grid>
-              </Grid>
+            {quiz.isReady && (
+              <Box sx={{ width: 1 }}>
+                <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>
+                  <Box sx={{ flexGrow: 1 }} />
+                  <UserChip user={quiz.user} />
+                  <IconButton onClick={handleOpenSettingsDialog}>
+                    <Settings />
+                  </IconButton>
+                </Stack>
+              </Box>
+            )}
 
-              {!quiz.isFinished && (
-                <Grid container xs={12} sx={{ justifyContent: 'center' }}>
-                  <Grid xs={12} sm={10} md={8} lg={6}>
-                    <GuessAnimeForm options={quiz.series} onSubmit={quiz.checkGuess} />
-                  </Grid>
-                </Grid>
-              )}
+            {quiz.isReady && !quiz.isFinished && (
+              <Box sx={{ width: 1 }}>
+                <GuessAnimeForm options={quiz.series} onSubmit={quiz.checkGuess} />
+              </Box>
+            )}
 
-              <Grid container xs={12} sx={{ justifyContent: 'center' }}>
-                <Grid xs={12} sm={10} md={8} lg={6}>
-                  <GuessHistory guesses={quiz.guesses} />
-                </Grid>
-              </Grid>
+            {quiz.isReady && (
+              <Box sx={{ width: 1 }}>
+                <GuessHistory guesses={quiz.guesses} />
+              </Box>
+            )}
 
-              <Grid container xs={12} sx={{ justifyContent: 'center' }}>
-                <Grid xs={12} sm={10} md={8} lg={6}>
-                  <SeedControlPanel
-                    seed={quiz.seed}
-                    onChangeSeed={quiz.changeSeed}
-                    onRandomizeSeed={quiz.randomizeSeed}
-                    sx={{ color: 'text.secondary' }}
-                  />
-                </Grid>
-              </Grid>
-            </>
-          )}
-        </Grid>
+            {quiz.isReady && (
+              <SeedControlPanel
+                seed={quiz.seed}
+                onChangeSeed={quiz.changeSeed}
+                onRandomizeSeed={quiz.randomizeSeed}
+                sx={{ color: 'text.secondary' }}
+              />
+            )}
+          </Stack>
+        </Box>
 
         <SettingsDialog isOpen={isSettingsDialogOpen} onClose={handleCloseSettingsDialog} />
       </PageContainer>

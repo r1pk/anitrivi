@@ -12,7 +12,7 @@ const PageContainer = forwardRef(({ sx, isLoaderVisible, children, ...rest }, re
       <Fade mountOnEnter unmountOnExit timeout={500} in={isLoaderVisible}>
         <LinearProgress sx={{ position: 'absolute', top: 0, left: 0, width: 1 }} />
       </Fade>
-      {children}
+      <Box sx={{ display: 'flex', justifyContent: 'center' }}>{children}</Box>
     </Box>
   );
 });
