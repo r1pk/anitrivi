@@ -47,6 +47,7 @@ const GuessAnimeForm = forwardRef(({ options, onSubmit, ...rest }, ref) => {
                 value={field.value}
                 options={options}
                 filterOptions={filterOptions}
+                getOptionKey={(option) => option.id}
                 getOptionLabel={(option) => getTitleByPreference(option.title, quizSettings.titleLanguage)}
                 isOptionEqualToValue={(option, value) => option.id === value.id}
                 renderInput={(params) => <TextField label="Anime Title" {...params} />}
