@@ -29,14 +29,6 @@ const GuessAnimeForm = forwardRef(({ options, onSubmit, ...rest }, ref) => {
     reset();
   };
 
-  const getOptionLabel = (option) => {
-    return getTitleByPreference(option.title, quizSettings.titleLanguage);
-  };
-
-  const isOptionEqualToValue = (option, value) => {
-    return option.id === value.id;
-  };
-
   const filterOptions = createFilterOptions({
     trim: true,
     limit: quizSettings.suggestionLimit,
@@ -50,17 +42,16 @@ const GuessAnimeForm = forwardRef(({ options, onSubmit, ...rest }, ref) => {
           <Controller
             name="guess"
             control={control}
-            rules={{ required: true }}
             render={({ field }) => (
               <Autocomplete
-                fullWidth
-                options={options}
                 value={field.value}
+                options={options}
                 filterOptions={filterOptions}
-                getOptionLabel={getOptionLabel}
-                isOptionEqualToValue={isOptionEqualToValue}
-                onChange={(_, option) => field.onChange(option)}
+                getOptionLabel={(option) => getTitleByPreference(option.title, quizSettings.titleLanguage)}
+                isOptionEqualToValue={(option, value) => option.id === value.id}
                 renderInput={(params) => <TextField label="Anime Title" {...params} />}
+                onChange={(_, option) => field.onChange(option)}
+                sx={{ width: 1 }}
               />
             )}
           />
